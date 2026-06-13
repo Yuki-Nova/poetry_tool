@@ -323,6 +323,157 @@ PM2
 
 ---
 
+## 本地开发
+
+### 环境变量
+
+| 变量 | 默认值 | 说明 |
+|---|---|---|
+| `PORT` | `3001` | 后端服务端口 |
+| `JWT_SECRET` | `poetry-tool-secret-key-change-in-production` | JWT 签名密钥，**生产环境务必修改** |
+| `ADMIN_PASSWORD` | `admin123` | 后台登录密码，**生产环境务必修改** |
+
+可在 `server/` 目录下创建 `.env` 文件覆盖默认值：
+
+```bash
+PORT=3001
+JWT_SECRET=your-random-secret-here
+ADMIN_PASSWORD=your-strong-password
+```
+
+### 安装与启动
+
+```bash
+# 1. 安装根依赖（可选，仅修复 package.json）
+cd poetry-tool
+
+# 2. 启动后端（端口 3001）
+cd server
+npm install
+npm start          # 生产模式
+# 或
+npm run dev        # 开发模式（node --watch，文件变更自动重启）
+
+# 3. 启动 admin 后台（端口 5173）
+cd ../admin
+npm install
+npx vite --config vite.config.js
+```
+
+启动后：
+- 后端 API：`http://localhost:3001/api`
+- Admin 后台：`http://localhost:5173`
+- Vite 自动将 `/api` 请求代理到 `localhost:3001`，无需额外配置
+
+### 快速验证
+
+```bash
+# 健康检查
+curl http://localhost:3001/api/health
+
+# 登录获取 token
+curl -X POST http://localhost:3001/api/login \
+  -H "Content-Type: application/json" \
+  -d '{"password":"admin123"}'
+
+# 使用返回的 token 创建词牌
+curl -X POST http://localhost:3001/api/cipai \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer <token>" \
+  -d '{...}'
+```
+
+---
+
+## 生产部署
+
+### 构建前端
+
+```bash
+cd admin
+npm run build        # 产物在 dist/，或通过 npx vite build 手动执行
+```
+
+> 注：`vite build` 需要在 `admin/` 目录下执行。若从项目根目录调用，需指定 `--config admin/vite.config.js`。
+
+产物结构：
+```
+admin/dist/
+├── index.html
+└── assets/
+    ├── index-XXXXX.css
+    └── index-XXXXX.js
+```
+
+### Nginx 配置
+
+```nginx
+# admin 后台（子域名）
+server {
+    listen 80;
+    server_name admin.yukinova.top;
+
+    root /path/to/poetry-tool/admin/dist;
+    index index.html;
+
+    location / {
+        try_files $uri $uri/ /index.html;
+    }
+
+    location /api {
+        proxy_pass http://127.0.0.1:3001;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+    }
+}
+
+# API 反向代理（主域名 /api）
+server {
+    listen 80;
+    server_name yukinova.top;
+
+    # ... 现有 Hexo 配置 ...
+
+    location /api {
+        proxy_pass http://127.0.0.1:3001;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+    }
+}
+```
+
+### PM2 守护进程
+
+使用 `deploy/ecosystem.config.js`：
+
+```bash
+# 安装 PM2
+npm install -g pm2
+
+# 启动
+pm2 start deploy/ecosystem.config.js
+
+# 常用命令
+pm2 status              # 查看状态
+pm2 logs poetry-server  # 查看日志
+pm2 restart poetry-server
+pm2 stop poetry-server
+```
+
+### 数据库备份
+
+SQLite 数据库为单文件 `server/data/cipai.db`，可直接复制备份：
+
+```bash
+# 备份
+cp server/data/cipai.db server/data/cipai.db.$(date +%Y%m%d).bak
+
+# 恢复
+cp server/data/cipai.db.20260101.bak server/data/cipai.db
+```
+
+---
+
 ## 各层职责一句话总结
 
 ```

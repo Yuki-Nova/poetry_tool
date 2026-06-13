@@ -1,0 +1,17 @@
+{
+  "name": "poetry-server",
+  "version": "1.0.0",
+  "description": "诗词填写工具 - 后端词牌 CRUD 服务",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "node --watch app.js"
+  },
+  "dependencies": {
+    "better-sqlite3": "^11.7.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2"
+  }
+}
