@@ -9,8 +9,11 @@ const { JWT_SECRET } = require('../middleware/auth')
 
 const router = express.Router()
 
-// 管理员密码，优先从环境变量读取
-const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'admin123'
+// 管理员密码，必须从环境变量读取
+if (!process.env.ADMIN_PASSWORD) {
+  throw new Error('未设置环境变量 ADMIN_PASSWORD，请创建 server/.env 文件并设置 ADMIN_PASSWORD=你的密码')
+}
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD
 
 // POST /api/login
 router.post('/login', (req, res) => {

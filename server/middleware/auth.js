@@ -5,7 +5,10 @@
 
 const jwt = require('jsonwebtoken')
 
-const JWT_SECRET = process.env.JWT_SECRET || 'poetry-tool-secret-key-change-in-production'
+if (!process.env.JWT_SECRET) {
+  throw new Error('未设置环境变量 JWT_SECRET，请创建 server/.env 文件并设置 JWT_SECRET=随机字符串')
+}
+const JWT_SECRET = process.env.JWT_SECRET
 
 function authMiddleware(req, res, next) {
   const authHeader = req.headers.authorization

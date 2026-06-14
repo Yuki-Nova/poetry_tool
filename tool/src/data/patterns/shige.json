@@ -1,0 +1,126 @@
+{
+  "name": "诗歌格律模板",
+  "description": "五绝/七绝/五律/七律四种体裁，各含仄起/平起二式，共八种格律模板",
+  "patterns": [
+    {
+      "id": "wujue-zeqi",
+      "name": "五言绝句·仄起式",
+      "type": "绝句",
+      "charCount": 20,
+      "rhymeGroup": "平韵",
+      "sentences": [
+        { "index": 0, "length": 5, "pattern": ["仄","仄","平","平","仄"], "isRhyme": false, "rhymeType": null },
+        { "index": 1, "length": 5, "pattern": ["平","平","仄","仄","平"], "isRhyme": true, "rhymeType": "平韵" },
+        { "index": 2, "length": 5, "pattern": ["平","平","平","仄","仄"], "isRhyme": false, "rhymeType": null },
+        { "index": 3, "length": 5, "pattern": ["仄","仄","仄","平","平"], "isRhyme": true, "rhymeType": "平韵" }
+      ]
+    },
+    {
+      "id": "wujue-pingqi",
+      "name": "五言绝句·平起式",
+      "type": "绝句",
+      "charCount": 20,
+      "rhymeGroup": "平韵",
+      "sentences": [
+        { "index": 0, "length": 5, "pattern": ["平","平","仄","仄","平"], "isRhyme": true, "rhymeType": "平韵" },
+        { "index": 1, "length": 5, "pattern": ["仄","仄","仄","平","平"], "isRhyme": true, "rhymeType": "平韵" },
+        { "index": 2, "length": 5, "pattern": ["仄","仄","平","平","仄"], "isRhyme": false, "rhymeType": null },
+        { "index": 3, "length": 5, "pattern": ["平","平","仄","仄","平"], "isRhyme": true, "rhymeType": "平韵" }
+      ]
+    },
+    {
+      "id": "qijue-zeqi",
+      "name": "七言绝句·仄起式",
+      "type": "绝句",
+      "charCount": 28,
+      "rhymeGroup": "平韵",
+      "sentences": [
+        { "index": 0, "length": 7, "pattern": ["仄","仄","平","平","仄","仄","平"], "isRhyme": true, "rhymeType": "平韵" },
+        { "index": 1, "length": 7, "pattern": ["平","平","仄","仄","仄","平","平"], "isRhyme": true, "rhymeType": "平韵" },
+        { "index": 2, "length": 7, "pattern": ["平","平","仄","仄","平","平","仄"], "isRhyme": false, "rhymeType": null },
+        { "index": 3, "length": 7, "pattern": ["仄","仄","平","平","仄","仄","平"], "isRhyme": true, "rhymeType": "平韵" }
+      ]
+    },
+    {
+      "id": "qijue-pingqi",
+      "name": "七言绝句·平起式",
+      "type": "绝句",
+      "charCount": 28,
+      "rhymeGroup": "平韵",
+      "sentences": [
+        { "index": 0, "length": 7, "pattern": ["平","平","仄","仄","仄","平","平"], "isRhyme": true, "rhymeType": "平韵" },
+        { "index": 1, "length": 7, "pattern": ["仄","仄","平","平","仄","仄","平"], "isRhyme": true, "rhymeType": "平韵" },
+        { "index": 2, "length": 7, "pattern": ["仄","仄","平","平","平","仄","仄"], "isRhyme": false, "rhymeType": null },
+        { "index": 3, "length": 7, "pattern": ["平","平","仄","仄","仄","平","平"], "isRhyme": true, "rhymeType": "平韵" }
+      ]
+    },
+    {
+      "id": "wulv-zeqi",
+      "name": "五言律诗·仄起式",
+      "type": "律诗",
+      "charCount": 40,
+      "rhymeGroup": "平韵",
+      "sentences": [
+        { "index": 0, "length": 5, "pattern": ["仄","仄","平","平","仄"], "isRhyme": false, "rhymeType": null },
+        { "index": 1, "length": 5, "pattern": ["平","平","仄","仄","平"], "isRhyme": true, "rhymeType": "平韵" },
+        { "index": 2, "length": 5, "pattern": ["平","平","平","仄","仄"], "isRhyme": false, "rhymeType": null },
+        { "index": 3, "length": 5, "pattern": ["仄","仄","仄","平","平"], "isRhyme": true, "rhymeType": "平韵" },
+        { "index": 4, "length": 5, "pattern": ["仄","仄","平","平","仄"], "isRhyme": false, "rhymeType": null },
+        { "index": 5, "length": 5, "pattern": ["平","平","仄","仄","平"], "isRhyme": true, "rhymeType": "平韵" },
+        { "index": 6, "length": 5, "pattern": ["平","平","平","仄","仄"], "isRhyme": false, "rhymeType": null },
+        { "index": 7, "length": 5, "pattern": ["仄","仄","仄","平","平"], "isRhyme": true, "rhymeType": "平韵" }
+      ]
+    },
+    {
+      "id": "wulv-pingqi",
+      "name": "五言律诗·平起式",
+      "type": "律诗",
+      "charCount": 40,
+      "rhymeGroup": "平韵",
+      "sentences": [
+        { "index": 0, "length": 5, "pattern": ["平","平","仄","仄","平"], "isRhyme": true, "rhymeType": "平韵" },
+        { "index": 1, "length": 5, "pattern": ["仄","仄","仄","平","平"], "isRhyme": true, "rhymeType": "平韵" },
+        { "index": 2, "length": 5, "pattern": ["仄","仄","平","平","仄"], "isRhyme": false, "rhymeType": null },
+        { "index": 3, "length": 5, "pattern": ["平","平","仄","仄","平"], "isRhyme": true, "rhymeType": "平韵" },
+        { "index": 4, "length": 5, "pattern": ["平","平","平","仄","仄"], "isRhyme": false, "rhymeType": null },
+        { "index": 5, "length": 5, "pattern": ["仄","仄","仄","平","平"], "isRhyme": true, "rhymeType": "平韵" },
+        { "index": 6, "length": 5, "pattern": ["仄","仄","平","平","仄"], "isRhyme": false, "rhymeType": null },
+        { "index": 7, "length": 5, "pattern": ["平","平","仄","仄","平"], "isRhyme": true, "rhymeType": "平韵" }
+      ]
+    },
+    {
+      "id": "qilv-zeqi",
+      "name": "七言律诗·仄起式",
+      "type": "律诗",
+      "charCount": 56,
+      "rhymeGroup": "平韵",
+      "sentences": [
+        { "index": 0, "length": 7, "pattern": ["仄","仄","平","平","仄","仄","平"], "isRhyme": true, "rhymeType": "平韵" },
+        { "index": 1, "length": 7, "pattern": ["平","平","仄","仄","仄","平","平"], "isRhyme": true, "rhymeType": "平韵" },
+        { "index": 2, "length": 7, "pattern": ["平","平","仄","仄","平","平","仄"], "isRhyme": false, "rhymeType": null },
+        { "index": 3, "length": 7, "pattern": ["仄","仄","平","平","仄","仄","平"], "isRhyme": true, "rhymeType": "平韵" },
+        { "index": 4, "length": 7, "pattern": ["仄","仄","平","平","平","仄","仄"], "isRhyme": false, "rhymeType": null },
+        { "index": 5, "length": 7, "pattern": ["平","平","仄","仄","仄","平","平"], "isRhyme": true, "rhymeType": "平韵" },
+        { "index": 6, "length": 7, "pattern": ["平","平","仄","仄","平","平","仄"], "isRhyme": false, "rhymeType": null },
+        { "index": 7, "length": 7, "pattern": ["仄","仄","平","平","仄","仄","平"], "isRhyme": true, "rhymeType": "平韵" }
+      ]
+    },
+    {
+      "id": "qilv-pingqi",
+      "name": "七言律诗·平起式",
+      "type": "律诗",
+      "charCount": 56,
+      "rhymeGroup": "平韵",
+      "sentences": [
+        { "index": 0, "length": 7, "pattern": ["平","平","仄","仄","仄","平","平"], "isRhyme": true, "rhymeType": "平韵" },
+        { "index": 1, "length": 7, "pattern": ["仄","仄","平","平","仄","仄","平"], "isRhyme": true, "rhymeType": "平韵" },
+        { "index": 2, "length": 7, "pattern": ["仄","仄","平","平","平","仄","仄"], "isRhyme": false, "rhymeType": null },
+        { "index": 3, "length": 7, "pattern": ["平","平","仄","仄","仄","平","平"], "isRhyme": true, "rhymeType": "平韵" },
+        { "index": 4, "length": 7, "pattern": ["平","平","仄","仄","平","平","仄"], "isRhyme": false, "rhymeType": null },
+        { "index": 5, "length": 7, "pattern": ["仄","仄","平","平","仄","仄","平"], "isRhyme": true, "rhymeType": "平韵" },
+        { "index": 6, "length": 7, "pattern": ["仄","仄","平","平","平","仄","仄"], "isRhyme": false, "rhymeType": null },
+        { "index": 7, "length": 7, "pattern": ["平","平","仄","仄","仄","平","平"], "isRhyme": true, "rhymeType": "平韵" }
+      ]
+    }
+  ]
+}
