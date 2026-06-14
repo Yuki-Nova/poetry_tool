@@ -234,6 +234,12 @@ cd tool && npm run build && cd ..
 
 将 `tool/dist/poetry-tool.js` 上传到服务器的 `/var/www/poetry-tool/tool/dist/`。
 
+```powershell
+scp tool/dist/poetry-tool.js root@<IP>:/var/www/poetry-tool/tool/dist/
+```
+
+
+
 ### 新增/修改词牌
 
 1. 打开 `https://admin.yukinova.top/`，登录后在可视化编辑器中录入或修改
@@ -329,6 +335,6 @@ ssh root@<IP> "cd /var/www/poetry-tool/server && npm install --production && pm2
 
 ## 致谢
 
-本项目使用的平仄字典、平水韵、词林正韵、中华新韵及词牌格律数据来源于 GitHub 开源项目 **[chinese_word_rhyme](https://github.com/charlesix59/chinese_word_rhyme.git)**。
+本项目使用的平仄字典、平水韵、词林正韵、中华新韵及词牌格律数据均来源于 GitHub 开源项目 **[chinese_word_rhyme](https://github.com/charlesix59/chinese_word_rhyme.git)**。
 
 感谢主要贡献者 [charlesix59](https://github.com/charlesix59) 及其社区维护者的辛勤整理。
