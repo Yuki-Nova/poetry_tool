@@ -32,6 +32,9 @@ Thumbs.db
 # 上游数据仓库（第三方，不纳入本项目）
 chinese_word_rhyme-main/
 
+# Session cache
+.solomd/
+
 # 原型
 prototype/.venv/
 __pycache__/

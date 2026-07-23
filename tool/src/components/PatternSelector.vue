@@ -1,8 +1,5 @@
 <template>
   <div class="pattern-selector" ref="rootEl">
-    <label class="selector-label">格律：</label>
-
-    <!-- 搜索输入框 -->
     <div class="search-wrapper" @click="open = true">
       <input
         ref="inputEl"
@@ -15,23 +12,22 @@
         @keydown.enter.prevent="selectHighlighted"
         @keydown.escape="open = false"
       />
-      <button class="search-clear" v-if="query" @click.stop="query = ''">✕</button>
-      <span class="search-arrow" :class="{ open }">▾</span>
+      <span class="search-icon">&#x25BE;</span>
     </div>
 
-    <!-- 下拉面板 -->
-    <div v-if="open" class="dropdown-panel">
-      <div v-if="filtered.length === 0" class="dropdown-empty">
-        无匹配结果
-      </div>
+    <div v-if="current" class="current-badge">
+      <span class="badge-type">{{ current.type }}</span>
+      <span v-if="current.charCount" class="badge-count">{{ current.charCount }} 字</span>
+    </div>
+
+    <!-- 下拉 -->
+    <div v-if="open" class="dropdown">
+      <div v-if="filtered.length === 0" class="dropdown-empty">无匹配</div>
       <div
         v-for="(item, idx) in filtered"
         :key="item.id"
         class="dropdown-item"
-        :class="{
-          active: item.id === selectedId,
-          highlighted: idx === highlightIdx
-        }"
+        :class="{ active: item.id === selectedId, hl: idx === highlightIdx }"
         @click="selectItem(item)"
         @mouseenter="highlightIdx = idx"
       >
@@ -41,15 +37,7 @@
       </div>
     </div>
 
-    <!-- 点击遮罩关闭 -->
     <div v-if="open" class="dropdown-mask" @click="open = false"></div>
-
-    <!-- 当前模板简介 -->
-    <div v-if="current" class="pattern-info">
-      <span class="pattern-type">{{ current.type }}</span>
-      <span v-if="current.charCount" class="pattern-count">{{ current.charCount }} 字</span>
-      <span v-if="current.notes" class="pattern-notes">{{ current.notes }}</span>
-    </div>
   </div>
 </template>
 
@@ -63,47 +51,36 @@ const props = defineProps({
 })
 
 const emit = defineEmits(['select'])
-
 const query = ref('')
 const open = ref(false)
 const highlightIdx = ref(0)
 const rootEl = ref(null)
 const inputEl = ref(null)
 
-// 展平所有格律为搜索列表
 const allPatterns = computed(() => {
   const list = []
-  for (const [group, patterns] of Object.entries(props.grouped)) {
-    for (const p of patterns) {
-      list.push({ ...p, group })
-    }
+  for (const [, patterns] of Object.entries(props.grouped)) {
+    for (const p of patterns) list.push(p)
   }
   return list
 })
 
-// 当前选中名称
 const currentName = computed(() => props.current?.label || '')
 
-// 过滤（匹配名称、别名、类型、韵格）
 const filtered = computed(() => {
   const q = query.value.trim().toLowerCase()
   if (!q) return allPatterns.value
-  return allPatterns.value.filter(p => {
-    return p.label.toLowerCase().includes(q)
-      || (p.id && p.id.toLowerCase().includes(q))
-      || (p.alias && p.alias.some(a => a.toLowerCase().includes(q)))
-      || (p.type && p.type.toLowerCase().includes(q))
-      || (p.notes && p.notes.toLowerCase().includes(q))
-  })
+  return allPatterns.value.filter(p =>
+    p.label.toLowerCase().includes(q)
+    || (p.id && p.id.toLowerCase().includes(q))
+    || (p.alias && p.alias.some(a => a.toLowerCase().includes(q)))
+    || (p.type && p.type.toLowerCase().includes(q))
+    || (p.notes && p.notes.toLowerCase().includes(q))
+  )
 })
 
-// 键盘导航
-function moveDown() {
-  highlightIdx.value = Math.min(highlightIdx.value + 1, filtered.value.length - 1)
-}
-function moveUp() {
-  highlightIdx.value = Math.max(highlightIdx.value - 1, 0)
-}
+function moveDown() { highlightIdx.value = Math.min(highlightIdx.value + 1, filtered.value.length - 1) }
+function moveUp() { highlightIdx.value = Math.max(highlightIdx.value - 1, 0) }
 function selectHighlighted() {
   const item = filtered.value[highlightIdx.value]
   if (item) selectItem(item)
@@ -116,15 +93,10 @@ function selectItem(item) {
   highlightIdx.value = 0
 }
 
-watch(open, (val) => {
-  if (val) highlightIdx.value = 0
-})
+watch(open, (val) => { if (val) highlightIdx.value = 0 })
 
-// 点击外部关闭
 function onClickOutside(e) {
-  if (rootEl.value && !rootEl.value.contains(e.target)) {
-    open.value = false
-  }
+  if (rootEl.value && !rootEl.value.contains(e.target)) open.value = false
 }
 onMounted(() => document.addEventListener('click', onClickOutside))
 onUnmounted(() => document.removeEventListener('click', onClickOutside))
@@ -136,87 +108,82 @@ onUnmounted(() => document.removeEventListener('click', onClickOutside))
   align-items: center;
   gap: 12px;
   flex-wrap: wrap;
-  padding: 12px 16px;
-  background: var(--bg-card, #fffef9);
-  border-radius: 8px;
-  box-shadow: 0 1px 4px rgba(62, 44, 28, 0.06);
+  margin-bottom: 14px;
   position: relative;
   z-index: 10;
 }
 
-.selector-label {
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--text, #3e2c1c);
-  white-space: nowrap;
-}
-
-/* 搜索框 */
 .search-wrapper {
   position: relative;
   display: flex;
   align-items: center;
-  min-width: 220px;
 }
 
 .search-input {
-  width: 100%;
-  padding: 6px 30px 6px 10px;
+  width: 280px;
+  padding: 7px 30px 7px 12px;
   font-size: 14px;
-  border: 1px solid var(--border, #d4c5a9);
+  font-family: inherit;
+  border: 1px solid var(--border);
   border-radius: 6px;
-  background: var(--bg-card, #fffef9);
-  color: var(--text, #3e2c1c);
+  background: var(--paper-card);
+  color: var(--ink);
   outline: none;
   cursor: pointer;
+  transition: border-color 0.15s;
 }
-.search-input:focus {
-  border-color: var(--accent, #8b4513);
+.search-input:focus { border-color: var(--accent); }
+.search-input::placeholder { color: var(--ink-muted); }
+
+.search-icon {
+  position: absolute;
+  right: 10px;
+  font-size: 14px;
+  color: var(--ink-muted);
+  pointer-events: none;
 }
 
-.search-clear {
-  position: absolute;
-  right: 20px;
-  background: none;
-  border: none;
-  color: #aaa;
-  cursor: pointer;
-  padding: 0 4px;
-  font-size: 12px;
+.current-badge {
+  display: flex;
+  gap: 6px;
+  align-items: center;
 }
-.search-arrow {
-  position: absolute;
-  right: 6px;
-  font-size: 10px;
-  color: var(--text-muted, #8b7355);
-  pointer-events: none;
-  transition: transform 0.15s;
+
+.badge-type {
+  font-size: 11px;
+  color: var(--accent);
+  background: var(--accent-soft);
+  padding: 2px 8px;
+  border-radius: 8px;
+  font-weight: 600;
 }
-.search-arrow.open {
-  transform: rotate(180deg);
+
+.badge-count {
+  font-size: 11px;
+  color: var(--ink-muted);
 }
 
 /* 下拉 */
-.dropdown-panel {
+.dropdown {
   position: absolute;
   top: 100%;
-  left: 80px;
-  right: 0;
-  max-width: 420px;
-  max-height: 320px;
+  left: 0;
+  width: 400px;
+  max-width: calc(100vw - 40px);
+  max-height: 340px;
   overflow-y: auto;
-  background: var(--bg-card, #fffef9);
-  border: 1px solid var(--border, #d4c5a9);
-  border-radius: 8px;
-  box-shadow: 0 6px 24px rgba(62, 44, 28, 0.14);
+  background: var(--paper-card);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.08);
   z-index: 20;
   margin-top: 4px;
 }
 
 .dropdown-empty {
-  padding: 20px;
+  padding: 24px;
   text-align: center;
-  color: var(--text-muted, #8b7355);
+  color: var(--ink-muted);
   font-size: 13px;
 }
 
@@ -224,65 +191,29 @@ onUnmounted(() => document.removeEventListener('click', onClickOutside))
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 8px 14px;
+  padding: 9px 16px;
   cursor: pointer;
   font-size: 14px;
-  transition: background 0.08s;
+  transition: background 0.06s;
 }
-.dropdown-item:hover,
-.dropdown-item.highlighted {
-  background: #fdf6ec;
+.dropdown-item:hover, .dropdown-item.hl {
+  background: var(--paper-warm);
 }
 .dropdown-item.active {
-  background: #fdf0e0;
+  background: var(--accent-soft);
+  color: var(--accent);
   font-weight: 600;
-  color: var(--accent, #8b4513);
 }
 
-.item-name {
-  flex: 1;
-}
+.item-name { flex: 1; }
 .item-tag {
-  font-size: 11px;
-  background: #f0e6d3;
-  color: var(--accent, #8b4513);
+  font-size: 10px;
+  color: var(--accent);
+  background: var(--accent-soft);
   padding: 1px 7px;
   border-radius: 8px;
 }
-.item-count {
-  font-size: 11px;
-  color: var(--text-muted, #8b7355);
-}
+.item-count { font-size: 11px; color: var(--ink-muted); }
 
-.dropdown-mask {
-  position: fixed;
-  inset: 0;
-  z-index: 15;
-}
-
-/* 简介 */
-.pattern-info {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-  font-size: 12px;
-  color: var(--text-muted, #8b7355);
-}
-.pattern-type {
-  background: #f0e6d3;
-  color: var(--accent, #8b4513);
-  padding: 2px 8px;
-  border-radius: 10px;
-  font-weight: 600;
-}
-.pattern-count {
-  color: var(--accent, #8b4513);
-}
-.pattern-notes {
-  color: #aaa;
-  max-width: 300px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
+.dropdown-mask { position: fixed; inset: 0; z-index: 15; }
 </style>

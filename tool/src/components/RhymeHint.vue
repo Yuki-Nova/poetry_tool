@@ -1,63 +1,41 @@
 <template>
   <div class="rhyme-hint">
-    <!-- 韵书选择栏 -->
-    <div class="rhyme-book-bar">
-      <span class="rb-label">韵书：</span>
-      <button
-        v-for="(label, key) in RHYME_BOOK_LABELS"
-        :key="key"
-        class="rb-btn"
-        :class="{ active: rhymeBook === key }"
-        @click="$emit('update:rhymeBook', key)"
-      >
-        {{ label }}
-      </button>
+    <div class="rhyme-head">
+      <span class="rhyme-dot" :class="{ valid: rhymeResult?.valid, invalid: rhymeResult && !rhymeResult.valid }"></span>
+      <span v-if="rhymeResult?.group" class="rhyme-group">{{ rhymeResult.group }}</span>
+      <span v-else class="rhyme-none">暂无押韵</span>
+      <span v-if="rhymeResult?.group" class="rhyme-book-tag">{{ rhymeResult.rhymeBookLabel }}</span>
     </div>
 
-    <div v-if="rhymeResult && rhymeResult.group" class="rhyme-body">
-      <div class="rhyme-header">
-        <span class="rhyme-icon">{{ rhymeResult.valid ? '✅' : '⚠️' }}</span>
-        <span class="rhyme-title">押韵：{{ rhymeResult.group }}</span>
-        <span class="rhyme-book-name">（{{ rhymeResult.rhymeBookLabel }}）</span>
-      </div>
-
-      <div v-if="!rhymeResult.valid && rhymeResult.errors.length > 0" class="rhyme-errors">
-        <div v-for="err in rhymeResult.errors" :key="err.index" class="rhyme-error-item">
-          第 {{ err.index + 1 }} 句 "{{ err.char }}" —
-          {{ err.group ? `属「${err.group}」韵，与「${rhymeResult.group}」不同` : '未收录' }}
-        </div>
-      </div>
-
-      <div v-if="sameRhymeChars.length > 0" class="rhyme-same-group">
-        <span class="rhyme-subtitle">同韵部字：</span>
-        <span class="rhyme-chars">{{ sameRhymeChars.slice(0, 30).join('、') }}</span>
+    <div v-if="rhymeResult?.errors?.length" class="rhyme-errors">
+      <div v-for="err in rhymeResult.errors" :key="err.index" class="rhyme-err-item">
+        第{{ err.index + 1 }}句 「{{ err.char }}」{{ err.group ? `属「${err.group}」` : '未收录' }}
       </div>
     </div>
 
-    <div v-else class="rhyme-empty">
-      暂无押韵信息
+    <div v-if="sameRhymeChars.length" class="rhyme-ref">
+      <span class="rhyme-ref-label">同韵字</span>
+      <span class="rhyme-ref-chars">{{ sameRhymeChars.slice(0, 24).join('、') }}</span>
     </div>
   </div>
 </template>
 
 <script setup>
 import { computed } from 'vue'
-import xinyunData from '../data/rhymes/xinyun.json'
-import pingshuiData from '../data/rhymes/pingshui.json'
-import cilinData from '../data/rhymes/cilin.json'
-import { RHYME_BOOK_LABELS } from '../core/rhymeChecker'
+import xinyun from '../data/rhymes/xinyun.json'
+import pingshui from '../data/rhymes/pingshui.json'
+import cilin from '../data/rhymes/cilin.json'
 
-const BOOK_DATA = { xinyun: xinyunData, pingshui: pingshuiData, cilin: cilinData }
+const BOOKS = { xinyun, pingshui, cilin }
+
 const props = defineProps({
   rhymeResult: { type: Object, default: null },
   rhymeBook: { type: String, default: 'xinyun' }
 })
 
-defineEmits(['update:rhymeBook'])
-
 const sameRhymeChars = computed(() => {
   if (!props.rhymeResult?.group) return []
-  const book = BOOK_DATA[props.rhymeBook]
+  const book = BOOKS[props.rhymeBook]
   if (!book) return []
   const group = book.groups.find(g => g.name === props.rhymeResult.group)
   return group?.chars || []
@@ -66,99 +44,69 @@ const sameRhymeChars = computed(() => {
 
 <style scoped>
 .rhyme-hint {
-  background: var(--bg-card, #fffef9);
-  border-radius: 8px;
-  box-shadow: 0 1px 4px rgba(62, 44, 28, 0.06);
-  overflow: hidden;
-}
-
-.rhyme-book-bar {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  padding: 8px 12px;
-  background: #fdf6ec;
-  border-bottom: 1px solid var(--border, #d4c5a9);
-}
-
-.rb-label {
-  font-size: 12px;
-  color: var(--text-muted, #8b7355);
-  margin-right: 4px;
-}
-
-.rb-btn {
-  font-size: 11px;
-  padding: 3px 10px;
-  border: 1px solid var(--border, #d4c5a9);
-  border-radius: 10px;
-  background: #fff;
-  color: var(--text-muted, #8b7355);
-  cursor: pointer;
-  transition: all 0.15s;
-}
-
-.rb-btn.active {
-  background: var(--accent, #8b4513);
-  color: #fff;
-  border-color: var(--accent, #8b4513);
-}
-
-.rb-btn:hover:not(.active) {
-  border-color: var(--accent, #8b4513);
-  color: var(--accent, #8b4513);
-}
-
-.rhyme-body {
+  background: var(--paper-card);
+  border: 1px solid var(--border-light);
+  border-radius: 6px;
   padding: 14px 16px;
 }
 
-.rhyme-empty {
-  padding: 14px 16px;
-  color: var(--text-muted, #8b7355);
-  font-style: italic;
-  text-align: center;
-}
-
-.rhyme-header {
+.rhyme-head {
   display: flex;
   align-items: center;
-  gap: 6px;
-  margin-bottom: 8px;
-  flex-wrap: wrap;
+  gap: 8px;
 }
 
-.rhyme-icon { font-size: 16px; }
+.rhyme-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--ink-muted);
+  flex-shrink: 0;
+}
+.rhyme-dot.valid { background: var(--success); }
+.rhyme-dot.invalid { background: var(--warning); }
 
-.rhyme-title {
-  font-weight: 600;
-  color: var(--accent, #8b4513);
+.rhyme-group {
+  font-weight: 700;
   font-size: 15px;
+  color: var(--ink);
 }
 
-.rhyme-book-name {
-  font-size: 11px;
-  color: var(--text-muted, #8b7355);
-  font-weight: 400;
+.rhyme-none {
+  color: var(--ink-muted);
+  font-size: 13px;
 }
 
-.rhyme-errors { margin: 8px 0; }
+.rhyme-book-tag {
+  font-size: 10px;
+  color: var(--ink-muted);
+  background: var(--paper-warm);
+  padding: 1px 7px;
+  border-radius: 8px;
+}
 
-.rhyme-error-item {
-  color: #c0392b;
-  padding: 3px 0;
+.rhyme-errors { margin-top: 10px; }
+
+.rhyme-err-item {
   font-size: 12px;
+  color: var(--warning);
+  padding: 3px 0;
 }
 
-.rhyme-same-group { margin-top: 10px; }
+.rhyme-ref {
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid var(--border-light);
+}
 
-.rhyme-subtitle {
-  color: var(--text-muted, #8b7355);
+.rhyme-ref-label {
   font-size: 11px;
+  color: var(--ink-muted);
+  margin-right: 6px;
 }
 
-.rhyme-chars {
-  color: var(--accent, #8b4513);
-  line-height: 1.8;
+.rhyme-ref-chars {
+  font-size: 13px;
+  color: var(--ink-light);
+  line-height: 2;
 }
 </style>

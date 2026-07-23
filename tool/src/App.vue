@@ -1,11 +1,22 @@
 <template>
-  <div id="poetry-tool">
+  <div id="app">
     <header class="app-header">
-      <h1>📜 诗词填写工具</h1>
-      <span class="app-subtitle">平仄分析 · 押韵校验 · 格律高亮</span>
+      <div class="header-left">
+        <h1 class="app-title">诗词填写</h1>
+        <span class="app-subtitle">平仄分析 / 押韵校验 / 格律高亮</span>
+      </div>
+      <div class="header-right">
+        <span class="rhyme-label">韵书</span>
+        <button
+          v-for="(label, key) in RHYME_BOOK_LABELS"
+          :key="key"
+          class="rhyme-btn"
+          :class="{ active: effectiveRhymeBook === key }"
+          @click="rhymeBook = key"
+        >{{ label }}</button>
+      </div>
     </header>
 
-    <!-- 格律选择 -->
     <PatternSelector
       :grouped="groupedPatterns"
       :current="currentPattern"
@@ -13,26 +24,29 @@
       @select="selectPattern"
     />
 
-    <!-- 主编辑区 -->
-    <div class="app-main">
-      <PoetryEditor
-        :text="inputText"
-        :pattern="currentPattern"
-        :match-results="matchResults"
-        :stats="stats"
-        @update:text="inputText = $event"
-        @char-click="onCharClick"
-      />
+    <PoetryIDE
+      ref="ideRef"
+      v-model="inputText"
+      :pattern="currentPattern"
+      :match-results="matchResults"
+      :stats="stats"
+      :errors="errors"
+      :multi-tone-list="multiToneList"
+      :rhyme-book="effectiveRhymeBook"
+      :analyzing="analyzing"
+      @char-click="onCharClick"
+    />
 
-      <!-- 侧面面板 -->
-      <div class="app-sidebar">
-        <RhymeHint :rhyme-result="rhymeResult" :rhyme-book="effectiveRhymeBook" @update:rhyme-book="rhymeBook = $event" />
-        <ErrorPanel
-          :errors="errors"
-          :show-empty="inputText.length > 0"
-          @jump="onJumpToError"
-        />
-      </div>
+    <div class="app-bottom">
+      <RhymeHint
+        :rhyme-result="rhymeResult"
+        :rhyme-book="effectiveRhymeBook"
+      />
+      <ErrorPanel
+        :errors="errors"
+        :show-empty="inputText.length > 0"
+        @jump="onJumpToError"
+      />
     </div>
   </div>
 </template>
@@ -40,95 +54,155 @@
 <script setup>
 import { ref } from 'vue'
 import PatternSelector from './components/PatternSelector.vue'
-import PoetryEditor from './components/PoetryEditor.vue'
+import PoetryIDE from './components/PoetryIDE.vue'
 import RhymeHint from './components/RhymeHint.vue'
 import ErrorPanel from './components/ErrorPanel.vue'
 
 import { useCipai } from './composables/useCipai'
 import { usePattern } from './composables/usePattern'
 import { useAnalysis } from './composables/useAnalysis'
+import { RHYME_BOOK_LABELS } from './core/rhymeChecker'
 
-// 词牌列表
 const { list: cipaiList } = useCipai()
-
-// 格律模板
-const {
-  selectedId,
-  currentPattern,
-  groupedPatterns,
-  selectPattern
-} = usePattern(cipaiList)
-
-// 用户输入
+const { selectedId, currentPattern, groupedPatterns, selectPattern } = usePattern(cipaiList)
 const inputText = ref('')
-
-// 韵书手动选择（null = 自动推导：诗→新韵 词→词林）
 const rhymeBook = ref(null)
 
-// 分析
-const {
-  matchResults,
-  stats,
-  rhymeResult,
-  errors,
-  effectiveRhymeBook
-} = useAnalysis(inputText, currentPattern, rhymeBook)
+const { matchResults, stats, rhymeResult, errors, multiToneList, effectiveRhymeBook, analyzing } = useAnalysis(inputText, currentPattern, rhymeBook)
+
+const ideRef = ref(null)
 
 function onCharClick(item) {
-  // 多音字点击：暂打印到 console
-  if (item.status === 'multi-tone') {
-    console.log('[多音字]', item.char, item)
-  }
+  if (item.status === 'multi-tone') console.log('[多音字]', item.char, item)
 }
 
 function onJumpToError(line, col) {
-  // 聚焦到对应输入位置（简单实现：滚动到 textarea）
-  console.log('[跳转]', `第${line + 1}句 第${col + 1}字`)
+  if (ideRef.value?.jumpTo) ideRef.value.jumpTo(line, col)
 }
 </script>
 
+<style>
+/* ====== 「山影」配色体系 ====== */
+:root {
+  --ink: #1a1c1d;
+  --ink-light: #5c6063;
+  --ink-muted: #94989b;
+  --paper: #f5f4f0;
+  --paper-card: #ffffff;
+  --paper-warm: #eef0ec;
+  --border: #e4e3de;
+  --border-light: #eeede8;
+  --accent: #3d5a80;
+  --accent-soft: rgba(61, 90, 128, 0.08);
+
+  /* 平仄色 */
+  --ping-bg: #edf1f5;
+  --ping-text: #3d5a80;
+  --ze-text: #5c5c5c;
+  --rhyme-border: #b8954a;
+  --error-bg: #fdf0ee;
+  --error-text: #c04a3a;
+  --error-underline: #c04a3a;
+  --multi-bg: #f3eef8;
+  --multi-text: #7c6b8e;
+  --multi-border: #bfafd0;
+
+  --success: #5b8c7e;
+  --warning: #b8954a;
+  --danger: #c04a3a;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+</style>
+
 <style scoped>
-#poetry-tool {
-  max-width: 1000px;
+#app {
+  max-width: 940px;
   margin: 0 auto;
-  padding: 24px 20px 60px;
-  font-family: var(--font, 'Noto Serif SC', 'SimSun', serif);
+  padding: 32px 24px 80px;
 }
 
 .app-header {
-  text-align: center;
-  margin-bottom: 24px;
-  padding-bottom: 16px;
-  border-bottom: 2px solid var(--border, #d4c5a9);
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 28px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border);
 }
 
-.app-header h1 {
-  font-size: 28px;
-  color: var(--accent, #8b4513);
-  margin: 0 0 6px;
+.header-left {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.app-title {
+  font-size: 24px;
+  font-weight: 500;
+  color: var(--ink);
+  margin: 0;
+  letter-spacing: 0.06em;
+  font-family: 'Noto Serif SC', 'Source Han Serif SC', 'SimSun', serif;
 }
 
 .app-subtitle {
-  font-size: 14px;
-  color: var(--text-muted, #8b7355);
+  font-size: 13px;
+  color: var(--ink-muted);
+  letter-spacing: 0.03em;
 }
 
-.app-main {
+.header-right {
   display: flex;
-  flex-direction: column;
-  gap: 20px;
-  margin-top: 20px;
+  align-items: center;
+  gap: 4px;
 }
 
-.app-sidebar {
+.rhyme-label {
+  font-size: 12px;
+  color: var(--ink-muted);
+  margin-right: 4px;
+}
+
+.rhyme-btn {
+  font-size: 12px;
+  padding: 4px 12px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: transparent;
+  color: var(--ink-light);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.rhyme-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.rhyme-btn.active {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+
+.app-bottom {
+  margin-top: 16px;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 16px;
 }
 
-@media (max-width: 600px) {
-  .app-sidebar {
-    grid-template-columns: 1fr;
-  }
+@media (max-width: 640px) {
+  #app { padding: 20px 14px 60px; }
+  .app-title { font-size: 20px; }
+  .app-bottom { grid-template-columns: 1fr; }
 }
 </style>

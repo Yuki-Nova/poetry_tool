@@ -1,12 +1,9 @@
 <template>
-  <div v-if="errors.length > 0" class="error-panel">
-    <div class="ep-header">
-      <span class="ep-title">⚠ 问题列表（{{ errors.length }}）</span>
-      <button class="ep-toggle" @click="collapsed = !collapsed">
-        {{ collapsed ? '展开' : '收起' }}
-      </button>
+  <div v-if="errors.length" class="error-panel">
+    <div class="ep-header" @click="collapsed = !collapsed">
+      <span class="ep-title">{{ errors.length }} 个问题</span>
+      <span class="ep-toggle">{{ collapsed ? '展开 ▸' : '收起 ▾' }}</span>
     </div>
-
     <div v-if="!collapsed" class="ep-list">
       <div
         v-for="(err, i) in errors"
@@ -15,46 +12,46 @@
         :class="'ep-' + err.type"
         @click="$emit('jump', err.line, err.col)"
       >
-        <span class="ep-loc">
-          {{ err.col >= 0 ? `第${err.line + 1}句第${err.col + 1}字` : `第${err.line + 1}句` }}
-        </span>
-        <span class="ep-char" v-if="err.col >= 0">「{{ err.char }}」</span>
+        <span class="ep-loc">第{{ err.line + 1 }}句{{ err.col >= 0 ? '第' + (err.col + 1) + '字' : '' }}</span>
+        <span v-if="err.col >= 0" class="ep-char">「{{ err.char }}」</span>
         <span class="ep-msg">{{ err.message }}</span>
       </div>
     </div>
   </div>
 
-  <div v-else-if="showEmpty" class="error-panel error-empty">
-    ✅ 格律全部正确
+  <div v-else-if="showEmpty" class="error-panel ep-empty">
+    <span class="ep-check">&#10003;</span> 格律全部正确
   </div>
 </template>
 
 <script setup>
 import { ref } from 'vue'
-
-const props = defineProps({
+defineProps({
   errors: { type: Array, default: () => [] },
   showEmpty: { type: Boolean, default: false }
 })
-
 defineEmits(['jump'])
-
 const collapsed = ref(false)
 </script>
 
 <style scoped>
 .error-panel {
-  background: var(--bg-card, #fffef9);
-  border-radius: 8px;
-  box-shadow: 0 1px 4px rgba(62, 44, 28, 0.06);
+  background: var(--paper-card);
+  border: 1px solid var(--border-light);
+  border-radius: 6px;
   overflow: hidden;
 }
 
-.error-empty {
+.ep-empty {
   padding: 14px 16px;
   text-align: center;
-  color: #27ae60;
+  color: var(--success);
   font-size: 14px;
+}
+
+.ep-check {
+  font-size: 16px;
+  font-weight: 700;
 }
 
 .ep-header {
@@ -62,76 +59,61 @@ const collapsed = ref(false)
   align-items: center;
   justify-content: space-between;
   padding: 10px 16px;
-  background: #fef0f0;
-  border-bottom: 1px solid #f5c6cb;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.1s;
 }
+.ep-header:hover { background: var(--paper-warm); }
 
 .ep-title {
   font-weight: 600;
-  font-size: 14px;
-  color: var(--danger, #c0392b);
+  font-size: 13px;
+  color: var(--danger);
 }
 
 .ep-toggle {
-  font-size: 12px;
-  background: transparent;
-  color: var(--accent, #8b4513);
-  padding: 2px 8px;
-  border: 1px solid var(--border, #d4c5a9);
+  font-size: 11px;
+  color: var(--ink-muted);
 }
 
 .ep-list {
-  max-height: 240px;
+  max-height: 260px;
   overflow-y: auto;
-  padding: 6px 0;
+  border-top: 1px solid var(--border-light);
 }
 
 .ep-item {
   display: flex;
   align-items: baseline;
   gap: 8px;
-  padding: 6px 16px;
-  font-size: 13px;
+  padding: 7px 16px;
+  font-size: 12px;
   cursor: pointer;
-  transition: background 0.1s;
-  border-left: 3px solid transparent;
+  transition: background 0.08s;
+  border-left: 2px solid transparent;
 }
+.ep-item:hover { background: var(--paper-warm); }
 
-.ep-item:hover {
-  background: #fdf6ec;
-}
-
-.ep-tone {
-  border-left-color: #e53935;
-}
-
-.ep-rhyme {
-  border-left-color: #ff9800;
-}
-
-.ep-multi {
-  border-left-color: #9c27b0;
-}
-
-.ep-unknown {
-  border-left-color: #999;
-}
+.ep-tone  { border-left-color: var(--danger); }
+.ep-rhyme { border-left-color: var(--warning); }
+.ep-multi { border-left-color: var(--multi-text); }
+.ep-unknown { border-left-color: var(--ink-muted); }
 
 .ep-loc {
-  color: var(--text-muted, #8b7355);
+  color: var(--ink-muted);
   font-size: 11px;
   white-space: nowrap;
-  min-width: 70px;
+  min-width: 64px;
 }
 
 .ep-char {
-  color: var(--accent, #8b4513);
+  color: var(--ink);
   font-weight: 600;
   white-space: nowrap;
 }
 
 .ep-msg {
-  color: var(--text, #3e2c1c);
+  color: var(--ink-light);
   flex: 1;
 }
 </style>

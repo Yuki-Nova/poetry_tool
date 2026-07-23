@@ -1,7 +1,7 @@
 <template>
   <div class="login-page">
     <div class="login-card">
-      <h1>📜 词牌管理后台</h1>
+      <h1>词牌管理</h1>
       <p class="subtitle">请输入管理员密码</p>
       <form @submit.prevent="handleLogin">
         <input
@@ -53,50 +53,52 @@ async function handleLogin() {
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  background: linear-gradient(135deg, #fdf6ec 0%, #ede0cc 100%);
+  background: var(--paper);
 }
 
 .login-card {
-  background: var(--bg-card);
-  border-radius: 12px;
+  background: var(--paper-card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
   padding: 48px 40px;
   width: 380px;
-  box-shadow: var(--shadow);
   text-align: center;
 }
 
 h1 {
-  font-size: 24px;
-  color: var(--accent);
-  margin-bottom: 8px;
-  font-weight: 600;
+  font-size: 22px;
+  font-weight: 500;
+  color: var(--ink);
+  margin-bottom: 6px;
+  font-family: 'Noto Serif SC', 'Source Han Serif SC', 'SimSun', serif;
+  letter-spacing: 0.06em;
 }
 
 .subtitle {
-  color: var(--text-muted);
+  color: var(--ink-muted);
   margin-bottom: 28px;
-  font-size: 14px;
+  font-size: 13px;
 }
 
 input {
   width: 100%;
   padding: 12px 16px;
-  font-size: 16px;
+  font-size: 15px;
   margin-bottom: 16px;
 }
 
 button {
   width: 100%;
   padding: 12px;
-  font-size: 16px;
+  font-size: 15px;
   background: var(--accent);
   color: #fff;
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: 4px;
 }
 
 button:hover:not(:disabled) {
-  background: #a0522d;
+  background: var(--accent-hover);
 }
 
 button:disabled {
@@ -106,6 +108,6 @@ button:disabled {
 .error {
   color: var(--danger);
   margin-top: 12px;
-  font-size: 14px;
+  font-size: 13px;
 }
 </style>

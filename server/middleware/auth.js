@@ -5,10 +5,13 @@
 
 const jwt = require('jsonwebtoken')
 
-if (!process.env.JWT_SECRET) {
-  throw new Error('未设置环境变量 JWT_SECRET，请创建 server/.env 文件并设置 JWT_SECRET=随机字符串')
+function getSecret() {
+  const secret = process.env.JWT_SECRET
+  if (!secret) {
+    throw new Error('未设置环境变量 JWT_SECRET')
+  }
+  return secret
 }
-const JWT_SECRET = process.env.JWT_SECRET
 
 function authMiddleware(req, res, next) {
   const authHeader = req.headers.authorization
@@ -20,7 +23,7 @@ function authMiddleware(req, res, next) {
   const token = authHeader.split(' ')[1]
 
   try {
-    const decoded = jwt.verify(token, JWT_SECRET)
+    const decoded = jwt.verify(token, getSecret())
     req.user = decoded
     next()
   } catch (err) {
@@ -28,4 +31,4 @@ function authMiddleware(req, res, next) {
   }
 }
 
-module.exports = { authMiddleware, JWT_SECRET }
+module.exports = { authMiddleware, getSecret }

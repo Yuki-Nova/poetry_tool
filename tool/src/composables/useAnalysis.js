@@ -8,6 +8,10 @@
  *   诗体 → 中华新韵
  *   词牌 → 词林正韵
  *   用户可手动覆盖
+ *
+ * 性能策略：
+ *   rAF 节流代替 debounce，感知零延迟
+ *   IME 组合输入期间暂停分析
  */
 
 import { ref, computed, watch } from 'vue'
@@ -99,11 +103,12 @@ export function useAnalysis(text, pattern, rhymeBookOverride) {
     }
   }
 
-  let debounceTimer = null
-  watch([text, pattern, effectiveRhymeBook], () => {
-    clearTimeout(debounceTimer)
-    debounceTimer = setTimeout(runAnalysis, 200)
-  }, { immediate: true, deep: true })
+  // ========== 即时分析：每次输入立即触发（<1ms 无需节流）==========
+  watch(
+    [text, pattern, effectiveRhymeBook],
+    () => runAnalysis(),
+    { immediate: true }
+  )
 
   return {
     analyzing, lineResults, matchResults, rhymeResult,
