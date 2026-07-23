@@ -410,4 +410,4 @@ ssh root@<ECS_IP> "cd /www/wwwroot/poetry/server && npm install --production && 
 
 本项目使用的平仄字典、平水韵、词林正韵、中华新韵及词牌格律数据均来源于 GitHub 开源项目 **[chinese_word_rhyme](https://github.com/charlesix59/chinese_word_rhyme.git)**。
 
-感谢主要贡献者 [charlesix59](https://github.com/charlesix59) 及其社区维护者的辛勤整理。
+感谢主要贡献者 [charlesix59](https://github.com/charlesix59) 及其他社区维护者的辛勤整理。
