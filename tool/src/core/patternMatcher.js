@@ -12,14 +12,17 @@
  *   "skip"       — 空格/标点，不参与比对
  */
 
+import { getRhymeGroup } from './rhymeChecker'
+
 /**
  * 单字匹配：判断实际声调是否满足格律要求
  *
  * @param {string} actual - 实际声调 "平"|"仄"|"多音"|"?"|"skip"|"punct"
  * @param {string} expected - 格律要求 "平"|"仄"|"可平可仄"|"韵脚"
+ * @param {string|null} rhymeType - 韵脚类型 "平韵"|"仄韵"|"可平可仄"（仅 expected 为 "韵脚" 时使用）
  * @returns {string} 匹配状态
  */
-function matchChar(actual, expected) {
+function matchChar(actual, expected, rhymeType) {
   // 空格/标点不参与比对
   if (actual === 'skip' || actual === 'punct') return 'skip'
 
@@ -32,9 +35,13 @@ function matchChar(actual, expected) {
   // 可平可仄：无论如何都算对
   if (expected === '可平可仄') return 'ok'
 
-  // 韵脚：当作平仄要求来处理（韵脚的具体声调由 rhymeType 决定）
+  // 韵脚：具体声调要求由 rhymeType 决定（平韵→平，仄韵→仄）
   if (expected === '韵脚') {
-    return actual === '平' ? 'ok-rhyme' : 'rhyme-warn'
+    const required = rhymeType === '仄韵' ? '仄'
+      : rhymeType === '可平可仄' ? '可平可仄'
+      : '平'
+    if (required === '可平可仄') return 'ok'
+    return actual === required ? 'ok-rhyme' : 'rhyme-warn'
   }
 
   // 精确匹配
@@ -46,6 +53,7 @@ function matchChar(actual, expected) {
  *
  * @param {{char: string, tone: string, isMulti: boolean}[][]} lineResults - analyzeText 输出
  * @param {{pattern: string[], isRhyme: boolean, rhymeType: string|null}[]} template - 格律模板 sentences 数组
+ * @param {string} [rhymeBook] - 韵书标识（用于回填韵脚字的韵部）
  * @returns {{
  *   char: string,
  *   expected: string,
@@ -55,7 +63,7 @@ function matchChar(actual, expected) {
  *   status: string
  * }[][]}
  */
-export function matchPattern(lineResults, template) {
+export function matchPattern(lineResults, template, rhymeBook) {
   if (!lineResults || !template) return []
 
   return lineResults.map((line, li) => {
@@ -77,14 +85,15 @@ export function matchPattern(lineResults, template) {
     // 对每个字进行匹配
     return line.map((item, ci) => {
       const expected = pattern[ci] || '?'
-      const status = matchChar(item.tone, expected)
+      const status = matchChar(item.tone, expected, rhymeType)
+      const isRhymeFoot = isRhyme && ci === line.length - 1
 
       return {
         char: item.char,
         expected,
         actual: item.tone,
-        isRhyme: isRhyme && ci === line.length - 1,
-        rhymeGroup: null,  // 由外部 rhymeChecker 填充
+        isRhyme: isRhymeFoot,
+        rhymeGroup: isRhymeFoot ? getRhymeGroup(item.char, rhymeBook) : null,
         status
       }
     })
@@ -95,7 +104,7 @@ export function matchPattern(lineResults, template) {
  * 汇总所有错误（出律 + 出韵）
  *
  * @param {object[][]} matchResults - matchPattern 输出
- * @param {{valid: boolean, errors: {char: string, index: number}[]}} rhymeResult - checkRhyme 输出
+ * @param {{valid: boolean, errors: {char: string, index: number, line: number}[]}} rhymeResult - checkRhyme 输出
  * @returns {{line: number, col: number, char: string, type: string, message: string}[]}
  */
 export function collectErrors(matchResults, rhymeResult) {
@@ -125,11 +134,11 @@ export function collectErrors(matchResults, rhymeResult) {
     })
   })
 
-  // 添加押韵错误
+  // 添加押韵错误（line 为韵脚字的真实行号，由 checkRhyme 随字带出）
   if (rhymeResult && rhymeResult.errors) {
     rhymeResult.errors.forEach(e => {
       errors.push({
-        line: e.index,
+        line: e.line !== undefined ? e.line : e.index,
         col: -1,
         char: e.char,
         type: 'rhyme',

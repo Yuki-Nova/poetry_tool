@@ -40,7 +40,8 @@ function charClass(li, ci) {
       cls.push(r.actual === '平' ? 't-ping' : 't-ze')
       break
     case 'ok-rhyme':
-      cls.push('t-ping', 't-rhyme')
+      // 韵脚正确：底色按实际声调（平韵/仄韵均可成立）
+      cls.push(r.actual === '平' ? 't-ping' : 't-ze', 't-rhyme')
       break
     case 'rhyme-warn':
       cls.push('t-rhyme-err')

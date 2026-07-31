@@ -16,7 +16,7 @@
 
 import { ref, computed, watch } from 'vue'
 import { analyzeText } from '../core/toneAnalyzer'
-import { checkRhyme, extractRhymeChars, getRhymeGroup, defaultRhymeBook, RHYME_BOOKS, RHYME_BOOK_LABELS } from '../core/rhymeChecker'
+import { checkRhyme, extractRhymeChars, defaultRhymeBook, RHYME_BOOKS, RHYME_BOOK_LABELS } from '../core/rhymeChecker'
 import { matchPattern, collectErrors } from '../core/patternMatcher'
 import { findAllMultiTone } from '../core/charClassifier'
 
@@ -76,22 +76,12 @@ export function useAnalysis(text, pattern, rhymeBookOverride) {
       lineResults.value = lines
 
       const template = pattern.value?.sentences || []
-      const matched = matchPattern(lines, template)
+      const rb = effectiveRhymeBook.value
+      const matched = matchPattern(lines, template, rb)
       matchResults.value = matched
 
       const rhymeChars = extractRhymeChars(lines, template)
-      const rb = effectiveRhymeBook.value
       const rhyme = checkRhyme(rhymeChars, rb)
-
-      // 回填韵部信息
-      matched.forEach((line, li) => {
-        line.forEach(item => {
-          if (item.isRhyme) {
-            item.rhymeGroup = getRhymeGroup(item.char, rb)
-          }
-        })
-      })
-      matchResults.value = [...matched]
 
       rhymeResult.value = rhyme
       errors.value = collectErrors(matched, rhyme)

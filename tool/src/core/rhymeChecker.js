@@ -54,7 +54,7 @@ export function getRhymeGroup(char, rhymeBook = 'xinyun') {
 /**
  * 校验一组韵脚字是否押韵
  *
- * @param {string[]} rhymeChars - 韵脚字数组
+ * @param {{char: string, line: number}[]} rhymeChars - 韵脚字及所在行号（extractRhymeChars 输出）
  * @param {string} rhymeBook - 韵书标识
  * @returns {{
  *   valid: boolean,
@@ -62,7 +62,7 @@ export function getRhymeGroup(char, rhymeBook = 'xinyun') {
  *   rhymeBook: string,
  *   rhymeBookLabel: string,
  *   allSame: boolean,
- *   errors: {char: string, group: string|null, index: number}[],
+ *   errors: {char: string, group: string|null, index: number, line: number}[],
  *   neighborWarning: string|null
  * }}
  */
@@ -74,9 +74,10 @@ export function checkRhyme(rhymeChars, rhymeBook = 'xinyun') {
     }
   }
 
-  const charGroups = rhymeChars.map((char, i) => ({
-    char,
-    group: getRhymeGroup(char, rhymeBook),
+  const charGroups = rhymeChars.map((c, i) => ({
+    char: c.char,
+    line: c.line,
+    group: getRhymeGroup(c.char, rhymeBook),
     index: i
   }))
 
@@ -87,7 +88,7 @@ export function checkRhyme(rhymeChars, rhymeBook = 'xinyun') {
     return {
       valid: false, group: null, rhymeBook, rhymeBookLabel: RHYME_BOOK_LABELS[rhymeBook] || '',
       allSame: false,
-      errors: unknown.map(c => ({ char: c.char, group: null, index: c.index })),
+      errors: unknown.map(c => ({ char: c.char, group: null, index: c.index, line: c.line })),
       neighborWarning: '所有韵脚字均未被该韵书收录'
     }
   }
@@ -97,10 +98,10 @@ export function checkRhyme(rhymeChars, rhymeBook = 'xinyun') {
 
   for (const cg of charGroups) {
     if (cg.group !== null && cg.group !== baseGroup) {
-      errors.push({ char: cg.char, group: cg.group, index: cg.index })
+      errors.push({ char: cg.char, group: cg.group, index: cg.index, line: cg.line })
     }
     if (cg.group === null) {
-      errors.push({ char: cg.char, group: null, index: cg.index })
+      errors.push({ char: cg.char, group: null, index: cg.index, line: cg.line })
     }
   }
 
@@ -117,6 +118,10 @@ export function checkRhyme(rhymeChars, rhymeBook = 'xinyun') {
 
 /**
  * 从逐句分析结果中提取韵脚字
+ *
+ * @param {object[][]} lineResults - analyzeText 输出
+ * @param {object[]} sentenceMetas - 格律模板 sentences
+ * @returns {{char: string, line: number}[]} 韵脚字及所在行号（0-based）
  */
 export function extractRhymeChars(lineResults, sentenceMetas) {
   const chars = []
@@ -125,7 +130,7 @@ export function extractRhymeChars(lineResults, sentenceMetas) {
     if (meta && meta.isRhyme && line.length > 0) {
       const lastChar = line[line.length - 1]
       if (lastChar && lastChar.tone !== 'skip' && lastChar.tone !== 'punct') {
-        chars.push(lastChar.char)
+        chars.push({ char: lastChar.char, line: i })
       }
     }
   })

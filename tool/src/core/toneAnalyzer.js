@@ -57,14 +57,15 @@ export function analyzeLine(line) {
 
 /**
  * 分析多行诗
+ *
+ * 逐行原样分析：不 trim、不过滤空行，
+ * 保证结果行号与文本行号一一对应（供高亮层、错误跳转定位）。
+ * 行内的空格/标点由 analyzeLine 标记为 skip/punct，不参与比对。
+ *
  * @param {string} text - 完整诗词文本（可包含换行）
  * @returns {{char: string, tone: string, isMulti: boolean}[][]}
  */
 export function analyzeText(text) {
   if (!text) return []
-  return text
-    .split('\n')
-    .map(line => line.trim())
-    .filter(line => line.length > 0)
-    .map(line => analyzeLine(line))
+  return text.split('\n').map(line => analyzeLine(line))
 }

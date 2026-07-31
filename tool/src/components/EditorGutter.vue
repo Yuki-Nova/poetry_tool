@@ -6,12 +6,9 @@
       class="gutter-line"
       :class="{
         'gutter-active': li === activeLine,
-        'gutter-error': lineError(li),
-        'has-breakpoint': breakpoints.has(li)
+        'gutter-error': lineError(li)
       }"
-      @click="toggleBreakpoint(li)"
     >
-      <span class="bp-dot" v-if="breakpoints.has(li)"></span>
       <span class="gutter-num">{{ li + 1 }}</span>
       <span v-if="lineError(li)" class="err-dot"></span>
     </div>
@@ -19,7 +16,7 @@
 </template>
 
 <script setup>
-import { reactive, computed } from 'vue'
+import { computed } from 'vue'
 
 const props = defineProps({
   lines: { type: Array, default: () => [''] },
@@ -28,28 +25,16 @@ const props = defineProps({
   pattern: { type: Object, default: null }
 })
 
-const emit = defineEmits(['line-click'])
-
-const breakpoints = reactive(new Set())
-
 const errorByLine = computed(() => {
   const map = {}
   props.errors.forEach(err => {
-    if (err.type === 'tone' || err.severity === 'error') map[err.line] = true
+    if (err.type === 'tone') map[err.line] = true
     else if (!(err.line in map)) map[err.line] = false
   })
   return map
 })
 
 function lineError(li) { return errorByLine.value[li] || false }
-
-function toggleBreakpoint(li) {
-  if (breakpoints.has(li)) {
-    breakpoints.delete(li)
-  } else {
-    breakpoints.add(li)
-  }
-}
 </script>
 
 <style scoped>
@@ -88,24 +73,6 @@ function toggleBreakpoint(li) {
 .gutter-active .gutter-num {
   color: var(--accent);
   font-weight: 700;
-}
-
-/* 断点标记(左侧) */
-.bp-dot {
-  position: absolute;
-  left: 6px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: var(--danger);
-  box-shadow: 0 0 0 2px rgba(192, 74, 58, 0.25);
-}
-
-/* 有断点时行号隐藏 */
-.has-breakpoint .gutter-num {
-  color: transparent;
 }
 
 /* 错误标记(右侧) */
