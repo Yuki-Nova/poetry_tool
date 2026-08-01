@@ -24,8 +24,40 @@ function createEmptyCipai() {
     alias: [],
     charCount: 0,
     sentences: [],
+    formats: [],
     notes: ''
   }
+}
+
+/** 校验单个格式的句子数组（与顶层 sentences 同一套规则） */
+function validateFormatSentences(sentences, errors, prefix) {
+  if (!Array.isArray(sentences) || sentences.length === 0) {
+    errors.push(`${prefix}：至少需要一句格律定义`)
+    return
+  }
+  sentences.forEach((s, i) => {
+    if (s.index !== i) {
+      errors.push(`${prefix} 句 ${i}: index 应为 ${i}，实际 ${s.index}`)
+    }
+    if (!s.length || s.length < 1) {
+      errors.push(`${prefix} 句 ${i}: length 至少为 1`)
+    }
+    if (!Array.isArray(s.pattern) || s.pattern.length !== s.length) {
+      errors.push(`${prefix} 句 ${i}: pattern 数组长度 (${s.pattern?.length ?? 0}) 与 length (${s.length}) 不匹配`)
+    } else {
+      s.pattern.forEach((t, j) => {
+        if (!TONE_VALUES.includes(t)) {
+          errors.push(`${prefix} 句 ${i} 字 ${j}: 非法格律值 "${t}"，合法值: ${TONE_VALUES.join(' / ')}`)
+        }
+      })
+    }
+    if (typeof s.isRhyme !== 'boolean') {
+      errors.push(`${prefix} 句 ${i}: isRhyme 须为布尔值`)
+    }
+    if (s.isRhyme && s.rhymeType && !RHYME_TYPES.includes(s.rhymeType)) {
+      errors.push(`${prefix} 句 ${i}: 非法 rhymeType "${s.rhymeType}"，合法值: ${RHYME_TYPES.join(' / ')}`)
+    }
+  })
 }
 
 /**
@@ -88,6 +120,35 @@ function validateCipai(cipai) {
 
     if (cipai.charCount && cipai.charCount !== totalChars) {
       errors.push(`charCount (${cipai.charCount}) 与所有句子长度之和 (${totalChars}) 不一致`)
+    }
+  }
+
+  // formats: 可选（多格式变体）；存在时校验每个格式的 sentences，并核对 formats[0] 与顶层一致
+  if (cipai.formats !== undefined && cipai.formats !== null) {
+    if (!Array.isArray(cipai.formats) || cipai.formats.length === 0) {
+      errors.push('formats 须为非空数组（可为空数组，表示单格式）')
+    } else {
+      cipai.formats.forEach((f, fi) => {
+        const prefix = `格式 ${fi}${f.label ? `（${f.label}）` : ''}`
+        if (!f || typeof f !== 'object') {
+          errors.push(`${prefix}: 格式项须为对象`)
+          return
+        }
+        if (f.label !== undefined && typeof f.label !== 'string') {
+          errors.push(`${prefix}: label 须为字符串`)
+        }
+        validateFormatSentences(f.sentences, errors, prefix)
+      })
+      // formats[0] 与顶层 sentences 一致性（仅当两者都存在时核对）
+      if (Array.isArray(cipai.sentences) && cipai.sentences.length > 0
+          && cipai.formats[0] && Array.isArray(cipai.formats[0].sentences)
+          && cipai.formats[0].sentences.length > 0) {
+        const mainSig = cipai.sentences.map(s => `${s.length}:${(s.pattern || []).join('')}:${s.isRhyme ? 1 : 0}`).join('|')
+        const fmtSig = cipai.formats[0].sentences.map(s => `${s.length}:${(s.pattern || []).join('')}:${s.isRhyme ? 1 : 0}`).join('|')
+        if (mainSig !== fmtSig) {
+          errors.push('formats[0]（主格式）与顶层 sentences 不一致')
+        }
+      }
     }
   }
 

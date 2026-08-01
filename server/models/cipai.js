@@ -28,11 +28,19 @@ db.exec(`
     alias       TEXT NOT NULL DEFAULT '[]',
     charCount   INTEGER NOT NULL DEFAULT 0,
     sentences   TEXT NOT NULL DEFAULT '[]',
+    formats     TEXT NOT NULL DEFAULT '[]',
     notes       TEXT NOT NULL DEFAULT '',
     created_at  TEXT NOT NULL DEFAULT (datetime('now','localtime')),
     updated_at  TEXT NOT NULL DEFAULT (datetime('now','localtime'))
   );
 `)
+
+// 存量库兼容：formats 列不存在则补列（ALTER TABLE）
+const cols = db.prepare("PRAGMA table_info(cipai)").all().map(c => c.name)
+if (!cols.includes('formats')) {
+  db.exec("ALTER TABLE cipai ADD COLUMN formats TEXT NOT NULL DEFAULT '[]'")
+  console.log('[models/cipai] 已为存量库补充 formats 列')
+}
 
 console.log('[models/cipai] 数据库已初始化:', DB_PATH)
 
@@ -45,10 +53,21 @@ function rowToCipai(row) {
     alias: JSON.parse(row.alias),
     charCount: row.charCount,
     sentences: JSON.parse(row.sentences),
+    formats: row.formats ? JSON.parse(row.formats) : [],
     notes: row.notes,
     createdAt: row.created_at,
     updatedAt: row.updated_at
   }
+}
+
+/**
+ * 归一化 formats：
+ * - 请求未传 formats（admin 场景）→ 单格式 [{label:'定格', sentences}]
+ * - 请求已传 formats → 原样保留
+ */
+function normalizeFormats(cipai) {
+  if (Array.isArray(cipai.formats) && cipai.formats.length > 0) return cipai.formats
+  return [{ label: '定格', planSegments: 1, sentences: cipai.sentences || [] }]
 }
 
 // ── CRUD 方法 ──
@@ -88,9 +107,10 @@ function getById(id) {
  * @returns {object} 插入后的词牌对象
  */
 function create(cipai) {
+  const formats = normalizeFormats(cipai)
   const stmt = db.prepare(`
-    INSERT INTO cipai (id, name, alias, charCount, sentences, notes)
-    VALUES (?, ?, ?, ?, ?, ?)
+    INSERT INTO cipai (id, name, alias, charCount, sentences, formats, notes)
+    VALUES (?, ?, ?, ?, ?, ?, ?)
   `)
 
   stmt.run(
@@ -99,6 +119,7 @@ function create(cipai) {
     JSON.stringify(cipai.alias || []),
     cipai.charCount,
     JSON.stringify(cipai.sentences),
+    JSON.stringify(formats),
     cipai.notes || ''
   )
 
@@ -115,12 +136,26 @@ function update(id, cipai) {
   const existing = getById(id)
   if (!existing) return null
 
+  const newSentences = cipai.sentences ?? existing.sentences
+  let formats = null
+  if (Array.isArray(cipai.formats) && cipai.formats.length > 0) {
+    // 请求显式传了 formats → 全量覆盖
+    formats = cipai.formats
+  } else {
+    // 请求未传 formats（admin 场景）→ 保留原 formats，但同步 formats[0] = 主格式
+    // 保证「顶层 sentences 是主格式权威」这一原则下两份数据不脱节
+    formats = existing.formats && existing.formats.length > 0
+      ? existing.formats.map((f, i) => i === 0 ? { ...f, sentences: newSentences } : f)
+      : [{ label: '定格', planSegments: 1, sentences: newSentences }]
+  }
+
   const stmt = db.prepare(`
     UPDATE cipai
     SET name = ?,
         alias = ?,
         charCount = ?,
         sentences = ?,
+        formats = ?,
         notes = ?,
         updated_at = datetime('now','localtime')
     WHERE id = ?
@@ -130,7 +165,8 @@ function update(id, cipai) {
     cipai.name ?? existing.name,
     JSON.stringify(cipai.alias ?? existing.alias),
     cipai.charCount ?? existing.charCount,
-    JSON.stringify(cipai.sentences ?? existing.sentences),
+    JSON.stringify(newSentences),
+    JSON.stringify(formats),
     cipai.notes ?? existing.notes,
     id
   )
