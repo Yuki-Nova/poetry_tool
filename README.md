@@ -19,12 +19,16 @@
 
 | 功能 | 说明 |
 |---|---|
-| 格律选择 | 搜索式下拉框，覆盖 8 种诗体 + 817 个词牌 |
+| 格律选择 | 搜索式下拉框，覆盖 8 种诗体 + 153 个词牌（龙榆生《唐宋词格律》权威数据） |
 | 实时平仄分析 | 逐字查 8000+ 字平仄字典，即时着色反馈 |
 | IDE 风格编辑器 | 输入区逐字高亮：蓝=平、灰=仄、红色波浪=出律、紫色虚线=多音字、金色边框=韵脚 |
+| 平仄格律预览 | 选中词牌/诗体后展示逐字格律谱（平/仄/中/韵），点击字格跳转编辑器对应行（未创建自动补行） |
+| 多格式变体切换 | 36 个词牌含多种格式（格一/格二/变格/别格/双调…），预览面板一键切换，分析同步更新 |
 | 行号与错误定位 | 侧边行号栏，错误行红点标记；错误面板点击条目跳转到对应位置 |
-| 悬浮提示 | 鼠标悬停错误字 → 显示详细说明及多音字候选 |
+| 悬浮提示 | 鼠标悬停错误字 → 显示详细说明；多音字候选可点击，按所选读音固定声调参与校验 |
 | 押韵校验 | 支持中华新韵 / 平水韵 / 词林正韵三套韵书切换 |
+| 草稿自动保存 | 输入内容/词牌/韵书自动存 localStorage，刷新不丢稿，可一键清空 |
+| 移动端适配 | ≤640px 窄屏响应式布局，编辑器/工具提示自适应 |
 | 词牌管理 | 独立后台，可视化格律编辑器录入/修改词牌 |
 
 ### 技术栈
@@ -37,7 +41,7 @@
 | 鉴权 | JWT (jsonwebtoken) |
 | 样式 | 原生 CSS，"山影"古典风格 |
 | 韵书数据 | 平水韵 105 部、词林正韵 19 部、中华新韵 14 部 |
-| 词牌数据 | 龙榆生《唐宋词格律》153 个词牌（含多格式变体），逐字平仄 + 韵脚标注；叠加存量词牌共 825 个 |
+| 词牌数据 | 龙榆生《唐宋词格律》153 个词牌（36 个含多格式变体），逐字平仄 + 韵脚标注 |
 | 部署 | 阿里云 ECS + 宝塔面板 + Nginx + PM2 + Let's Encrypt |
 
 ### 项目结构
@@ -46,7 +50,7 @@
 poetry_tool/
 ├── tool/              # 主工具——填词填诗 SPA 编辑器
 │   ├── src/
-│   │   ├── components/    # UI 组件（PoetryIDE 等 9 个组件）
+│   │   ├── components/    # UI 组件（PoetryIDE、PatternPreview 等 10 个组件）
 │   │   ├── composables/   # 业务逻辑（useAnalysis, useCipai, usePattern）
 │   │   ├── core/          # 分析引擎（toneAnalyzer, rhymeChecker, patternMatcher）
 │   │   └── data/          # 静态数据（平仄字典、韵书、诗体模板）
@@ -258,8 +262,14 @@ cd /www/wwwroot/poetry
 # 确保 server 在运行
 pm2 status
 
-# 导入 818 个词牌
-API_PASS=<密码> node scripts/import-cipai.js
+# 方式一：直接上传已生成的数据文件（推荐，153 个龙榆生词牌，含多格式变体）
+# 本地执行：
+#   scp server/data/cipai.db root@<ECS_IP>:/www/wwwroot/poetry/server/data/cipai.db
+#   ssh root@<ECS_IP> "pm2 restart poetry-server"
+
+# 方式二：在服务器本地跑龙榆生爬虫流水线（需 Python 环境）
+#   cd longyusheng_crawler && python fetch.py && python parse.py && python export.py
+#   python direct-import.py --dry && python direct-import.py
 ```
 
 ### 部署验证
@@ -427,6 +437,10 @@ ssh root@<ECS_IP> "cd /www/wwwroot/poetry/server && npm install --production && 
 | [docs/standalone-migration-plan.md](docs/standalone-migration-plan.md) | 项目独立化方案 |
 | [docs/deploy-guide.md](docs/deploy-guide.md) | 生产部署指南 |
 | [docs/session-progress-20260723.md](docs/session-progress-20260723.md) | 开发进展记录 |
+| [docs/cipai-multiformat-design.md](docs/cipai-multiformat-design.md) | 词牌单条目多格式数据模型方案（formats 字段） |
+| [docs/crawler-longyusheng-plan.md](docs/crawler-longyusheng-plan.md) | 龙榆生《唐宋词格律》爬虫方案与解析规则 |
+| [docs/tone-audit-plan.md](docs/tone-audit-plan.md) | 平仄表错漏检查计划（古今音双表方案） |
+| [docs/TODO.md](docs/TODO.md) | 待办清单（持续更新） |
 
 ---
 
