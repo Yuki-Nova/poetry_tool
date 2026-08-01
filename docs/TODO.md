@@ -1,6 +1,6 @@
 # 待办清单（TODO）
 
-> 生成日期：2026-08-01 · 更新：2026-08-02（项目复查：A 组未提交文件盘点、C 组新增 server 测试/.env 模板）
+> 生成日期：2026-08-01 · 更新：2026-08-02（G1/E1/F1 完成）
 > 状态图例：`[ ]` 待办 · `[x]` 已完成 · 优先级 P0 紧急 / P1 常规 / P2 可选
 
 ---
@@ -56,34 +56,32 @@
 
 ## E. 管理后台增强（admin）— 2026-08-02 提出
 
-- [ ] **E1 (P1) admin 支持多格式变体编辑**：当前 `CipaiEditor.vue` 只读主格式（formats 丢弃）→ 无法修改临江仙等词的格二/格三/变格；新建词牌也无法添加多个变体。
-  - 方案：form 增加 formats 字段（加载读取）；UI 增加格式管理区（标签列表 + 切换 + 添加/删除）；PatternGrid 绑定 `formats[i].sentences`；保存时顶层 sentences 同步为 formats[0].sentences（满足 schema 一致性校验）
-  - server/shared 零改动（已支持 formats 传入与校验）；工作量中等，主要在前端 CipaiEditor
+- [ ] **E1 (P1) admin 支持多格式变体编辑**：~~当前 `CipaiEditor.vue` 只读主格式（formats 丢弃）~~ → ✅ **已完成（2026-08-02）**：格式管理区（切换/添加/删除/改标签），PatternGrid 绑定当前格式，保存时主格式同步顶层 sentences
+  - 方案：form 增加 formats 字段（加载读取）；UI 增加格式管理区（标签列表 + 切换 + 添加/删除）；PatternGrid 绑定 `formats[i].sentences`；保存时顶层 sentences 同步为 formats[0].sentences（满足 schema 一致性校验）✅
+  - server/shared 零改动（已支持 formats 传入与校验）；工作量中等，主要在前端 CipaiEditor ✅
   - 参考：docs/cipai-multiformat-design.md §3.3「admin 后续迭代可在 PatternGrid 旁加格式 tab」
 
 ## F. 平仄表错漏检查（古今音双表方案）— 2026-08-02 列入，计划已落盘
 
 - [ ] **F1 (P1) 平仄表错漏检查与修复**：完整方案见 [docs/tone-audit-plan.md](tone-audit-plan.md)
-  - 已核实：平水韵（8232字，5声部自带平仄）、中华新韵（6730字，14部自带平仄）、词林正韵（5037字，19部自带平仄）均可直接推导权威平仄表，**无需爬新数据**
-  - 已实测：现有 tones.json 与平水韵比对检出 **153 处直接冲突**（如「喑」「填」标仄实为平）
-  - 方案核心：**古今音双平仄表**——中古表（平水韵推导，平水韵/词林正韵时用）+ 现代表（中华新韵推导，新韵时用），根治「入声字现代读平」类差异；custom.json 覆盖最高优先
-  - 里程碑：M-A 生成双表 → M-B 差异报告（153 冲突分类 A/B/C/D）→ M-C 未收录报告（龙榆生词牌字优先）→ M-D 人工复核 → M-E 前端 toneAnalyzer 双表接入 + 多音字候选随韵书切换 + 测试适配
-  - 风险：平水韵数据本身可能有错（D 类人工裁决）；多音字判定复杂；双表切换影响现有分析结果需确认
+  - ✅ **M-A~M-E 已完成（2026-08-02）**：双表已生成并接入前端（classic 8232 字 / modern 6730 字，`tool/src/data/tones-*.json`）；toneAnalyzer 按韵书选表（custom > 双表 > 旧表回退）；A 类修正 2（数→仄、还→平）、C 类补多音 277、E 类补录 53；tones.json 8232→8285 字；测试 33→38 用例
+  - ⚠️ 遗留：B 类 554 处古今音差异已由双表解决（单表未动）；D 类交叉疑点 8 处见 `longyusheng_crawler/tone_audit/output/rhyme_cross_conflict.md` 待人工裁决；完整报告见 tone_audit/output/
+  - 里程碑：M-A 生成双表 → M-B 差异报告（153 冲突分类 A/B/C/D）→ M-C 未收录报告（龙榆生词牌字优先）→ M-D 人工复核 → M-E 前端 toneAnalyzer 双表接入 + 多音字候选随韵书切换 + 测试适配 ✅
 
 ## G. 页面右侧信息面板（词牌信息 + 例词）— 2026-08-02 提出
 
-- [ ] **G1 (P1) 右侧词牌信息与例词展示面板**
+- [ ] **G1 (P1) 右侧词牌信息与例词展示面板** → ✅ **已完成（2026-08-02）**
   - 需求：编辑器页面右侧新增面板，展示当前词牌的 **① 备注信息**（admin 中的 notes：简介/韵格/注释）和 **② 例词**（龙榆生网站例词）
   - 数据现状：
-    - 词牌信息（notes）：**已有**（db notes 字段，前端 usePattern 已透传），只需新增展示组件
-    - 例词：**尚未提取**——已核实 153 页全部含 `var ces` 变量（`{ce1: {t: 例词HTML, w: 作者, c: 词牌名, n: 注释, h: 链接}, ce2: ...}`），但爬虫 parse.py 未解析
+    - 词牌信息（notes）：**已有**（db notes 字段，前端 usePattern 已透传），只需新增展示组件 ✅
+    - 例词：**已提取**——153 页全部含 `var ces` 变量，parse.py 已解析 793 条例词（清洗 span → 纯文本，保留作者/注释）✅
   - 实施步骤：
-    1. `longyusheng_crawler/parse.py` 扩展：解析 ces → 例词列表（清洗 `t` 内 span 标记为纯文本，保留作者/注释），存入解析结果
-    2. `export.py`：例词加入词牌对象（建议 `examples: [{author, text, note}]`，格式级或词牌级待定）
-    3. server：`cipai` 表新增 `examples` 列（沿用 formats 的 ALTER 兼容模式）+ models/schema 支持
-    4. tool 前端：右侧面板组件（如 `CipaiInfoPanel.vue`）——折叠式：备注 + 例词（作者 + 正文）；多格式词牌显示当前变体对应例词
-    5. 重跑爬虫流水线 + 导入 + 构建验证
-  - 工作量：中等（爬虫小改 + db 加列 + 新组件）；例词版权注意：仅展示原文（古籍公开）
+    1. `longyusheng_crawler/parse.py` 扩展：解析 ces → 例词列表（清洗 `t` 内 span 标记为纯文本，保留作者/注释），存入解析结果 ✅
+    2. `export.py`：例词加入词牌对象（`examples: [{author, text, note}]`）✅
+    3. server：`cipai` 表新增 `examples` 列（沿用 formats 的 ALTER 兼容模式）+ models/schema 支持 ✅
+    4. tool 前端：右侧面板组件（`CipaiInfoPanel.vue`）——折叠式：备注 + 例词（作者 + 正文）；多格式词牌显示当前变体对应例词 ✅
+    5. 重跑爬虫流水线 + 导入 + 构建验证 ✅（导入覆盖 153，备份 cipai.db.20260802073812.bak）
+  - 工作量：中等（爬虫小改 + db 加列 + 新组件）；例词版权注意：仅展示原文（古籍公开）✅
 
 ---
 
