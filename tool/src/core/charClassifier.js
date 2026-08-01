@@ -20,10 +20,6 @@ const MULTI_TONE_MAP = {
     { reading: 'cháng', tone: '平', meaning: '长短' },
     { reading: 'zhǎng', tone: '仄', meaning: '生长' }
   ],
-  '还': [
-    { reading: 'hái', tone: '平', meaning: '还是' },
-    { reading: 'huán', tone: '平', meaning: '归还' }
-  ],
   '更': [
     { reading: 'gēng', tone: '平', meaning: '更改' },
     { reading: 'gèng', tone: '仄', meaning: '更加' }
