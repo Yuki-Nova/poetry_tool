@@ -84,10 +84,6 @@ const MULTI_TONE_MAP = {
     { reading: 'qū', tone: '平', meaning: '弯曲' },
     { reading: 'qǔ', tone: '仄', meaning: '歌曲' }
   ],
-  '数': [
-    { reading: 'shǔ', tone: '仄', meaning: '数数' },
-    { reading: 'shù', tone: '仄', meaning: '数字' }
-  ],
   '思': [
     { reading: 'sī', tone: '平', meaning: '思考' },
     { reading: 'sì', tone: '仄', meaning: '情思' }

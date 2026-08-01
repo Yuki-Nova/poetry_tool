@@ -90,7 +90,8 @@ export function useAnalysis(text, pattern, rhymeBookOverride) {
 
     analyzing.value = true
     try {
-      const lines = analyzeText(rawText)
+      // 按有效韵书选择平仄表（xinyun=现代表，平水/词林=中古表）
+      const lines = analyzeText(rawText, effectiveRhymeBook.value)
       lineResults.value = lines
 
       const template = pattern.value?.sentences || []

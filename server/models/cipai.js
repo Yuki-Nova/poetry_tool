@@ -30,6 +30,7 @@ db.exec(`
     sentences   TEXT NOT NULL DEFAULT '[]',
     formats     TEXT NOT NULL DEFAULT '[]',
     notes       TEXT NOT NULL DEFAULT '',
+    examples    TEXT NOT NULL DEFAULT '[]',
     created_at  TEXT NOT NULL DEFAULT (datetime('now','localtime')),
     updated_at  TEXT NOT NULL DEFAULT (datetime('now','localtime'))
   );
@@ -40,6 +41,10 @@ const cols = db.prepare("PRAGMA table_info(cipai)").all().map(c => c.name)
 if (!cols.includes('formats')) {
   db.exec("ALTER TABLE cipai ADD COLUMN formats TEXT NOT NULL DEFAULT '[]'")
   console.log('[models/cipai] 已为存量库补充 formats 列')
+}
+if (!cols.includes('examples')) {
+  db.exec("ALTER TABLE cipai ADD COLUMN examples TEXT NOT NULL DEFAULT '[]'")
+  console.log('[models/cipai] 已为存量库补充 examples 列')
 }
 
 console.log('[models/cipai] 数据库已初始化:', DB_PATH)
@@ -55,6 +60,7 @@ function rowToCipai(row) {
     sentences: JSON.parse(row.sentences),
     formats: row.formats ? JSON.parse(row.formats) : [],
     notes: row.notes,
+    examples: row.examples ? JSON.parse(row.examples) : [],
     createdAt: row.created_at,
     updatedAt: row.updated_at
   }
@@ -109,8 +115,8 @@ function getById(id) {
 function create(cipai) {
   const formats = normalizeFormats(cipai)
   const stmt = db.prepare(`
-    INSERT INTO cipai (id, name, alias, charCount, sentences, formats, notes)
-    VALUES (?, ?, ?, ?, ?, ?, ?)
+    INSERT INTO cipai (id, name, alias, charCount, sentences, formats, notes, examples)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
   `)
 
   stmt.run(
@@ -120,7 +126,8 @@ function create(cipai) {
     cipai.charCount,
     JSON.stringify(cipai.sentences),
     JSON.stringify(formats),
-    cipai.notes || ''
+    cipai.notes || '',
+    JSON.stringify(cipai.examples || [])
   )
 
   return getById(cipai.id)
@@ -157,6 +164,7 @@ function update(id, cipai) {
         sentences = ?,
         formats = ?,
         notes = ?,
+        examples = ?,
         updated_at = datetime('now','localtime')
     WHERE id = ?
   `)
@@ -168,6 +176,7 @@ function update(id, cipai) {
     JSON.stringify(newSentences),
     JSON.stringify(formats),
     cipai.notes ?? existing.notes,
+    JSON.stringify(cipai.examples ?? existing.examples),
     id
   )
 

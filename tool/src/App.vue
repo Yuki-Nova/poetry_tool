@@ -17,49 +17,58 @@
       </div>
     </header>
 
-    <PatternSelector
-      :grouped="groupedPatterns"
-      :current="currentPattern"
-      :selected-id="selectedId"
-      @select="selectPattern"
-    />
+    <div class="app-main">
+      <div class="app-main-left">
+        <PatternSelector
+          :grouped="groupedPatterns"
+          :current="currentPattern"
+          :selected-id="selectedId"
+          @select="selectPattern"
+        />
 
-    <div v-if="draftRestored" class="draft-bar">
-      <span class="draft-bar-text">已恢复上次草稿</span>
-      <button class="draft-bar-clear" @click="clearDraft">清空</button>
-    </div>
+        <div v-if="draftRestored" class="draft-bar">
+          <span class="draft-bar-text">已恢复上次草稿</span>
+          <button class="draft-bar-clear" @click="clearDraft">清空</button>
+        </div>
 
-    <PatternPreview
-      :pattern="activePattern"
-      :formats="currentPattern?.formats || []"
-      :format-index="formatIndex"
-      @change-format="formatIndex = $event"
-      @jump="onPreviewJump"
-    />
+        <PatternPreview
+          :pattern="activePattern"
+          :formats="currentPattern?.formats || []"
+          :format-index="formatIndex"
+          @change-format="formatIndex = $event"
+          @jump="onPreviewJump"
+        />
 
-    <PoetryIDE
-      ref="ideRef"
-      v-model="inputText"
-      :pattern="currentPattern"
-      :match-results="matchResults"
-      :stats="stats"
-      :errors="errors"
-      :multi-tone-list="multiToneList"
-      :rhyme-book="effectiveRhymeBook"
-      :analyzing="analyzing"
-      @char-click="onCharClick"
-      @candidate-select="onCandidateSelect"
-    />
+        <PoetryIDE
+          ref="ideRef"
+          v-model="inputText"
+          :pattern="currentPattern"
+          :match-results="matchResults"
+          :stats="stats"
+          :errors="errors"
+          :multi-tone-list="multiToneList"
+          :rhyme-book="effectiveRhymeBook"
+          :analyzing="analyzing"
+          @char-click="onCharClick"
+          @candidate-select="onCandidateSelect"
+        />
 
-    <div class="app-bottom">
-      <RhymeHint
-        :rhyme-result="rhymeResult"
-        :rhyme-book="effectiveRhymeBook"
-      />
-      <ErrorPanel
-        :errors="errors"
-        :show-empty="inputText.length > 0"
-        @jump="onJumpToError"
+        <div class="app-bottom">
+          <RhymeHint
+            :rhyme-result="rhymeResult"
+            :rhyme-book="effectiveRhymeBook"
+          />
+          <ErrorPanel
+            :errors="errors"
+            :show-empty="inputText.length > 0"
+            @jump="onJumpToError"
+          />
+        </div>
+      </div>
+
+      <CipaiInfoPanel
+        class="app-main-right"
+        :pattern="activePattern"
       />
     </div>
   </div>
@@ -72,6 +81,7 @@ import PatternPreview from './components/PatternPreview.vue'
 import PoetryIDE from './components/PoetryIDE.vue'
 import RhymeHint from './components/RhymeHint.vue'
 import ErrorPanel from './components/ErrorPanel.vue'
+import CipaiInfoPanel from './components/CipaiInfoPanel.vue'
 
 import { useCipai } from './composables/useCipai'
 import { usePattern } from './composables/usePattern'
@@ -205,9 +215,24 @@ body {
 
 <style scoped>
 #app {
-  max-width: 940px;
+  max-width: 1180px;
   margin: 0 auto;
   padding: 32px 24px 80px;
+}
+
+/* ── 双栏布局：左侧主编辑器 + 右侧词牌信息面板 ── */
+.app-main {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 300px;
+  gap: 20px;
+  align-items: start;
+}
+.app-main-left { min-width: 0; }
+.app-main-right {
+  position: sticky;
+  top: 20px;
+  max-height: calc(100vh - 40px);
+  overflow-y: auto;
 }
 
 .app-header {
@@ -323,6 +348,11 @@ body {
 @keyframes draft-in {
   from { opacity: 0; transform: translateY(-4px); }
   to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 900px) {
+  .app-main { grid-template-columns: 1fr; }
+  .app-main-right { position: static; max-height: none; overflow: visible; }
 }
 
 @media (max-width: 640px) {

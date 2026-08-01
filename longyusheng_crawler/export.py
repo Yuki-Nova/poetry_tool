@@ -111,6 +111,15 @@ def build_cipai(parsed):
     if parsed.get("notes"):
         notes_parts.append(parsed["notes"])
 
+    # 例词：词牌级（龙榆生页面例词未标注对应格式，故挂在词牌下）
+    examples = []
+    for ex in parsed.get("examples") or []:
+        examples.append({
+            "author": ex.get("author", ""),
+            "text": ex.get("text", ""),
+            "note": ex.get("note", ""),
+        })
+
     return {
         "id": to_id(name),
         "name": name,
@@ -120,6 +129,7 @@ def build_cipai(parsed):
         "formats": formats,
         "notes": "；".join(notes_parts),
         "category": parsed.get("category"),
+        "examples": examples,
     }
 
 
@@ -140,6 +150,9 @@ def main():
     if multi:
         top = sorted(multi, key=lambda c: len(c["formats"]), reverse=True)[:8]
         print("  变体最多: " + ", ".join(f"{c['name']}({len(c['formats'])}格)" for c in top))
+    with_ex = [c for c in cipai_list if c.get("examples")]
+    total_ex = sum(len(c.get("examples") or []) for c in cipai_list)
+    print(f"  例词: {len(with_ex)} 个词牌含例词，共 {total_ex} 条")
 
     # 重复 id / 重名检查
     ids = [c["id"] for c in cipai_list]

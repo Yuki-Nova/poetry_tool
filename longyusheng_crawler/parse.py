@@ -26,6 +26,46 @@ YUN_CLASS_RE = re.compile(r"yun\d*")
 # meta keywords 中需剔除的噪声词
 KEYWORD_NOISE = {"词牌", "格律", "唐宋词格律", "龙榆生", "电子书", "例词", "作者"}
 
+# 页面底部例词变量：var ces = {'ce1': { t: 例词HTML, w: 作者, c: 词牌名, n: 注释, h: 链接 }, ...};
+# 字段顺序固定 t,w,c,n,h；t 为 HTML（div 分行 + span 平仄标记），内容无裸单引号（已实测 153 页）
+CES_BLOCK_RE = re.compile(r"var\s+ces\s*=\s*(\{.*?\});\s*(?:</script>|$)", re.S)
+CES_ENTRY_RE = re.compile(
+    r"'ce\d+':\s*\{\s*"
+    r"t:\s*'((?:[^'\\]|\\.)*)'\s*,?"
+    r"\s*w:\s*'((?:[^'\\]|\\.)*)'\s*,?"
+    r"\s*c:\s*'((?:[^'\\]|\\.)*)'\s*,?"
+    r"\s*n:\s*'((?:[^'\\]|\\.)*)'\s*,?"
+    r"\s*h:\s*'((?:[^'\\]|\\.)*)'"
+    r"\s*\}"
+)
+
+
+def parse_examples(html):
+    """解析页面底部 `var ces` 例词变量 → 例词列表。
+
+    每条例词清洗为纯文本（剥离 span/div 标签，保留作者与注释）：
+      [{author, text, note}]
+    例词 HTML 示例：<div><span class="ping">天</span>！</div>... →
+      text = '天！休使圆蟾照客眠。人何在？桂影自婵娟。'
+    """
+    m = CES_BLOCK_RE.search(html)
+    if not m:
+        return []
+    examples = []
+    for ent in CES_ENTRY_RE.finditer(m.group(1)):
+        t_html, author, _cipai_name, note, _href = ent.groups()
+        # 清洗：去标签保留文本，去除空白（词句间无空格）
+        soup = BeautifulSoup(t_html, "lxml")
+        text = re.sub(r"\s+", "", soup.get_text("", strip=False))
+        if not text:
+            continue
+        examples.append({
+            "author": author.strip(),
+            "text": text,
+            "note": note.strip(),
+        })
+    return examples
+
 
 def parse_detail(cid, html, catalog_item=None):
     """解析单个词牌页 → dict（含 formats 原始结构与首格式的 sentences 视图）。"""
@@ -97,6 +137,9 @@ def parse_detail(cid, html, catalog_item=None):
     if not formats:
         return None
 
+    # ── 例词（页面底部 var ces 变量）──
+    examples = parse_examples(html)
+
     # ── 韵格分类（目录页提供）──
     category = catalog_item.get("category") if catalog_item else None
 
@@ -107,6 +150,7 @@ def parse_detail(cid, html, catalog_item=None):
         "category": category,
         "notes": "；".join(notes_parts),
         "formats": formats,
+        "examples": examples,
     }
 
 
@@ -264,6 +308,11 @@ def main():
     # 统计
     multi = [r["name"] for r in results if len(r["formats"]) > 1]
     print(f"多格式词牌: {len(multi)} 个（{', '.join(multi[:10])}{'…' if len(multi) > 10 else ''}）")
+
+    # 例词统计
+    with_examples = [r for r in results if r.get("examples")]
+    total_ex = sum(len(r.get("examples", [])) for r in results)
+    print(f"例词: {len(with_examples)} 个词牌含例词，共 {total_ex} 条例词（无例词: {len(results) - len(with_examples)}）")
 
 
 if __name__ == "__main__":

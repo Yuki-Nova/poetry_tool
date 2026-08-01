@@ -42,7 +42,40 @@
       </div>
 
       <div class="editor-right">
-        <PatternGrid v-model="form.sentences" />
+        <!-- 多格式变体管理 -->
+        <section class="form-card">
+          <div class="fmt-header">
+            <h2>格式管理</h2>
+            <button class="btn-add-fmt" @click="addFormat" :disabled="formatCount >= 8">+ 添加格式</button>
+          </div>
+          <div v-if="formats.length" class="fmt-list">
+            <div
+              v-for="(f, fi) in formats"
+              :key="fi"
+              class="fmt-item"
+              :class="{ active: fi === currentFmt }"
+              @click="selectFormat(fi)"
+            >
+              <input
+                v-model="f.label"
+                class="fmt-label-input"
+                placeholder="格式名（如 定格 / 双调 / 变格）"
+                @click.stop
+                @change="syncLabelToMain(fi)"
+              />
+              <button
+                v-if="formats.length > 1"
+                class="fmt-del"
+                title="删除此格式"
+                @click.stop="removeFormat(fi)"
+              >✕</button>
+            </div>
+          </div>
+          <p v-if="formats.length === 0" class="fmt-empty">暂无格式，点击上方按钮添加</p>
+          <p class="fmt-hint">提示：每个格式一套独立格律；保存时主格式（第一项）自动同步为词牌总格律。</p>
+        </section>
+
+        <PatternGrid v-model="form.sentences" :key="gridKey" />
         <PreviewPane :sentences="form.sentences" />
       </div>
     </div>
@@ -69,6 +102,79 @@ const form = reactive({
   notes: ''
 })
 
+// ── 多格式变体管理 ──
+// formats: [{ label, planSegments?, sentences }]；form.sentences 始终 = 当前编辑格式的 sentences
+const formats = ref([])
+const currentFmt = ref(0)
+// PatternGrid 内部有双调状态，切换格式时用 key 强制重建，避免分片视图残留
+const gridKey = ref(0)
+
+const formatCount = computed(() => formats.value.length)
+
+/** 保存当前编辑内容到 formats[currentFmt]，再加载目标格式的 sentences */
+function selectFormat(fi) {
+  if (fi === currentFmt.value) return
+  if (!formats.value[currentFmt.value]) return
+  // 1. 回写当前格式
+  formats.value[currentFmt.value].sentences = form.sentences
+  // 2. 切换 & 加载
+  currentFmt.value = fi
+  form.sentences = formats.value[fi].sentences || []
+  gridKey.value++
+}
+
+/** 添加新格式（复制主格式内容作为起点） */
+function addFormat() {
+  const base = formats.value[currentFmt.value] || { sentences: form.sentences }
+  const newFmt = {
+    label: `变格${formats.value.length + 1}`,
+    planSegments: base.planSegments || 1,
+    sentences: JSON.parse(JSON.stringify(base.sentences || form.sentences))
+  }
+  formats.value.push(newFmt)
+  // 自动切换到新格式
+  selectFormat(formats.value.length - 1)
+}
+
+/** 删除格式（保留至少 1 个；删除的是当前格式则切到主格式） */
+function removeFormat(fi) {
+  if (formats.value.length <= 1) return
+  formats.value.splice(fi, 1)
+  if (fi < currentFmt.value) {
+    currentFmt.value--
+  } else if (fi === currentFmt.value) {
+    currentFmt.value = Math.max(0, currentFmt.value - 1)
+    form.sentences = formats.value[currentFmt.value]?.sentences || []
+    gridKey.value++
+  }
+}
+
+/** 格式 label 修改后同步主格式（formats[0]）到顶层 sentences 的注释保留 */
+function syncLabelToMain() {
+  // label 直接 v-model 到 formats[i].label，无需额外同步
+  // 保持顶层 sentences = formats[0].sentences 在保存时处理
+  if (formats.value[0] && currentFmt.value === 0) {
+    form.sentences = formats.value[0].sentences || form.sentences
+  }
+}
+
+/** 从后端词牌对象加载 formats 到编辑表单 */
+function loadFormats(cipai) {
+  if (Array.isArray(cipai.formats) && cipai.formats.length > 0) {
+    formats.value = JSON.parse(JSON.stringify(cipai.formats))
+    currentFmt.value = 0
+    form.sentences = formats.value[0].sentences || cipai.sentences || []
+    return
+  }
+  // 老数据无 formats：用顶层 sentences 构建单格式
+  formats.value = [{
+    label: '定格',
+    planSegments: 1,
+    sentences: (cipai.sentences || []).map(s => ({ ...s, pattern: [...(s.pattern || [])] }))
+  }]
+  currentFmt.value = 0
+}
+
 const aliasInput = ref('')
 const saving = ref(false)
 const errorMsg = ref('')
@@ -84,10 +190,18 @@ onMounted(async () => {
     try {
       const cipai = await fetchCipai(route.params.id)
       form.id = cipai.id; form.name = cipai.name; form.alias = cipai.alias || []
-      form.charCount = cipai.charCount; form.sentences = cipai.sentences || []
-      form.notes = cipai.notes || ''
+      form.charCount = cipai.charCount; form.notes = cipai.notes || ''
+      loadFormats(cipai)
       aliasInput.value = (cipai.alias || []).join(', ')
     } catch (err) { errorMsg.value = '加载词牌数据失败：' + (err.response?.data?.message || err.message) }
+  } else {
+    // 新建：初始单格式「定格」
+    formats.value = [{
+      label: '定格',
+      planSegments: 1,
+      sentences: JSON.parse(JSON.stringify(form.sentences))
+    }]
+    currentFmt.value = 0
   }
 })
 
@@ -96,10 +210,23 @@ async function handleSubmit() {
   if (!form.id || !/^[a-z][a-z0-9_-]*$/i.test(form.id)) { errorMsg.value = '词牌 ID 格式不正确'; return }
   if (!form.name.trim()) { errorMsg.value = '词牌名不能为空'; return }
   if (form.sentences.length === 0) { errorMsg.value = '至少需要一句格律定义'; return }
+  if (formats.value.length === 0) { errorMsg.value = '至少需要一个格式定义'; return }
+
+  // 回写当前编辑格式 → 主格式同步顶层 sentences（满足 schema 一致性校验）
+  if (formats.value[currentFmt.value]) {
+    formats.value[currentFmt.value].sentences = JSON.parse(JSON.stringify(form.sentences))
+  }
+  const mainSentences = formats.value[0].sentences || form.sentences
+
+  const payload = {
+    ...form,
+    charCount: mainSentences.reduce((sum, s) => sum + s.pattern.length, 0),
+    sentences: mainSentences,
+    formats: formats.value
+  }
 
   saving.value = true
   try {
-    const payload = { ...form, charCount: totalChars.value }
     isEdit.value ? await updateCipai(route.params.id, payload) : await createCipai(payload)
     router.push({ name: 'CipaiList' })
   } catch (err) {
@@ -171,6 +298,68 @@ async function handleSubmit() {
 @media (max-width: 860px) { .editor-layout { grid-template-columns: 1fr; } }
 
 .editor-right { display: flex; flex-direction: column; gap: 16px; }
+
+/* ── 格式管理 ── */
+.fmt-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+.fmt-header h2 { margin: 0; }
+.btn-add-fmt {
+  background: var(--accent-soft, rgba(61,90,128,0.08));
+  color: var(--accent);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 5px 14px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.btn-add-fmt:hover:not(:disabled) { background: var(--accent); color: #fff; }
+.btn-add-fmt:disabled { opacity: 0.5; cursor: not-allowed; }
+.fmt-list { display: flex; flex-wrap: wrap; gap: 8px; }
+.fmt-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 3px 6px 3px 10px;
+  background: var(--paper-card);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.fmt-item.active {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  box-shadow: 0 0 0 1px var(--accent);
+}
+.fmt-label-input {
+  border: none;
+  background: transparent;
+  font-size: 12px;
+  color: var(--ink);
+  width: 88px;
+  padding: 2px 0;
+  outline: none;
+}
+.fmt-del {
+  border: none;
+  background: transparent;
+  color: var(--ink-muted);
+  font-size: 11px;
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  cursor: pointer;
+  padding: 0;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.15s;
+}
+.fmt-del:hover { background: rgba(192,74,58,0.1); color: var(--danger); }
+.fmt-empty { font-size: 12px; color: var(--ink-muted); margin: 4px 0; }
+.fmt-hint { font-size: 11px; color: var(--ink-muted); margin: 8px 0 0; }
 
 .form-card {
   background: var(--paper-card);

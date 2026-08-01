@@ -25,7 +25,8 @@ function createEmptyCipai() {
     charCount: 0,
     sentences: [],
     formats: [],
-    notes: ''
+    notes: '',
+    examples: []
   }
 }
 
@@ -149,6 +150,29 @@ function validateCipai(cipai) {
           errors.push('formats[0]（主格式）与顶层 sentences 不一致')
         }
       }
+    }
+  }
+
+  // examples: 可选（例词列表）；存在时校验每项 {author, text, note}
+  if (cipai.examples !== undefined && cipai.examples !== null) {
+    if (!Array.isArray(cipai.examples)) {
+      errors.push('examples 须为数组')
+    } else {
+      cipai.examples.forEach((ex, i) => {
+        if (!ex || typeof ex !== 'object') {
+          errors.push(`例词 ${i}: 例词项须为对象`)
+          return
+        }
+        if (ex.author !== undefined && typeof ex.author !== 'string') {
+          errors.push(`例词 ${i}: author 须为字符串`)
+        }
+        if (typeof ex.text !== 'string' || !ex.text.trim()) {
+          errors.push(`例词 ${i}: text 必填且须为字符串`)
+        }
+        if (ex.note !== undefined && typeof ex.note !== 'string') {
+          errors.push(`例词 ${i}: note 须为字符串`)
+        }
+      })
     }
   }
 

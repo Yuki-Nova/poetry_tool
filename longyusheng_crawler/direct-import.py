@@ -43,19 +43,22 @@ conn.execute("PRAGMA journal_mode = WAL")
 with open(JSON_PATH, encoding="utf-8") as f:
     data = json.load(f)
 
-# 确保 formats 列存在（老库兼容）
+# 确保 formats/examples 列存在（老库兼容）
 cols = [r[1] for r in conn.execute("PRAGMA table_info(cipai)").fetchall()]
 if "formats" not in cols:
     conn.execute("ALTER TABLE cipai ADD COLUMN formats TEXT NOT NULL DEFAULT '[]'")
     print("已为存量库补充 formats 列")
+if "examples" not in cols:
+    conn.execute("ALTER TABLE cipai ADD COLUMN examples TEXT NOT NULL DEFAULT '[]'")
+    print("已为存量库补充 examples 列")
 
 upsert_sql = """
-    INSERT INTO cipai (id, name, alias, charCount, sentences, formats, notes, created_at, updated_at)
-    VALUES (?, ?, ?, ?, ?, ?, ?, datetime('now','localtime'), datetime('now','localtime'))
+    INSERT INTO cipai (id, name, alias, charCount, sentences, formats, notes, examples, created_at, updated_at)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, datetime('now','localtime'), datetime('now','localtime'))
     ON CONFLICT(id) DO UPDATE SET
         name = excluded.name, alias = excluded.alias, charCount = excluded.charCount,
         sentences = excluded.sentences, formats = excluded.formats, notes = excluded.notes,
-        updated_at = datetime('now','localtime')
+        examples = excluded.examples, updated_at = datetime('now','localtime')
 """
 stmt = None  # 无需预编译，循环内直接 execute 带参执行
 
@@ -88,6 +91,7 @@ for c in data:
         json.dumps(c["sentences"], ensure_ascii=False),
         json.dumps(c.get("formats") or [], ensure_ascii=False),
         c.get("notes") or "",
+        json.dumps(c.get("examples") or [], ensure_ascii=False),
     )
     if DRY_RUN:
         if exists:

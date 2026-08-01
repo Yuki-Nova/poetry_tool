@@ -69,3 +69,33 @@ describe('analyzeText（行号对齐回归）', () => {
     expect(analyzeText(null)).toEqual([])
   })
 })
+
+describe('双平仄表（古今音）', () => {
+  it('默认（无韵书）使用中古表：入声字「白」标仄', () => {
+    const result = analyzeLine('白')
+    expect(result[0].tone).toBe('仄')
+  })
+
+  it('中华新韵使用现代表：「白」标平', () => {
+    const result = analyzeLine('白', 'xinyun')
+    expect(result[0].tone).toBe('平')
+  })
+
+  it('平水韵/词林正韵使用中古表：「国」「竹」标仄', () => {
+    expect(analyzeLine('国', 'pingshui')[0].tone).toBe('仄')
+    expect(analyzeLine('竹', 'cilin')[0].tone).toBe('仄')
+  })
+
+  it('custom.json 覆盖最高优先，不受韵书影响', () => {
+    // custom.json 中「长」标为「多」，双表任何选择都返回 custom 值（isMulti=true）
+    expect(analyzeLine('长', 'xinyun')[0]).toMatchObject({ tone: '多音', isMulti: true })
+    expect(analyzeLine('长', 'pingshui')[0]).toMatchObject({ tone: '多音', isMulti: true })
+  })
+
+  it('A 类修正回归：「数」标仄、「还」标平（不再标多）', () => {
+    expect(analyzeLine('数', 'pingshui')[0]).toMatchObject({ tone: '仄', isMulti: false })
+    expect(analyzeLine('还', 'pingshui')[0]).toMatchObject({ tone: '平', isMulti: false })
+    expect(analyzeLine('数', 'xinyun')[0]).toMatchObject({ tone: '仄', isMulti: false })
+    expect(analyzeLine('还', 'xinyun')[0]).toMatchObject({ tone: '平', isMulti: false })
+  })
+})

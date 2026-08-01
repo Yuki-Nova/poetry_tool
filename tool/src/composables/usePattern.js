@@ -34,6 +34,7 @@ export function usePattern(cipaiList) {
       sentences: c.sentences,
       formats: c.formats || [],   // 多格式变体（1 词牌 1 ID，变体在 formats 内）
       notes: c.notes || '',
+      examples: c.examples || [], // 例词列表 [{author, text, note}]
       alias: c.alias || [],
       source: 'api',
       label: c.name
