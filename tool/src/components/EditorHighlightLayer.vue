@@ -170,4 +170,14 @@ function onCharClick(li, ci, ch) {
   outline: 1px dashed var(--accent);
   outline-offset: -1px;
 }
+
+/* ── 移动端适配（字号行高须与 EditorTextarea 完全同步）── */
+@media (max-width: 640px) {
+  .highlight-layer {
+    font-size: 16px;
+    line-height: 1.875;
+    padding: 8px 10px;
+  }
+  .hl-line { min-height: 30px; }
+}
 </style>

@@ -216,4 +216,10 @@ onUnmounted(() => document.removeEventListener('click', onClickOutside))
 .item-count { font-size: 11px; color: var(--ink-muted); }
 
 .dropdown-mask { position: fixed; inset: 0; z-index: 15; }
+
+/* ── 移动端适配 ── */
+@media (max-width: 640px) {
+  .search-input { width: 100%; min-width: 0; }
+  .dropdown { width: min(400px, calc(100vw - 28px)); }
+}
 </style>

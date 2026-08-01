@@ -96,4 +96,13 @@ defineExpose({ jumpTo })
 .editor-textarea::placeholder {
   color: #c4b8a8;
 }
+
+/* ── 移动端适配（字号行高须与 HighlightLayer 完全同步）── */
+@media (max-width: 640px) {
+  .editor-textarea {
+    font-size: 16px;
+    line-height: 1.875;
+    padding: 8px 10px;
+  }
+}
 </style>

@@ -38,7 +38,9 @@
     <EditorTooltip
       :error="hoveredError"
       :position="tooltipPos"
-      :multi-tone-candidates="hoveredCandidates"
+      :multi-tone-candidates="hoveredCandidates?.candidates || null"
+      :suggested-tone="hoveredCandidates?.suggested?.tone || null"
+      @select="onCandidateSelect"
     />
   </div>
 </template>
@@ -63,7 +65,7 @@ const props = defineProps({
   disabled: { type: Boolean, default: false }
 })
 
-const emit = defineEmits(['update:modelValue', 'char-click', 'cursor-move'])
+const emit = defineEmits(['update:modelValue', 'char-click', 'cursor-move', 'candidate-select'])
 
 const textareaRef = ref(null)
 const codeAreaRef = ref(null)
@@ -96,7 +98,7 @@ function onCharHover(payload) {
     tooltipPos.value = { x: payload.x, y: payload.y }
     if (payload.char && props.multiToneList) {
       const found = props.multiToneList.find(m => m.line === payload.line && m.col === payload.col)
-      hoveredCandidates.value = found?.candidates || null
+      hoveredCandidates.value = found || null
     } else {
       hoveredCandidates.value = null
     }
@@ -104,6 +106,12 @@ function onCharHover(payload) {
     hoveredError.value = null
     hoveredCandidates.value = null
   }
+}
+
+function onCandidateSelect(payload) {
+  hoveredError.value = null
+  hoveredCandidates.value = null
+  emit('candidate-select', payload)
 }
 
 function jumpTo(line, col) {
@@ -141,5 +149,14 @@ defineExpose({ jumpTo })
   flex: 1;
   position: relative;
   overflow: hidden;
+}
+
+/* ── 移动端适配：编辑器整体缩小，保持高亮层/输入层/行号三者对齐 ── */
+@media (max-width: 640px) {
+  .ide-editor-area {
+    font-size: 16px;
+    line-height: 1.875; /* 16 × 1.875 = 30px 行高，与 Gutter/Highlight/Textarea 同步 */
+    min-height: 160px;
+  }
 }
 </style>

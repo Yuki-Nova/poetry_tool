@@ -90,4 +90,12 @@ function lineError(li) { return errorByLine.value[li] || false }
   border-radius: 50%;
   background: var(--danger);
 }
+
+/* ── 移动端适配 ── */
+@media (max-width: 640px) {
+  .editor-gutter { width: 30px; min-width: 30px; }
+  .gutter-line { height: 30px; }
+  .gutter-num { font-size: 10px; }
+  .err-dot { width: 4px; height: 4px; right: 3px; }
+}
 </style>
