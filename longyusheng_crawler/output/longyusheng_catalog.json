@@ -1,0 +1,767 @@
+[
+  {
+    "id": 1,
+    "name": "十六字令",
+    "category": "平韵格"
+  },
+  {
+    "id": 2,
+    "name": "南歌子",
+    "category": "平韵格"
+  },
+  {
+    "id": 3,
+    "name": "渔歌子",
+    "category": "平韵格"
+  },
+  {
+    "id": 4,
+    "name": "忆江南",
+    "category": "平韵格"
+  },
+  {
+    "id": 5,
+    "name": "潇湘神",
+    "category": "平韵格"
+  },
+  {
+    "id": 6,
+    "name": "捣练子",
+    "category": "平韵格"
+  },
+  {
+    "id": 7,
+    "name": "浪淘沙",
+    "category": "平韵格"
+  },
+  {
+    "id": 8,
+    "name": "江南春",
+    "category": "平韵格"
+  },
+  {
+    "id": 9,
+    "name": "忆王孙",
+    "category": "平韵格"
+  },
+  {
+    "id": 10,
+    "name": "江城子",
+    "category": "平韵格"
+  },
+  {
+    "id": 11,
+    "name": "长相思",
+    "category": "平韵格"
+  },
+  {
+    "id": 12,
+    "name": "醉太平",
+    "category": "平韵格"
+  },
+  {
+    "id": 13,
+    "name": "玉蝴蝶",
+    "category": "平韵格"
+  },
+  {
+    "id": 14,
+    "name": "浣溪沙",
+    "category": "平韵格"
+  },
+  {
+    "id": 15,
+    "name": "巫山一段云",
+    "category": "平韵格"
+  },
+  {
+    "id": 16,
+    "name": "采桑子",
+    "category": "平韵格"
+  },
+  {
+    "id": 17,
+    "name": "诉衷情",
+    "category": "平韵格"
+  },
+  {
+    "id": 18,
+    "name": "画堂春",
+    "category": "平韵格"
+  },
+  {
+    "id": 19,
+    "name": "阮郎归",
+    "category": "平韵格"
+  },
+  {
+    "id": 20,
+    "name": "三字令",
+    "category": "平韵格"
+  },
+  {
+    "id": 21,
+    "name": "朝中措",
+    "category": "平韵格"
+  },
+  {
+    "id": 22,
+    "name": "眼儿媚",
+    "category": "平韵格"
+  },
+  {
+    "id": 23,
+    "name": "人月圆",
+    "category": "平韵格"
+  },
+  {
+    "id": 24,
+    "name": "柳梢青",
+    "category": "平韵格"
+  },
+  {
+    "id": 25,
+    "name": "太常引",
+    "category": "平韵格"
+  },
+  {
+    "id": 26,
+    "name": "少年游",
+    "category": "平韵格"
+  },
+  {
+    "id": 27,
+    "name": "临江仙",
+    "category": "平韵格"
+  },
+  {
+    "id": 28,
+    "name": "鹧鸪天",
+    "category": "平韵格"
+  },
+  {
+    "id": 29,
+    "name": "小重山",
+    "category": "平韵格"
+  },
+  {
+    "id": 30,
+    "name": "一剪梅",
+    "category": "平韵格"
+  },
+  {
+    "id": 31,
+    "name": "唐多令",
+    "category": "平韵格"
+  },
+  {
+    "id": 32,
+    "name": "破阵子",
+    "category": "平韵格"
+  },
+  {
+    "id": 33,
+    "name": "喝火令",
+    "category": "平韵格"
+  },
+  {
+    "id": 34,
+    "name": "行香子",
+    "category": "平韵格"
+  },
+  {
+    "id": 35,
+    "name": "风入松",
+    "category": "平韵格"
+  },
+  {
+    "id": 36,
+    "name": "金人捧露盘",
+    "category": "平韵格"
+  },
+  {
+    "id": 37,
+    "name": "八六子",
+    "category": "平韵格"
+  },
+  {
+    "id": 38,
+    "name": "雪梅香",
+    "category": "平韵格"
+  },
+  {
+    "id": 39,
+    "name": "满庭芳",
+    "category": "平韵格"
+  },
+  {
+    "id": 40,
+    "name": "水调歌头",
+    "category": "平韵格"
+  },
+  {
+    "id": 41,
+    "name": "凤凰台上忆吹箫",
+    "category": "平韵格"
+  },
+  {
+    "id": 42,
+    "name": "汉宫春",
+    "category": "平韵格"
+  },
+  {
+    "id": 43,
+    "name": "八声甘州",
+    "category": "平韵格"
+  },
+  {
+    "id": 44,
+    "name": "扬州慢",
+    "category": "平韵格"
+  },
+  {
+    "id": 45,
+    "name": "高阳台",
+    "category": "平韵格"
+  },
+  {
+    "id": 46,
+    "name": "锦堂春慢",
+    "category": "平韵格"
+  },
+  {
+    "id": 47,
+    "name": "寿楼春",
+    "category": "平韵格"
+  },
+  {
+    "id": 48,
+    "name": "忆旧游",
+    "category": "平韵格"
+  },
+  {
+    "id": 49,
+    "name": "夜飞鹊",
+    "category": "平韵格"
+  },
+  {
+    "id": 50,
+    "name": "望海潮",
+    "category": "平韵格"
+  },
+  {
+    "id": 51,
+    "name": "沁园春",
+    "category": "平韵格"
+  },
+  {
+    "id": 52,
+    "name": "多丽",
+    "category": "平韵格"
+  },
+  {
+    "id": 53,
+    "name": "六州歌头",
+    "category": "平韵格"
+  },
+  {
+    "id": 54,
+    "name": "如梦令",
+    "category": "仄韵格"
+  },
+  {
+    "id": 55,
+    "name": "归自谣",
+    "category": "仄韵格"
+  },
+  {
+    "id": 56,
+    "name": "天仙子",
+    "category": "仄韵格"
+  },
+  {
+    "id": 57,
+    "name": "生查子",
+    "category": "仄韵格"
+  },
+  {
+    "id": 58,
+    "name": "醉花间",
+    "category": "仄韵格"
+  },
+  {
+    "id": 59,
+    "name": "点绛唇",
+    "category": "仄韵格"
+  },
+  {
+    "id": 60,
+    "name": "霜天晓角",
+    "category": "仄韵格"
+  },
+  {
+    "id": 61,
+    "name": "伤春怨",
+    "category": "仄韵格"
+  },
+  {
+    "id": 62,
+    "name": "卜算子",
+    "category": "仄韵格"
+  },
+  {
+    "id": 63,
+    "name": "谒金门",
+    "category": "仄韵格"
+  },
+  {
+    "id": 64,
+    "name": "好事近",
+    "category": "仄韵格"
+  },
+  {
+    "id": 65,
+    "name": "忆少年",
+    "category": "仄韵格"
+  },
+  {
+    "id": 66,
+    "name": "忆秦娥",
+    "category": "仄韵格"
+  },
+  {
+    "id": 67,
+    "name": "烛影摇红",
+    "category": "仄韵格"
+  },
+  {
+    "id": 68,
+    "name": "醉花阴",
+    "category": "仄韵格"
+  },
+  {
+    "id": 69,
+    "name": "望江东",
+    "category": "仄韵格"
+  },
+  {
+    "id": 70,
+    "name": "木兰花",
+    "category": "仄韵格"
+  },
+  {
+    "id": 71,
+    "name": "鹊桥仙",
+    "category": "仄韵格"
+  },
+  {
+    "id": 72,
+    "name": "夜游宫",
+    "category": "仄韵格"
+  },
+  {
+    "id": 73,
+    "name": "踏莎行",
+    "category": "仄韵格"
+  },
+  {
+    "id": 74,
+    "name": "钗头凤",
+    "category": "仄韵格"
+  },
+  {
+    "id": 75,
+    "name": "蝶恋花",
+    "category": "仄韵格"
+  },
+  {
+    "id": 76,
+    "name": "渔家傲",
+    "category": "仄韵格"
+  },
+  {
+    "id": 77,
+    "name": "苏幕遮",
+    "category": "仄韵格"
+  },
+  {
+    "id": 78,
+    "name": "淡黄柳",
+    "category": "仄韵格"
+  },
+  {
+    "id": 79,
+    "name": "锦缠道",
+    "category": "仄韵格"
+  },
+  {
+    "id": 80,
+    "name": "酷相思",
+    "category": "仄韵格"
+  },
+  {
+    "id": 81,
+    "name": "解佩令",
+    "category": "仄韵格"
+  },
+  {
+    "id": 82,
+    "name": "青玉案",
+    "category": "仄韵格"
+  },
+  {
+    "id": 83,
+    "name": "千秋岁",
+    "category": "仄韵格"
+  },
+  {
+    "id": 84,
+    "name": "离亭燕",
+    "category": "仄韵格"
+  },
+  {
+    "id": 85,
+    "name": "粉蝶儿",
+    "category": "仄韵格"
+  },
+  {
+    "id": 86,
+    "name": "御街行",
+    "category": "仄韵格"
+  },
+  {
+    "id": 87,
+    "name": "祝英台近",
+    "category": "仄韵格"
+  },
+  {
+    "id": 88,
+    "name": "蓦山溪",
+    "category": "仄韵格"
+  },
+  {
+    "id": 89,
+    "name": "洞仙歌",
+    "category": "仄韵格"
+  },
+  {
+    "id": 90,
+    "name": "惜红衣",
+    "category": "仄韵格"
+  },
+  {
+    "id": 91,
+    "name": "法曲献仙音",
+    "category": "仄韵格"
+  },
+  {
+    "id": 92,
+    "name": "满江红",
+    "category": "仄韵格"
+  },
+  {
+    "id": 93,
+    "name": "天香",
+    "category": "仄韵格"
+  },
+  {
+    "id": 94,
+    "name": "声声慢",
+    "category": "仄韵格"
+  },
+  {
+    "id": 95,
+    "name": "黄莺儿",
+    "category": "仄韵格"
+  },
+  {
+    "id": 96,
+    "name": "剑器近",
+    "category": "仄韵格"
+  },
+  {
+    "id": 97,
+    "name": "醉蓬莱",
+    "category": "仄韵格"
+  },
+  {
+    "id": 98,
+    "name": "暗香",
+    "category": "仄韵格"
+  },
+  {
+    "id": 99,
+    "name": "长亭怨慢",
+    "category": "仄韵格"
+  },
+  {
+    "id": 100,
+    "name": "双双燕",
+    "category": "仄韵格"
+  },
+  {
+    "id": 101,
+    "name": "宴山亭",
+    "category": "仄韵格"
+  },
+  {
+    "id": 102,
+    "name": "念奴娇",
+    "category": "仄韵格"
+  },
+  {
+    "id": 103,
+    "name": "绕佛阁",
+    "category": "仄韵格"
+  },
+  {
+    "id": 104,
+    "name": "绛都春",
+    "category": "仄韵格"
+  },
+  {
+    "id": 105,
+    "name": "桂枝香",
+    "category": "仄韵格"
+  },
+  {
+    "id": 106,
+    "name": "翠楼吟",
+    "category": "仄韵格"
+  },
+  {
+    "id": 107,
+    "name": "霓裳中序第一",
+    "category": "仄韵格"
+  },
+  {
+    "id": 108,
+    "name": "水龙吟",
+    "category": "仄韵格"
+  },
+  {
+    "id": 109,
+    "name": "石州慢",
+    "category": "仄韵格"
+  },
+  {
+    "id": 110,
+    "name": "瑞鹤仙",
+    "category": "仄韵格"
+  },
+  {
+    "id": 111,
+    "name": "宴清都",
+    "category": "仄韵格"
+  },
+  {
+    "id": 112,
+    "name": "齐天乐",
+    "category": "仄韵格"
+  },
+  {
+    "id": 113,
+    "name": "雨霖铃",
+    "category": "仄韵格"
+  },
+  {
+    "id": 114,
+    "name": "眉妩",
+    "category": "仄韵格"
+  },
+  {
+    "id": 115,
+    "name": "永遇乐",
+    "category": "仄韵格"
+  },
+  {
+    "id": 116,
+    "name": "二郎神",
+    "category": "仄韵格"
+  },
+  {
+    "id": 117,
+    "name": "拜星月慢",
+    "category": "仄韵格"
+  },
+  {
+    "id": 118,
+    "name": "西河",
+    "category": "仄韵格"
+  },
+  {
+    "id": 119,
+    "name": "西吴曲",
+    "category": "仄韵格"
+  },
+  {
+    "id": 120,
+    "name": "望远行",
+    "category": "仄韵格"
+  },
+  {
+    "id": 121,
+    "name": "疏影",
+    "category": "仄韵格"
+  },
+  {
+    "id": 122,
+    "name": "摸鱼儿",
+    "category": "仄韵格"
+  },
+  {
+    "id": 123,
+    "name": "贺新郎",
+    "category": "仄韵格"
+  },
+  {
+    "id": 124,
+    "name": "兰陵王",
+    "category": "仄韵格"
+  },
+  {
+    "id": 125,
+    "name": "六丑",
+    "category": "仄韵格"
+  },
+  {
+    "id": 126,
+    "name": "夜半乐",
+    "category": "仄韵格"
+  },
+  {
+    "id": 127,
+    "name": "宝鼎现",
+    "category": "仄韵格"
+  },
+  {
+    "id": 128,
+    "name": "莺啼序",
+    "category": "仄韵格"
+  },
+  {
+    "id": 129,
+    "name": "南乡子",
+    "category": "平仄韵转换格"
+  },
+  {
+    "id": 130,
+    "name": "蕃女怨",
+    "category": "平仄韵转换格"
+  },
+  {
+    "id": 131,
+    "name": "调笑令",
+    "category": "平仄韵转换格"
+  },
+  {
+    "id": 132,
+    "name": "昭君怨",
+    "category": "平仄韵转换格"
+  },
+  {
+    "id": 133,
+    "name": "菩萨蛮",
+    "category": "平仄韵转换格"
+  },
+  {
+    "id": 134,
+    "name": "更漏子",
+    "category": "平仄韵转换格"
+  },
+  {
+    "id": 135,
+    "name": "喜迁莺",
+    "category": "平仄韵转换格"
+  },
+  {
+    "id": 136,
+    "name": "清平乐",
+    "category": "平仄韵转换格"
+  },
+  {
+    "id": 137,
+    "name": "忆馀杭",
+    "category": "平仄韵转换格"
+  },
+  {
+    "id": 138,
+    "name": "河渎神",
+    "category": "平仄韵转换格"
+  },
+  {
+    "id": 139,
+    "name": "河传",
+    "category": "平仄韵转换格"
+  },
+  {
+    "id": 140,
+    "name": "虞美人",
+    "category": "平仄韵转换格"
+  },
+  {
+    "id": 141,
+    "name": "西江月",
+    "category": "平仄韵通叶格"
+  },
+  {
+    "id": 142,
+    "name": "醉翁操",
+    "category": "平仄韵通叶格"
+  },
+  {
+    "id": 143,
+    "name": "渡江云",
+    "category": "平仄韵通叶格"
+  },
+  {
+    "id": 144,
+    "name": "曲玉管",
+    "category": "平仄韵通叶格"
+  },
+  {
+    "id": 145,
+    "name": "哨遍",
+    "category": "平仄韵通叶格"
+  },
+  {
+    "id": 146,
+    "name": "戚氏",
+    "category": "平仄韵通叶格"
+  },
+  {
+    "id": 147,
+    "name": "荷叶杯",
+    "category": "平仄韵错叶格"
+  },
+  {
+    "id": 148,
+    "name": "定西番",
+    "category": "平仄韵错叶格"
+  },
+  {
+    "id": 149,
+    "name": "相见欢",
+    "category": "平仄韵错叶格"
+  },
+  {
+    "id": 150,
+    "name": "上行杯",
+    "category": "平仄韵错叶格"
+  },
+  {
+    "id": 151,
+    "name": "酒泉子",
+    "category": "平仄韵错叶格"
+  },
+  {
+    "id": 152,
+    "name": "定风波",
+    "category": "平仄韵错叶格"
+  },
+  {
+    "id": 153,
+    "name": "最高楼",
+    "category": "平仄韵错叶格"
+  }
+]
