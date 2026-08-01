@@ -1,8 +1,15 @@
 /**
- * 词牌批量导入脚本
- * 解析 Ci_Tunes.json → 转为 cipai schema → 调用 API 录入
+ * ⚠️ 已废止 — 词牌数据源已切换
  *
- * 用法：
+ * 本脚本解析 chinese_word_rhyme-main/data/Ci_Tunes.json（搜韵爬取）导入词牌，
+ * 该数据源错漏较多，已由龙榆生《唐宋词格律》爬虫替代。
+ *
+ * 新流程（2026-08-01 起）：
+ *   longyusheng_crawler/（抓取 → 解析 → 导出 → 直写导入）
+ *   python longyusheng_crawler/direct-import.py [--dry]
+ *
+ * 本文件保留仅供数据对比参考，不再作为导入工具使用。
+ * 若确需再次导入 Ci_Tunes.json，可恢复后按原用法执行：
  *   先确保 server 在运行（pm2 start 或 node app.js）
  *   然后：node scripts/import-cipai.js [--dry]
  *

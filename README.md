@@ -37,7 +37,7 @@
 | 鉴权 | JWT (jsonwebtoken) |
 | 样式 | 原生 CSS，"山影"古典风格 |
 | 韵书数据 | 平水韵 105 部、词林正韵 19 部、中华新韵 14 部 |
-| 词牌数据 | 钦定词谱 818 个词牌，逐字平仄 + 韵脚标注 |
+| 词牌数据 | 龙榆生《唐宋词格律》153 个词牌（含多格式变体），逐字平仄 + 韵脚标注；叠加存量词牌共 825 个 |
 | 部署 | 阿里云 ECS + 宝塔面板 + Nginx + PM2 + Let's Encrypt |
 
 ### 项目结构
@@ -70,7 +70,8 @@ poetry_tool/
 ├── docs/              # 技术文档
 ├── prototype/         # 早期原型（Python）
 ├── dev.bat / dev.sh   # 本地一键启动脚本
-└── chinese_word_rhyme-main/  # 上游开源数据仓库（gitignore）
+├── longyusheng_crawler/  # 龙榆生《唐宋词格律》爬虫（词牌数据源，含 output 结果）
+└── chinese_word_rhyme-main/  # 上游开源数据仓库（gitignore；词牌部分已废止，韵书/平仄字典仍为前端数据源）
 ```
 
 ### 数据流向
@@ -323,22 +324,27 @@ scp -r tool/dist/* root@<ECS_IP>:/www/wwwroot/poetry/tool/dist/
 ### 新增/修改词牌
 
 1. 打开 `https://admin.poetry.yukinova.top/`，登录后在可视化编辑器中录入或修改
-2. 或者直接编辑 `chinese_word_rhyme-main/data/Ci_Tunes.json`，重新运行：
+2. 或者从权威词谱数据源导入（当前使用龙榆生《唐宋词格律》爬虫）：
 
 ```bash
-API_PASS=<密码> node scripts/import-cipai.js
+# 本地：抓取 → 解析 → 导出 → 直写导入（自动备份 db）
+cd longyusheng_crawler
+python fetch.py          # 抓取 153 个词牌页（首次）
+python parse.py          # 解析 → output/longyusheng_cipai.json
+python export.py         # 生成 cipaiSchema 兼容 JSON（含多格式变体）
+python direct-import.py --dry   # 先试运行查看变更
+python direct-import.py         # 正式导入（自动备份 cipai.db）
 ```
 
 ### 更新词牌数据
 
 ```bash
-# 清空已有词牌
-rm /www/wwwroot/poetry/server/data/cipai.db
-pm2 restart poetry-server
-
-# 重新导入
-API_PASS=<密码> node scripts/import-cipai.js
+# 重新抓取/解析后导入即可（direct-import.py 为幂等 upsert：同名覆盖、缺失新增）
+cd longyusheng_crawler && python fetch.py && python parse.py && python export.py
+python direct-import.py --dry && python direct-import.py
 ```
+
+> 注：旧导入脚本 `scripts/import-cipai.js`（解析 `chinese_word_rhyme-main/data/Ci_Tunes.json`，搜韵数据源）已废止，仅保留作数据对比参考。
 
 ### 数据库备份
 
@@ -426,6 +432,7 @@ ssh root@<ECS_IP> "cd /www/wwwroot/poetry/server && npm install --production && 
 
 ## 致谢
 
-本项目使用的平仄字典、平水韵、词林正韵、中华新韵及词牌格律数据均来源于 GitHub 开源项目 **[chinese_word_rhyme](https://github.com/charlesix59/chinese_word_rhyme.git)**。
+- **词牌格律数据**：来源于龙榆生先生《唐宋词格律》（上海古籍出版社 1978 年版）电子版，在线版本见 [longyusheng.org](http://www.longyusheng.org/cipai/)，由本项目爬虫程序抓取整理（`longyusheng_crawler/`）
+- **平仄字典与韵书数据**：来源于 GitHub 开源项目 **[chinese_word_rhyme](https://github.com/charlesix59/chinese_word_rhyme.git)**（平仄字典、平水韵、词林正韵、中华新韵；其词牌部分已废止，仅保留字典与韵书）
 
 感谢主要贡献者 [charlesix59](https://github.com/charlesix59) 及其他社区维护者的辛勤整理。
