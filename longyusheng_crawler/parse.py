@@ -219,6 +219,18 @@ def tokenize_line(div):
             elif inner == "中":
                 tokens.append({"t": "char", "tone": "可平可仄"})
             # 其他内容（罕见）忽略
+        elif "zeng" in cls_set:
+            # 增韵标记（格律谱中紧跟 yun0，如《水龙吟》「中仄中平中仄（增韵）」）：
+            # 内容为 平/仄 表示增韵韵脚字位，须解析；例词(ces)中的 zeng 是
+            # 例词加粗字（里/九/斗…），在 parse_examples 清洗时已被剥离，不影响此处。
+            inner = node.get_text(strip=True)
+            if inner == "平":
+                tokens.append({"t": "char", "tone": "平"})
+            elif inner == "仄":
+                tokens.append({"t": "char", "tone": "仄"})
+            elif inner == "中":
+                tokens.append({"t": "char", "tone": "可平可仄"})
+            # 其他内容（罕见）忽略
         elif any(YUN_CLASS_RE.match(c) for c in cls):
             tokens.append({"t": "rhyme"})
         # note（〖〗叠句）、mark/duiou 等其他装饰 → 忽略
