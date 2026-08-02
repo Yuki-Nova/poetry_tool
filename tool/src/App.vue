@@ -49,6 +49,7 @@
           :errors="errors"
           :multi-tone-list="multiToneList"
           :rhyme-book="effectiveRhymeBook"
+          :rhyme-result="rhymeResult"
           :analyzing="analyzing"
           @char-click="onCharClick"
           @candidate-select="onCandidateSelect"

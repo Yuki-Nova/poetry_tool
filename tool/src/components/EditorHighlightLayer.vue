@@ -16,14 +16,27 @@
 </template>
 
 <script setup>
+import { computed } from 'vue'
+
 const props = defineProps({
   lines: { type: Array, default: () => [''] },
   matchResults: { type: Array, default: () => [] },
   activeLine: { type: Number, default: 0 },
-  activeCol: { type: Number, default: 0 }
+  activeCol: { type: Number, default: 0 },
+  // 押韵错误（出韵/未收录）：{line, col, char}[]，用于红色标记韵脚
+  rhymeErrors: { type: Array, default: () => [] }
 })
 
 const emit = defineEmits(['char-hover', 'char-click'])
+
+// 出韵/未收录韵脚行号 → 字符列 索引（便于 O(1) 判断）
+const rhymeErrorSet = computed(() => {
+  const set = new Set()
+  for (const e of props.rhymeErrors || []) {
+    if (e.line !== undefined && e.col !== undefined) set.add(`${e.line}:${e.col}`)
+  }
+  return set
+})
 
 function getResult(li, ci) {
   if (!props.matchResults[li]) return null
@@ -35,13 +48,20 @@ function charClass(li, ci) {
   if (!r) return ''
   const cls = []
 
+  // 出韵/未收录的韵脚：红色标记（最高优先，覆盖韵脚淡黄底）
+  if (r.isRhyme && rhymeErrorSet.value.has(`${li}:${ci}`)) {
+    cls.push('t-rhyme-out')
+    if (li === props.activeLine && ci === props.activeCol) cls.push('cursor')
+    return cls
+  }
+
   switch (r.status) {
     case 'ok':
-      cls.push(r.actual === '平' ? 't-ping' : 't-ze')
-      break
     case 'ok-rhyme':
-      // 韵脚正确：底色按实际声调（平韵/仄韵均可成立）
-      cls.push(r.actual === '平' ? 't-ping' : 't-ze', 't-rhyme')
+      // 韵脚（isRhyme）一律淡黄高亮；诗体 pattern 韵脚位是平/仄（status=ok），
+      // 词牌是「韵脚」（status=ok-rhyme），两者统一以 isRhyme 判定
+      cls.push(r.actual === '平' ? 't-ping' : 't-ze')
+      if (r.isRhyme) cls.push('t-rhyme')
       break
     case 'rhyme-warn':
       cls.push('t-rhyme-err')
@@ -127,16 +147,30 @@ function onCharClick(li, ci, ch) {
   color: var(--ze-text);
 }
 
-/* ── 韵脚正确（蓝底金框）── */
+/* ── 韵脚正确（淡黄高亮 + 金字）── */
 .t-rhyme {
-  box-shadow: 0 0 0 2px var(--rhyme-border);
+  background: #fdf6e3;
+  box-shadow: 0 0 0 1px var(--rhyme-border);
+  border-radius: 2px;
+  font-weight: 600;
 }
 
-/* ── 韵脚错误 ── */
+/* ── 韵脚声调不符（rhyme-warn：浅黄底 + 金框警告）── */
 .t-rhyme-err {
   color: var(--ink);
   background: #fef8ee;
   box-shadow: 0 0 0 2px var(--warning);
+}
+
+/* ── 出韵/未收录韵脚（红色标记，最高优先）── */
+.t-rhyme-out {
+  color: var(--error-text);
+  background: var(--error-bg);
+  box-shadow: 0 0 0 2px var(--error-text);
+  border-radius: 2px;
+  font-weight: 700;
+  text-decoration: underline wavy var(--error-underline);
+  text-underline-offset: 3px;
 }
 
 /* ── 出律（红色波浪线）── */

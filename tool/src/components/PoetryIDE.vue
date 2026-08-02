@@ -19,6 +19,7 @@
         <EditorHighlightLayer
           :lines="displayLines"
           :match-results="matchResults"
+          :rhyme-errors="rhymeErrorList"
           :active-line="activeLine"
           :active-col="activeCol"
           @char-hover="onCharHover"
@@ -62,7 +63,9 @@ const props = defineProps({
   multiToneList: { type: Array, default: () => [] },
   rhymeBook: { type: String, default: 'xinyun' },
   analyzing: { type: Boolean, default: false },
-  disabled: { type: Boolean, default: false }
+  disabled: { type: Boolean, default: false },
+  // 押韵校验结果（含出韵/未收录错误列表）
+  rhymeResult: { type: Object, default: null }
 })
 
 const emit = defineEmits(['update:modelValue', 'char-click', 'cursor-move', 'candidate-select'])
@@ -78,6 +81,27 @@ const hoveredCandidates = ref(null)
 const displayLines = computed(() => {
   const text = props.modelValue || ''
   return text === '' ? [''] : text.split('\n')
+})
+
+// 押韵错误 → 高亮层可定位的 {line, col, char}
+// checkRhyme.errors 携带 line + char；列号由 matchResults 中该行「韵脚字」位置确定
+// （最后一个有效字符；跳过行尾标点，与 extractRhymeChars 逻辑一致）
+const rhymeErrorList = computed(() => {
+  const errs = props.rhymeResult?.errors || []
+  if (!errs.length) return []
+  return errs.map(e => {
+    const lineRes = props.matchResults?.[e.line] || []
+    let col = -1
+    for (let j = lineRes.length - 1; j >= 0; j--) {
+      const item = lineRes[j]
+      if (item && item.tone !== 'skip' && item.tone !== 'punct') {
+        // 仅当该位置确实是韵脚（isRhyme）或与错误字一致时定位
+        if (item.isRhyme || item.char === e.char) { col = j }
+        break
+      }
+    }
+    return { line: e.line, col, char: e.char }
+  })
 })
 
 const placeholderText = computed(() => {
