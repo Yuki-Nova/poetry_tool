@@ -5,6 +5,7 @@
 import { describe, it, expect } from 'vitest'
 import {
   getRhymeGroup,
+  getRhymeGroups,
   checkRhyme,
   extractRhymeChars,
   defaultRhymeBook
@@ -153,6 +154,42 @@ describe('checkRhyme 转韵支持（词牌逐组换韵）', () => {
     const result = checkRhyme([foot('家', 0, null), foot('花', 1, null)], 'xinyun')
     expect(result.valid).toBe(true)
     expect(result.group).toBe('一麻')
+  })
+})
+
+describe('checkRhyme 多音字跨部（多数派基准）', () => {
+  const foot = (char, line, rhymeType) => ({ char, line, rhymeType })
+
+  it('李清照《声声慢》：识/积 多音字（第三部+第十七部）判合法', () => {
+    // 觅 戚 息 急 识 积 摘 黑 滴 得 —— 均为入声，词林正韵第十七部
+    // 「识」「积」同时收录于第三部（去声读法）与第十七部（入声读法）
+    const result = checkRhyme([
+      foot('觅', 0, '仄韵'), foot('戚', 1, '仄韵'), foot('息', 2, '仄韵'),
+      foot('急', 3, '仄韵'), foot('识', 4, '仄韵'), foot('积', 5, '仄韵'),
+      foot('摘', 6, '仄韵'), foot('黑', 7, '仄韵'), foot('滴', 8, '仄韵'),
+      foot('得', 9, '仄韵')
+    ], 'cilin')
+    // 段内多数派：8 个字纯第十七部 → 基准第十七部；识/积 含第十七部 → 合法
+    expect(result.valid).toBe(true)
+    expect(result.group).toBe('第十七部')
+    expect(result.errors).toEqual([])
+  })
+
+  it('多音字不掩盖真实出韵（基准仍按多数派）', () => {
+    // 花 仅属第十部；与识(多部)、家(第十部) 同段 → 基准第十部，花 合法，但 识 不含第十部则出韵
+    // 此处构造：家(第十部) 花(第十部) 识(第三/十七部) → 基准第十部，识 不含 → 出韵
+    const result = checkRhyme([
+      foot('家', 0, null), foot('花', 1, null), foot('识', 2, null)
+    ], 'cilin')
+    expect(result.valid).toBe(false)
+    expect(result.errors.length).toBe(1)
+    expect(result.errors[0]).toMatchObject({ char: '识', line: 2 })
+  })
+
+  it('getRhymeGroups 返回多音字全部韵部', () => {
+    expect(getRhymeGroups('识', 'cilin')).toEqual(expect.arrayContaining(['第三部', '第十七部']))
+    expect(getRhymeGroups('花', 'cilin')).toEqual(['第十部'])
+    expect(getRhymeGroups('龘', 'cilin')).toEqual([])
   })
 })
 

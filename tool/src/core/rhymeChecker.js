@@ -30,7 +30,7 @@ const RHYME_BOOK_LABELS = {
 }
 
 /**
- * 查找某字在指定韵书中所属韵部
+ * 查找某字在指定韵书中所属韵部（首个匹配）
  * @param {string} char
  * @param {string} rhymeBook - "xinyun" | "pingshui" | "cilin"
  * @returns {string|null}
@@ -49,6 +49,34 @@ export function getRhymeGroup(char, rhymeBook = 'xinyun') {
     }
   }
   return null
+}
+
+/**
+ * 查找某字在指定韵书中的**全部**所属韵部（支持多音字跨部）
+ *
+ * 韵书（尤其词林正韵）常因多音字把同一字收入多个韵部，如：
+ *   「识」 读 shí（入声职韵）→ 第十七部；读 zhì（去声志韵）→ 第三部
+ *   「积」 读 jī（入声昔韵）→ 第十七部；读 jì（去声寘韵）→ 第三部
+ * 押韵校验时须展开全部韵部，由段内多数派决定基准，避免误报出韵。
+ *
+ * @param {string} char
+ * @param {string} rhymeBook
+ * @returns {string[]} 全部匹配韵部（可能为空数组）
+ */
+export function getRhymeGroups(char, rhymeBook = 'xinyun') {
+  // custom 覆写：单值视为唯一韵部
+  if (custom.rhymes[rhymeBook] && custom.rhymes[rhymeBook][char]) {
+    return [custom.rhymes[rhymeBook][char]]
+  }
+  const book = RHYME_BOOKS[rhymeBook]
+  if (!book) return []
+  const groups = []
+  for (const group of book.groups) {
+    if (group.chars.includes(char)) {
+      groups.push(group.name)
+    }
+  }
+  return groups
 }
 
 /**
@@ -93,7 +121,7 @@ export function checkRhyme(rhymeChars, rhymeBook = 'xinyun') {
     cur.items.push({
       char: c.char,
       line: c.line,
-      group: getRhymeGroup(c.char, rhymeBook)
+      groups: getRhymeGroups(c.char, rhymeBook)
     })
   }
 
@@ -103,8 +131,8 @@ export function checkRhyme(rhymeChars, rhymeBook = 'xinyun') {
   let unknownTotal = 0
 
   for (const seg of segments) {
-    const known = seg.items.filter(c => c.group !== null)
-    const unknown = seg.items.filter(c => c.group === null)
+    const known = seg.items.filter(c => c.groups.length > 0)
+    const unknown = seg.items.filter(c => c.groups.length === 0)
     unknownTotal += unknown.length
 
     // 该段韵脚全部未收录：整段报错
@@ -113,18 +141,35 @@ export function checkRhyme(rhymeChars, rhymeBook = 'xinyun') {
       continue
     }
 
-    const baseGroup = known[0].group
+    // 段内基准 = 多数派韵部（多音字跨部时取出现次数最多的部）
+    const votes = new Map()
+    for (const item of known) {
+      for (const g of item.groups) {
+        votes.set(g, (votes.get(g) || 0) + 1)
+      }
+    }
+    let baseGroup = null
+    let maxVotes = -1
+    for (const [g, n] of votes) {
+      if (n > maxVotes) { maxVotes = n; baseGroup = g }
+    }
     if (!firstKnownGroup) firstKnownGroup = baseGroup
 
     seg.items.forEach((cg, i) => {
-      if (cg.group !== null && cg.group !== baseGroup) {
-        errors.push({ char: cg.char, group: cg.group, index: i, line: cg.line })
+      // 出韵：该字所有韵部都不含段基准
+      if (cg.groups.length > 0 && !cg.groups.includes(baseGroup)) {
+        errors.push({ char: cg.char, group: cg.groups[0], index: i, line: cg.line })
       }
-      if (cg.group === null) {
+      // 未收录
+      if (cg.groups.length === 0) {
         errors.push({ char: cg.char, group: null, index: i, line: cg.line })
       }
     })
-    if (!known.every(k => k.group === baseGroup)) allSame = false
+    // allSame：非多音字韵脚是否全同部（多音字含基准即视为同部）
+    const nonAmbiguous = seg.items.filter(c => c.groups.length === 1)
+    if (nonAmbiguous.length > 0 && !nonAmbiguous.every(k => k.groups[0] === baseGroup)) {
+      allSame = false
+    }
   }
 
   return {
