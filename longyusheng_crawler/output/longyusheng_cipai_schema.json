@@ -32469,7 +32469,7 @@
     "alias": [
       "折红英"
     ],
-    "charCount": 48,
+    "charCount": 60,
     "sentences": [
       {
         "index": 0,
@@ -32510,23 +32510,25 @@
       },
       {
         "index": 3,
-        "length": 2,
+        "length": 3,
         "pattern": [
           "平",
-          "平"
+          "平",
+          "仄"
         ],
         "isRhyme": true,
-        "rhymeType": "平韵"
+        "rhymeType": "仄韵"
       },
       {
         "index": 4,
-        "length": 2,
+        "length": 3,
         "pattern": [
           "平",
-          "平"
+          "平",
+          "仄"
         ],
         "isRhyme": true,
-        "rhymeType": "平韵"
+        "rhymeType": "仄韵"
       },
       {
         "index": 5,
@@ -32542,21 +32544,20 @@
       },
       {
         "index": 6,
-        "length": 3,
+        "length": 4,
         "pattern": [
           "仄",
           "平",
-          "平"
+          "平",
+          "仄"
         ],
         "isRhyme": true,
-        "rhymeType": "平韵"
+        "rhymeType": "仄韵"
       },
       {
         "index": 7,
-        "length": 3,
+        "length": 1,
         "pattern": [
-          "平",
-          "平",
           "仄"
         ],
         "isRhyme": true,
@@ -32564,6 +32565,24 @@
       },
       {
         "index": 8,
+        "length": 1,
+        "pattern": [
+          "仄"
+        ],
+        "isRhyme": true,
+        "rhymeType": "仄韵"
+      },
+      {
+        "index": 9,
+        "length": 1,
+        "pattern": [
+          "仄"
+        ],
+        "isRhyme": true,
+        "rhymeType": "仄韵"
+      },
+      {
+        "index": 10,
         "length": 3,
         "pattern": [
           "平",
@@ -32574,7 +32593,18 @@
         "rhymeType": "仄韵"
       },
       {
-        "index": 9,
+        "index": 11,
+        "length": 3,
+        "pattern": [
+          "平",
+          "平",
+          "仄"
+        ],
+        "isRhyme": true,
+        "rhymeType": "仄韵"
+      },
+      {
+        "index": 12,
         "length": 7,
         "pattern": [
           "仄",
@@ -32589,27 +32619,29 @@
         "rhymeType": "仄韵"
       },
       {
-        "index": 10,
-        "length": 2,
+        "index": 13,
+        "length": 3,
         "pattern": [
           "平",
-          "平"
+          "平",
+          "仄"
         ],
         "isRhyme": true,
-        "rhymeType": "平韵"
+        "rhymeType": "仄韵"
       },
       {
-        "index": 11,
-        "length": 2,
+        "index": 14,
+        "length": 3,
         "pattern": [
           "平",
-          "平"
+          "平",
+          "仄"
         ],
         "isRhyme": true,
-        "rhymeType": "平韵"
+        "rhymeType": "仄韵"
       },
       {
-        "index": 12,
+        "index": 15,
         "length": 4,
         "pattern": [
           "可平可仄",
@@ -32621,15 +32653,43 @@
         "rhymeType": null
       },
       {
-        "index": 13,
-        "length": 3,
+        "index": 16,
+        "length": 4,
         "pattern": [
           "仄",
           "平",
-          "平"
+          "平",
+          "仄"
         ],
         "isRhyme": true,
-        "rhymeType": "平韵"
+        "rhymeType": "仄韵"
+      },
+      {
+        "index": 17,
+        "length": 1,
+        "pattern": [
+          "仄"
+        ],
+        "isRhyme": true,
+        "rhymeType": "仄韵"
+      },
+      {
+        "index": 18,
+        "length": 1,
+        "pattern": [
+          "仄"
+        ],
+        "isRhyme": true,
+        "rhymeType": "仄韵"
+      },
+      {
+        "index": 19,
+        "length": 1,
+        "pattern": [
+          "仄"
+        ],
+        "isRhyme": true,
+        "rhymeType": "仄韵"
       }
     ],
     "formats": [
@@ -32676,23 +32736,25 @@
           },
           {
             "index": 3,
-            "length": 2,
+            "length": 3,
             "pattern": [
               "平",
-              "平"
+              "平",
+              "仄"
             ],
             "isRhyme": true,
-            "rhymeType": "平韵"
+            "rhymeType": "仄韵"
           },
           {
             "index": 4,
-            "length": 2,
+            "length": 3,
             "pattern": [
               "平",
-              "平"
+              "平",
+              "仄"
             ],
             "isRhyme": true,
-            "rhymeType": "平韵"
+            "rhymeType": "仄韵"
           },
           {
             "index": 5,
@@ -32708,21 +32770,20 @@
           },
           {
             "index": 6,
-            "length": 3,
+            "length": 4,
             "pattern": [
               "仄",
               "平",
-              "平"
+              "平",
+              "仄"
             ],
             "isRhyme": true,
-            "rhymeType": "平韵"
+            "rhymeType": "仄韵"
           },
           {
             "index": 7,
-            "length": 3,
+            "length": 1,
             "pattern": [
-              "平",
-              "平",
               "仄"
             ],
             "isRhyme": true,
@@ -32730,6 +32791,24 @@
           },
           {
             "index": 8,
+            "length": 1,
+            "pattern": [
+              "仄"
+            ],
+            "isRhyme": true,
+            "rhymeType": "仄韵"
+          },
+          {
+            "index": 9,
+            "length": 1,
+            "pattern": [
+              "仄"
+            ],
+            "isRhyme": true,
+            "rhymeType": "仄韵"
+          },
+          {
+            "index": 10,
             "length": 3,
             "pattern": [
               "平",
@@ -32740,7 +32819,18 @@
             "rhymeType": "仄韵"
           },
           {
-            "index": 9,
+            "index": 11,
+            "length": 3,
+            "pattern": [
+              "平",
+              "平",
+              "仄"
+            ],
+            "isRhyme": true,
+            "rhymeType": "仄韵"
+          },
+          {
+            "index": 12,
             "length": 7,
             "pattern": [
               "仄",
@@ -32755,27 +32845,29 @@
             "rhymeType": "仄韵"
           },
           {
-            "index": 10,
-            "length": 2,
+            "index": 13,
+            "length": 3,
             "pattern": [
               "平",
-              "平"
+              "平",
+              "仄"
             ],
             "isRhyme": true,
-            "rhymeType": "平韵"
+            "rhymeType": "仄韵"
           },
           {
-            "index": 11,
-            "length": 2,
+            "index": 14,
+            "length": 3,
             "pattern": [
               "平",
-              "平"
+              "平",
+              "仄"
             ],
             "isRhyme": true,
-            "rhymeType": "平韵"
+            "rhymeType": "仄韵"
           },
           {
-            "index": 12,
+            "index": 15,
             "length": 4,
             "pattern": [
               "可平可仄",
@@ -32787,15 +32879,43 @@
             "rhymeType": null
           },
           {
-            "index": 13,
-            "length": 3,
+            "index": 16,
+            "length": 4,
             "pattern": [
               "仄",
               "平",
-              "平"
+              "平",
+              "仄"
             ],
             "isRhyme": true,
-            "rhymeType": "平韵"
+            "rhymeType": "仄韵"
+          },
+          {
+            "index": 17,
+            "length": 1,
+            "pattern": [
+              "仄"
+            ],
+            "isRhyme": true,
+            "rhymeType": "仄韵"
+          },
+          {
+            "index": 18,
+            "length": 1,
+            "pattern": [
+              "仄"
+            ],
+            "isRhyme": true,
+            "rhymeType": "仄韵"
+          },
+          {
+            "index": 19,
+            "length": 1,
+            "pattern": [
+              "仄"
+            ],
+            "isRhyme": true,
+            "rhymeType": "仄韵"
           }
         ]
       }
@@ -68142,7 +68262,7 @@
       "转应曲",
       "调笑转踏"
     ],
-    "charCount": 29,
+    "charCount": 32,
     "sentences": [
       {
         "index": 0,
@@ -68208,30 +68328,33 @@
       },
       {
         "index": 5,
-        "length": 1,
+        "length": 2,
         "pattern": [
-          "平"
+          "平",
+          "仄"
         ],
         "isRhyme": true,
-        "rhymeType": "平韵"
+        "rhymeType": "仄韵"
       },
       {
         "index": 6,
-        "length": 1,
+        "length": 2,
         "pattern": [
-          "平"
+          "平",
+          "仄"
         ],
         "isRhyme": true,
-        "rhymeType": "平韵"
+        "rhymeType": "仄韵"
       },
       {
         "index": 7,
-        "length": 5,
+        "length": 6,
         "pattern": [
           "平",
           "仄",
           "平",
           "平",
+          "仄",
           "仄"
         ],
         "isRhyme": true,
@@ -68307,30 +68430,33 @@
           },
           {
             "index": 5,
-            "length": 1,
+            "length": 2,
             "pattern": [
-              "平"
+              "平",
+              "仄"
             ],
             "isRhyme": true,
-            "rhymeType": "平韵"
+            "rhymeType": "仄韵"
           },
           {
             "index": 6,
-            "length": 1,
+            "length": 2,
             "pattern": [
-              "平"
+              "平",
+              "仄"
             ],
             "isRhyme": true,
-            "rhymeType": "平韵"
+            "rhymeType": "仄韵"
           },
           {
             "index": 7,
-            "length": 5,
+            "length": 6,
             "pattern": [
               "平",
               "仄",
               "平",
               "平",
+              "仄",
               "仄"
             ],
             "isRhyme": true,
@@ -68481,7 +68607,7 @@
       "宴西园",
       "一痕沙"
     ],
-    "charCount": 36,
+    "charCount": 40,
     "sentences": [
       {
         "index": 0,
@@ -68537,37 +68663,40 @@
       },
       {
         "index": 4,
-        "length": 5,
+        "length": 6,
         "pattern": [
           "可平可仄",
           "仄",
           "可平可仄",
           "平",
-          "可平可仄"
+          "可平可仄",
+          "仄"
         ],
         "isRhyme": true,
-        "rhymeType": "可平可仄"
+        "rhymeType": "仄韵"
       },
       {
         "index": 5,
-        "length": 5,
+        "length": 6,
         "pattern": [
           "可平可仄",
           "仄",
           "可平可仄",
           "平",
-          "可平可仄"
+          "可平可仄",
+          "仄"
         ],
         "isRhyme": true,
-        "rhymeType": "可平可仄"
+        "rhymeType": "仄韵"
       },
       {
         "index": 6,
-        "length": 4,
+        "length": 5,
         "pattern": [
           "可平可仄",
           "仄",
           "仄",
+          "平",
           "平"
         ],
         "isRhyme": true,
@@ -68575,9 +68704,10 @@
       },
       {
         "index": 7,
-        "length": 2,
+        "length": 3,
         "pattern": [
           "仄",
+          "平",
           "平"
         ],
         "isRhyme": true,
@@ -68643,37 +68773,40 @@
           },
           {
             "index": 4,
-            "length": 5,
+            "length": 6,
             "pattern": [
               "可平可仄",
               "仄",
               "可平可仄",
               "平",
-              "可平可仄"
+              "可平可仄",
+              "仄"
             ],
             "isRhyme": true,
-            "rhymeType": "可平可仄"
+            "rhymeType": "仄韵"
           },
           {
             "index": 5,
-            "length": 5,
+            "length": 6,
             "pattern": [
               "可平可仄",
               "仄",
               "可平可仄",
               "平",
-              "可平可仄"
+              "可平可仄",
+              "仄"
             ],
             "isRhyme": true,
-            "rhymeType": "可平可仄"
+            "rhymeType": "仄韵"
           },
           {
             "index": 6,
-            "length": 4,
+            "length": 5,
             "pattern": [
               "可平可仄",
               "仄",
               "仄",
+              "平",
               "平"
             ],
             "isRhyme": true,
@@ -68681,9 +68814,10 @@
           },
           {
             "index": 7,
-            "length": 2,
+            "length": 3,
             "pattern": [
               "仄",
+              "平",
               "平"
             ],
             "isRhyme": true,
@@ -68714,7 +68848,7 @@
       "子夜歌",
       "重叠金"
     ],
-    "charCount": 40,
+    "charCount": 44,
     "sentences": [
       {
         "index": 0,
@@ -68774,11 +68908,12 @@
       },
       {
         "index": 4,
-        "length": 4,
+        "length": 5,
         "pattern": [
           "可平可仄",
           "平",
           "平",
+          "仄",
           "仄"
         ],
         "isRhyme": true,
@@ -68786,23 +68921,25 @@
       },
       {
         "index": 5,
-        "length": 4,
+        "length": 5,
         "pattern": [
           "可平可仄",
           "仄",
           "平",
-          "平"
+          "平",
+          "仄"
         ],
         "isRhyme": true,
-        "rhymeType": "平韵"
+        "rhymeType": "仄韵"
       },
       {
         "index": 6,
-        "length": 4,
+        "length": 5,
         "pattern": [
           "可平可仄",
           "仄",
           "仄",
+          "平",
           "平"
         ],
         "isRhyme": true,
@@ -68810,15 +68947,16 @@
       },
       {
         "index": 7,
-        "length": 4,
+        "length": 5,
         "pattern": [
           "可平可仄",
           "平",
           "平",
-          "仄"
+          "仄",
+          "平"
         ],
         "isRhyme": true,
-        "rhymeType": "仄韵"
+        "rhymeType": "平韵"
       }
     ],
     "formats": [
@@ -68884,11 +69022,12 @@
           },
           {
             "index": 4,
-            "length": 4,
+            "length": 5,
             "pattern": [
               "可平可仄",
               "平",
               "平",
+              "仄",
               "仄"
             ],
             "isRhyme": true,
@@ -68896,23 +69035,25 @@
           },
           {
             "index": 5,
-            "length": 4,
+            "length": 5,
             "pattern": [
               "可平可仄",
               "仄",
               "平",
-              "平"
+              "平",
+              "仄"
             ],
             "isRhyme": true,
-            "rhymeType": "平韵"
+            "rhymeType": "仄韵"
           },
           {
             "index": 6,
-            "length": 4,
+            "length": 5,
             "pattern": [
               "可平可仄",
               "仄",
               "仄",
+              "平",
               "平"
             ],
             "isRhyme": true,
@@ -68920,15 +69061,16 @@
           },
           {
             "index": 7,
-            "length": 4,
+            "length": 5,
             "pattern": [
               "可平可仄",
               "平",
               "平",
-              "仄"
+              "仄",
+              "平"
             ],
             "isRhyme": true,
-            "rhymeType": "仄韵"
+            "rhymeType": "平韵"
           }
         ]
       }
@@ -69092,7 +69234,7 @@
     "id": "cikc4lxri1c",
     "name": "更漏子",
     "alias": [],
-    "charCount": 41,
+    "charCount": 46,
     "sentences": [
       {
         "index": 0,
@@ -69167,36 +69309,39 @@
       },
       {
         "index": 6,
-        "length": 2,
+        "length": 3,
         "pattern": [
           "平",
-          "可平可仄"
+          "可平可仄",
+          "仄"
         ],
         "isRhyme": true,
-        "rhymeType": "可平可仄"
+        "rhymeType": "仄韵"
       },
       {
         "index": 7,
-        "length": 2,
+        "length": 3,
         "pattern": [
           "可平可仄",
-          "平"
+          "平",
+          "仄"
         ],
         "isRhyme": true,
-        "rhymeType": "平韵"
+        "rhymeType": "仄韵"
       },
       {
         "index": 8,
-        "length": 5,
+        "length": 6,
         "pattern": [
           "可平可仄",
           "仄",
           "可平可仄",
           "平",
-          "可平可仄"
+          "可平可仄",
+          "仄"
         ],
         "isRhyme": true,
-        "rhymeType": "可平可仄"
+        "rhymeType": "仄韵"
       },
       {
         "index": 9,
@@ -69211,9 +69356,10 @@
       },
       {
         "index": 10,
-        "length": 2,
+        "length": 3,
         "pattern": [
           "仄",
+          "平",
           "平"
         ],
         "isRhyme": true,
@@ -69221,15 +69367,16 @@
       },
       {
         "index": 11,
-        "length": 4,
+        "length": 5,
         "pattern": [
           "可平可仄",
           "平",
           "可平可仄",
-          "仄"
+          "仄",
+          "平"
         ],
         "isRhyme": true,
-        "rhymeType": "仄韵"
+        "rhymeType": "平韵"
       }
     ],
     "formats": [
@@ -69310,36 +69457,39 @@
           },
           {
             "index": 6,
-            "length": 2,
+            "length": 3,
             "pattern": [
               "平",
-              "可平可仄"
+              "可平可仄",
+              "仄"
             ],
             "isRhyme": true,
-            "rhymeType": "可平可仄"
+            "rhymeType": "仄韵"
           },
           {
             "index": 7,
-            "length": 2,
+            "length": 3,
             "pattern": [
               "可平可仄",
-              "平"
+              "平",
+              "仄"
             ],
             "isRhyme": true,
-            "rhymeType": "平韵"
+            "rhymeType": "仄韵"
           },
           {
             "index": 8,
-            "length": 5,
+            "length": 6,
             "pattern": [
               "可平可仄",
               "仄",
               "可平可仄",
               "平",
-              "可平可仄"
+              "可平可仄",
+              "仄"
             ],
             "isRhyme": true,
-            "rhymeType": "可平可仄"
+            "rhymeType": "仄韵"
           },
           {
             "index": 9,
@@ -69354,9 +69504,10 @@
           },
           {
             "index": 10,
-            "length": 2,
+            "length": 3,
             "pattern": [
               "仄",
+              "平",
               "平"
             ],
             "isRhyme": true,
@@ -69364,15 +69515,16 @@
           },
           {
             "index": 11,
-            "length": 4,
+            "length": 5,
             "pattern": [
               "可平可仄",
               "平",
               "可平可仄",
-              "仄"
+              "仄",
+              "平"
             ],
             "isRhyme": true,
-            "rhymeType": "仄韵"
+            "rhymeType": "平韵"
           }
         ]
       }
@@ -69416,7 +69568,7 @@
       "喜迁莺令",
       "燕归梁"
     ],
-    "charCount": 45,
+    "charCount": 47,
     "sentences": [
       {
         "index": 0,
@@ -69519,13 +69671,14 @@
       },
       {
         "index": 8,
-        "length": 6,
+        "length": 7,
         "pattern": [
           "可平可仄",
           "平",
           "平",
           "仄",
           "仄",
+          "平",
           "平"
         ],
         "isRhyme": true,
@@ -69533,11 +69686,12 @@
       },
       {
         "index": 9,
-        "length": 4,
+        "length": 5,
         "pattern": [
           "平",
           "仄",
           "仄",
+          "平",
           "平"
         ],
         "isRhyme": true,
@@ -69650,13 +69804,14 @@
           },
           {
             "index": 8,
-            "length": 6,
+            "length": 7,
             "pattern": [
               "可平可仄",
               "平",
               "平",
               "仄",
               "仄",
+              "平",
               "平"
             ],
             "isRhyme": true,
@@ -69664,11 +69819,12 @@
           },
           {
             "index": 9,
-            "length": 4,
+            "length": 5,
             "pattern": [
               "平",
               "仄",
               "仄",
+              "平",
               "平"
             ],
             "isRhyme": true,
@@ -70044,7 +70200,7 @@
     "id": "ciix2ubkkfh",
     "name": "忆馀杭",
     "alias": [],
-    "charCount": 47,
+    "charCount": 49,
     "sentences": [
       {
         "index": 0,
@@ -70133,13 +70289,14 @@
       },
       {
         "index": 6,
-        "length": 6,
+        "length": 7,
         "pattern": [
           "仄",
           "平",
           "平",
           "仄",
           "仄",
+          "平",
           "平"
         ],
         "isRhyme": true,
@@ -70147,11 +70304,12 @@
       },
       {
         "index": 7,
-        "length": 4,
+        "length": 5,
         "pattern": [
           "仄",
           "仄",
           "仄",
+          "平",
           "平"
         ],
         "isRhyme": true,
@@ -70250,13 +70408,14 @@
           },
           {
             "index": 6,
-            "length": 6,
+            "length": 7,
             "pattern": [
               "仄",
               "平",
               "平",
               "仄",
               "仄",
+              "平",
               "平"
             ],
             "isRhyme": true,
@@ -70264,11 +70423,12 @@
           },
           {
             "index": 7,
-            "length": 4,
+            "length": 5,
             "pattern": [
               "仄",
               "仄",
               "仄",
+              "平",
               "平"
             ],
             "isRhyme": true,
@@ -70587,7 +70747,7 @@
     "id": "cilgzfmo",
     "name": "河传",
     "alias": [],
-    "charCount": 50,
+    "charCount": 55,
     "sentences": [
       {
         "index": 0,
@@ -70674,22 +70834,13 @@
       },
       {
         "index": 7,
-        "length": 6,
+        "length": 7,
         "pattern": [
           "平",
           "平",
           "仄",
           "仄",
           "平",
-          "平"
-        ],
-        "isRhyme": true,
-        "rhymeType": "平韵"
-      },
-      {
-        "index": 8,
-        "length": 2,
-        "pattern": [
           "平",
           "仄"
         ],
@@ -70697,16 +70848,28 @@
         "rhymeType": "仄韵"
       },
       {
+        "index": 8,
+        "length": 3,
+        "pattern": [
+          "平",
+          "仄",
+          "仄"
+        ],
+        "isRhyme": true,
+        "rhymeType": "仄韵"
+      },
+      {
         "index": 9,
-        "length": 4,
+        "length": 5,
         "pattern": [
           "仄",
           "仄",
           "平",
-          "平"
+          "平",
+          "仄"
         ],
         "isRhyme": true,
-        "rhymeType": "平韵"
+        "rhymeType": "仄韵"
       },
       {
         "index": 10,
@@ -70722,12 +70885,13 @@
       },
       {
         "index": 11,
-        "length": 5,
+        "length": 6,
         "pattern": [
           "平",
           "仄",
           "仄",
           "仄",
+          "平",
           "平"
         ],
         "isRhyme": true,
@@ -70735,9 +70899,10 @@
       },
       {
         "index": 12,
-        "length": 2,
+        "length": 3,
         "pattern": [
           "仄",
+          "平",
           "平"
         ],
         "isRhyme": true,
@@ -70834,22 +70999,13 @@
           },
           {
             "index": 7,
-            "length": 6,
+            "length": 7,
             "pattern": [
               "平",
               "平",
               "仄",
               "仄",
               "平",
-              "平"
-            ],
-            "isRhyme": true,
-            "rhymeType": "平韵"
-          },
-          {
-            "index": 8,
-            "length": 2,
-            "pattern": [
               "平",
               "仄"
             ],
@@ -70857,16 +71013,28 @@
             "rhymeType": "仄韵"
           },
           {
+            "index": 8,
+            "length": 3,
+            "pattern": [
+              "平",
+              "仄",
+              "仄"
+            ],
+            "isRhyme": true,
+            "rhymeType": "仄韵"
+          },
+          {
             "index": 9,
-            "length": 4,
+            "length": 5,
             "pattern": [
               "仄",
               "仄",
               "平",
-              "平"
+              "平",
+              "仄"
             ],
             "isRhyme": true,
-            "rhymeType": "平韵"
+            "rhymeType": "仄韵"
           },
           {
             "index": 10,
@@ -70882,12 +71050,13 @@
           },
           {
             "index": 11,
-            "length": 5,
+            "length": 6,
             "pattern": [
               "平",
               "仄",
               "仄",
               "仄",
+              "平",
               "平"
             ],
             "isRhyme": true,
@@ -70895,9 +71064,10 @@
           },
           {
             "index": 12,
-            "length": 2,
+            "length": 3,
             "pattern": [
               "仄",
+              "平",
               "平"
             ],
             "isRhyme": true,
@@ -70993,45 +71163,49 @@
           },
           {
             "index": 7,
-            "length": 6,
+            "length": 7,
             "pattern": [
               "仄",
               "平",
               "仄",
               "仄",
               "平",
-              "平"
+              "平",
+              "仄"
             ],
             "isRhyme": true,
-            "rhymeType": "平韵"
+            "rhymeType": "仄韵"
           },
           {
             "index": 8,
-            "length": 2,
+            "length": 3,
             "pattern": [
               "仄",
-              "平"
+              "平",
+              "仄"
             ],
             "isRhyme": true,
-            "rhymeType": "平韵"
+            "rhymeType": "仄韵"
           },
           {
             "index": 9,
-            "length": 4,
+            "length": 5,
             "pattern": [
               "仄",
               "仄",
               "平",
-              "平"
+              "平",
+              "仄"
             ],
             "isRhyme": true,
-            "rhymeType": "平韵"
+            "rhymeType": "仄韵"
           },
           {
             "index": 10,
-            "length": 2,
+            "length": 3,
             "pattern": [
               "仄",
+              "平",
               "平"
             ],
             "isRhyme": true,
@@ -71039,34 +71213,37 @@
           },
           {
             "index": 11,
-            "length": 2,
+            "length": 3,
             "pattern": [
               "仄",
-              "仄"
+              "仄",
+              "平"
             ],
             "isRhyme": true,
-            "rhymeType": "仄韵"
+            "rhymeType": "平韵"
           },
           {
             "index": 12,
-            "length": 1,
+            "length": 2,
             "pattern": [
-              "仄"
+              "仄",
+              "平"
             ],
             "isRhyme": true,
-            "rhymeType": "仄韵"
+            "rhymeType": "平韵"
           },
           {
             "index": 13,
-            "length": 4,
+            "length": 5,
             "pattern": [
               "仄",
               "平",
               "平",
-              "仄"
+              "仄",
+              "平"
             ],
             "isRhyme": true,
-            "rhymeType": "仄韵"
+            "rhymeType": "平韵"
           }
         ]
       }
@@ -71105,7 +71282,7 @@
     "id": "yumeiren",
     "name": "虞美人",
     "alias": [],
-    "charCount": 52,
+    "charCount": 56,
     "sentences": [
       {
         "index": 0,
@@ -71169,39 +71346,42 @@
       },
       {
         "index": 4,
-        "length": 6,
+        "length": 7,
         "pattern": [
           "可平可仄",
           "平",
           "可平可仄",
           "仄",
           "平",
-          "平"
+          "平",
+          "仄"
         ],
         "isRhyme": true,
-        "rhymeType": "平韵"
+        "rhymeType": "仄韵"
       },
       {
         "index": 5,
-        "length": 4,
+        "length": 5,
         "pattern": [
           "可平可仄",
           "仄",
           "平",
-          "平"
+          "平",
+          "仄"
         ],
         "isRhyme": true,
-        "rhymeType": "平韵"
+        "rhymeType": "仄韵"
       },
       {
         "index": 6,
-        "length": 6,
+        "length": 7,
         "pattern": [
           "可平可仄",
           "平",
           "可平可仄",
           "仄",
           "仄",
+          "平",
           "平"
         ],
         "isRhyme": true,
@@ -71209,7 +71389,7 @@
       },
       {
         "index": 7,
-        "length": 8,
+        "length": 9,
         "pattern": [
           "可平可仄",
           "仄",
@@ -71218,6 +71398,7 @@
           "平",
           "仄",
           "仄",
+          "平",
           "平"
         ],
         "isRhyme": true,
@@ -71291,39 +71472,42 @@
           },
           {
             "index": 4,
-            "length": 6,
+            "length": 7,
             "pattern": [
               "可平可仄",
               "平",
               "可平可仄",
               "仄",
               "平",
-              "平"
+              "平",
+              "仄"
             ],
             "isRhyme": true,
-            "rhymeType": "平韵"
+            "rhymeType": "仄韵"
           },
           {
             "index": 5,
-            "length": 4,
+            "length": 5,
             "pattern": [
               "可平可仄",
               "仄",
               "平",
-              "平"
+              "平",
+              "仄"
             ],
             "isRhyme": true,
-            "rhymeType": "平韵"
+            "rhymeType": "仄韵"
           },
           {
             "index": 6,
-            "length": 6,
+            "length": 7,
             "pattern": [
               "可平可仄",
               "平",
               "可平可仄",
               "仄",
               "仄",
+              "平",
               "平"
             ],
             "isRhyme": true,
@@ -71331,7 +71515,7 @@
           },
           {
             "index": 7,
-            "length": 8,
+            "length": 9,
             "pattern": [
               "可平可仄",
               "仄",
@@ -71340,6 +71524,7 @@
               "平",
               "仄",
               "仄",
+              "平",
               "平"
             ],
             "isRhyme": true,
@@ -71422,39 +71607,42 @@
           },
           {
             "index": 5,
-            "length": 6,
+            "length": 7,
             "pattern": [
               "仄",
               "平",
               "仄",
               "仄",
               "平",
-              "平"
+              "平",
+              "仄"
             ],
             "isRhyme": true,
-            "rhymeType": "平韵"
+            "rhymeType": "仄韵"
           },
           {
             "index": 6,
-            "length": 4,
+            "length": 5,
             "pattern": [
               "仄",
               "仄",
               "平",
-              "平"
+              "平",
+              "仄"
             ],
             "isRhyme": true,
-            "rhymeType": "平韵"
+            "rhymeType": "仄韵"
           },
           {
             "index": 7,
-            "length": 6,
+            "length": 7,
             "pattern": [
               "仄",
               "平",
               "平",
               "仄",
               "仄",
+              "平",
               "平"
             ],
             "isRhyme": true,
@@ -71462,13 +71650,14 @@
           },
           {
             "index": 8,
-            "length": 6,
+            "length": 7,
             "pattern": [
               "仄",
               "平",
               "平",
               "仄",
               "仄",
+              "平",
               "平"
             ],
             "isRhyme": true,
@@ -71476,9 +71665,10 @@
           },
           {
             "index": 9,
-            "length": 2,
+            "length": 3,
             "pattern": [
               "仄",
+              "平",
               "平"
             ],
             "isRhyme": true,
@@ -76058,25 +76248,27 @@
           },
           {
             "index": 5,
-            "length": 5,
+            "length": 6,
             "pattern": [
               "可平可仄",
               "仄",
               "仄",
               "平",
-              "平"
+              "平",
+              "仄"
             ],
             "isRhyme": true,
-            "rhymeType": "平韵"
+            "rhymeType": "仄韵"
           },
           {
             "index": 6,
-            "length": 1,
+            "length": 2,
             "pattern": [
-              "平"
+              "平",
+              "仄"
             ],
             "isRhyme": true,
-            "rhymeType": "平韵"
+            "rhymeType": "仄韵"
           },
           {
             "index": 7,
@@ -76602,7 +76794,7 @@
     "id": "cifeyqx8kfj",
     "name": "上行杯",
     "alias": [],
-    "charCount": 35,
+    "charCount": 38,
     "sentences": [
       {
         "index": 0,
@@ -76681,9 +76873,10 @@
       },
       {
         "index": 6,
-        "length": 2,
+        "length": 3,
         "pattern": [
           "平",
+          "仄",
           "仄"
         ],
         "isRhyme": true,
@@ -76691,8 +76884,9 @@
       },
       {
         "index": 7,
-        "length": 1,
+        "length": 2,
         "pattern": [
+          "仄",
           "仄"
         ],
         "isRhyme": true,
@@ -76700,12 +76894,13 @@
       },
       {
         "index": 8,
-        "length": 1,
+        "length": 2,
         "pattern": [
-          "平"
+          "平",
+          "仄"
         ],
         "isRhyme": true,
-        "rhymeType": "平韵"
+        "rhymeType": "仄韵"
       },
       {
         "index": 9,
@@ -76802,9 +76997,10 @@
           },
           {
             "index": 6,
-            "length": 2,
+            "length": 3,
             "pattern": [
               "平",
+              "仄",
               "仄"
             ],
             "isRhyme": true,
@@ -76812,8 +77008,9 @@
           },
           {
             "index": 7,
-            "length": 1,
+            "length": 2,
             "pattern": [
+              "仄",
               "仄"
             ],
             "isRhyme": true,
@@ -76821,12 +77018,13 @@
           },
           {
             "index": 8,
-            "length": 1,
+            "length": 2,
             "pattern": [
-              "平"
+              "平",
+              "仄"
             ],
             "isRhyme": true,
-            "rhymeType": "平韵"
+            "rhymeType": "仄韵"
           },
           {
             "index": 9,
@@ -76857,7 +77055,7 @@
     "id": "cispelhli1c",
     "name": "酒泉子",
     "alias": [],
-    "charCount": 39,
+    "charCount": 41,
     "sentences": [
       {
         "index": 0,
@@ -76935,16 +77133,17 @@
       },
       {
         "index": 6,
-        "length": 5,
+        "length": 6,
         "pattern": [
           "平",
           "仄",
           "仄",
           "平",
-          "平"
+          "平",
+          "仄"
         ],
         "isRhyme": true,
-        "rhymeType": "平韵"
+        "rhymeType": "仄韵"
       },
       {
         "index": 7,
@@ -76959,9 +77158,10 @@
       },
       {
         "index": 8,
-        "length": 2,
+        "length": 3,
         "pattern": [
           "平",
+          "仄",
           "仄"
         ],
         "isRhyme": true,
@@ -77060,16 +77260,17 @@
           },
           {
             "index": 6,
-            "length": 5,
+            "length": 6,
             "pattern": [
               "平",
               "仄",
               "仄",
               "平",
-              "平"
+              "平",
+              "仄"
             ],
             "isRhyme": true,
-            "rhymeType": "平韵"
+            "rhymeType": "仄韵"
           },
           {
             "index": 7,
@@ -77084,9 +77285,10 @@
           },
           {
             "index": 8,
-            "length": 2,
+            "length": 3,
             "pattern": [
               "平",
+              "仄",
               "仄"
             ],
             "isRhyme": true,
@@ -77152,7 +77354,7 @@
     "alias": [
       "定风波令"
     ],
-    "charCount": 58,
+    "charCount": 62,
     "sentences": [
       {
         "index": 0,
@@ -77226,13 +77428,14 @@
       },
       {
         "index": 5,
-        "length": 6,
+        "length": 7,
         "pattern": [
           "可平可仄",
           "仄",
           "可平可仄",
           "平",
           "平",
+          "仄",
           "仄"
         ],
         "isRhyme": true,
@@ -77240,12 +77443,13 @@
       },
       {
         "index": 6,
-        "length": 1,
+        "length": 2,
         "pattern": [
-          "平"
+          "平",
+          "仄"
         ],
         "isRhyme": true,
-        "rhymeType": "平韵"
+        "rhymeType": "仄韵"
       },
       {
         "index": 7,
@@ -77264,13 +77468,14 @@
       },
       {
         "index": 8,
-        "length": 6,
+        "length": 7,
         "pattern": [
           "可平可仄",
           "仄",
           "可平可仄",
           "平",
           "平",
+          "仄",
           "仄"
         ],
         "isRhyme": true,
@@ -77278,12 +77483,13 @@
       },
       {
         "index": 9,
-        "length": 1,
+        "length": 2,
         "pattern": [
-          "平"
+          "平",
+          "仄"
         ],
         "isRhyme": true,
-        "rhymeType": "平韵"
+        "rhymeType": "仄韵"
       },
       {
         "index": 10,
@@ -77378,13 +77584,14 @@
           },
           {
             "index": 5,
-            "length": 6,
+            "length": 7,
             "pattern": [
               "可平可仄",
               "仄",
               "可平可仄",
               "平",
               "平",
+              "仄",
               "仄"
             ],
             "isRhyme": true,
@@ -77392,12 +77599,13 @@
           },
           {
             "index": 6,
-            "length": 1,
+            "length": 2,
             "pattern": [
-              "平"
+              "平",
+              "仄"
             ],
             "isRhyme": true,
-            "rhymeType": "平韵"
+            "rhymeType": "仄韵"
           },
           {
             "index": 7,
@@ -77416,13 +77624,14 @@
           },
           {
             "index": 8,
-            "length": 6,
+            "length": 7,
             "pattern": [
               "可平可仄",
               "仄",
               "可平可仄",
               "平",
               "平",
+              "仄",
               "仄"
             ],
             "isRhyme": true,
@@ -77430,12 +77639,13 @@
           },
           {
             "index": 9,
-            "length": 1,
+            "length": 2,
             "pattern": [
-              "平"
+              "平",
+              "仄"
             ],
             "isRhyme": true,
-            "rhymeType": "平韵"
+            "rhymeType": "仄韵"
           },
           {
             "index": 10,

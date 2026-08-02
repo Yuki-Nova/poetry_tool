@@ -85,15 +85,74 @@ describe('extractRhymeChars', () => {
     ]
     const chars = extractRhymeChars(lineResults, sentenceMetas)
     expect(chars).toEqual([
-      { char: '花', line: 1 },
-      { char: '涯', line: 3 }
+      { char: '花', line: 1, rhymeType: null },
+      { char: '涯', line: 3, rhymeType: null }
     ])
   })
 
-  it('韵脚行末为标点时跳过该行（不提取）', () => {
+  it('行尾标点时提取最后一个有效字（韵脚不被句读吞掉）', () => {
+    // 用户输入「床前明月光，」→ 行尾是标点，韵脚应为「光」
+    const lineResults = [
+      [{ char: '床', tone: '平', isMulti: false }, { char: '光', tone: '平', isMulti: false }, { char: '，', tone: 'punct', isMulti: false }]
+    ]
+    const sentenceMetas = [{ isRhyme: true, rhymeType: '平韵' }]
+    expect(extractRhymeChars(lineResults, sentenceMetas)).toEqual([
+      { char: '光', line: 0, rhymeType: '平韵' }
+    ])
+  })
+
+  it('韵脚行全为标点时返回空', () => {
     const lineResults = [[{ char: '。', tone: 'punct', isMulti: false }]]
     const sentenceMetas = [{ isRhyme: true }]
     expect(extractRhymeChars(lineResults, sentenceMetas)).toEqual([])
+  })
+
+  it('携带 rhymeType 供转韵分组', () => {
+    const lineResults = [
+      [{ char: '了', tone: '仄', isMulti: false }],
+      [{ char: '风', tone: '平', isMulti: false }]
+    ]
+    const sentenceMetas = [
+      { isRhyme: true, rhymeType: '仄韵' },
+      { isRhyme: true, rhymeType: '平韵' }
+    ]
+    expect(extractRhymeChars(lineResults, sentenceMetas)).toEqual([
+      { char: '了', line: 0, rhymeType: '仄韵' },
+      { char: '风', line: 1, rhymeType: '平韵' }
+    ])
+  })
+})
+
+describe('checkRhyme 转韵支持（词牌逐组换韵）', () => {
+  const foot = (char, line, rhymeType) => ({ char, line, rhymeType })
+
+  it('虞美人逐组换韵合法（了/少 第八部 → 风/中 第一部 → 在/改 第五部 → 愁/流 第十二部）', () => {
+    const result = checkRhyme([
+      foot('了', 0, '仄韵'), foot('少', 1, '仄韵'),
+      foot('风', 2, '平韵'), foot('中', 3, '平韵'),
+      foot('在', 4, '仄韵'), foot('改', 5, '仄韵'),
+      foot('愁', 6, '平韵'), foot('流', 7, '平韵')
+    ], 'cilin')
+    // 每段（连续同 rhymeType）内部同部；段间换部合法
+    expect(result.valid).toBe(true)
+    expect(result.errors).toEqual([])
+  })
+
+  it('同段内出韵仍报错（连续平韵 风/花 不同部）', () => {
+    const result = checkRhyme([
+      foot('了', 0, '仄韵'), foot('少', 1, '仄韵'),
+      foot('风', 2, '平韵'), foot('花', 3, '平韵')
+    ], 'cilin')
+    // 词林正韵：风=第一部，花=第十部 → 同一平韵段内出韵
+    expect(result.valid).toBe(false)
+    expect(result.errors.length).toBe(1)
+    expect(result.errors[0]).toMatchObject({ char: '花', line: 3 })
+  })
+
+  it('未标注 rhymeType 时按单段校验（兼容旧行为）', () => {
+    const result = checkRhyme([foot('家', 0, null), foot('花', 1, null)], 'xinyun')
+    expect(result.valid).toBe(true)
+    expect(result.group).toBe('一麻')
   })
 })
 

@@ -54,7 +54,14 @@ export function getRhymeGroup(char, rhymeBook = 'xinyun') {
 /**
  * 校验一组韵脚字是否押韵
  *
- * @param {{char: string, line: number}[]} rhymeChars - 韵脚字及所在行号（extractRhymeChars 输出）
+ * 转韵支持（词牌常见，如菩萨蛮/虞美人/西江月仄平交替且逐组换韵部）：
+ *   韵脚按「连续同 rhymeType」分段（run-length grouping）——相邻且类型相同
+ *   的韵脚归为一段，每段内必须同韵部，段与段之间不比较。
+ *   例：虞美人 了/少(仄·第八部) 风/中(平·第一部) 在/改(仄·第五部) 愁/流(平·第十二部)
+ *       → 4 段各自内部同部即为合法，段间换部不误报。
+ *   而「风(一东)/花(第十部)」连续同平韵却不同部 → 段内出韵，报错。
+ *
+ * @param {{char: string, line: number, rhymeType?: string|null}[]} rhymeChars - 韵脚字及所在行号（extractRhymeChars 输出）
  * @param {string} rhymeBook - 韵书标识
  * @returns {{
  *   valid: boolean,
@@ -74,63 +81,90 @@ export function checkRhyme(rhymeChars, rhymeBook = 'xinyun') {
     }
   }
 
-  const charGroups = rhymeChars.map((c, i) => ({
-    char: c.char,
-    line: c.line,
-    group: getRhymeGroup(c.char, rhymeBook),
-    index: i
-  }))
-
-  const known = charGroups.filter(c => c.group !== null)
-  const unknown = charGroups.filter(c => c.group === null)
-
-  if (known.length === 0) {
-    return {
-      valid: false, group: null, rhymeBook, rhymeBookLabel: RHYME_BOOK_LABELS[rhymeBook] || '',
-      allSame: false,
-      errors: unknown.map(c => ({ char: c.char, group: null, index: c.index, line: c.line })),
-      neighborWarning: '所有韵脚字均未被该韵书收录'
+  // 连续同 rhymeType 分段（run-length grouping）
+  const segments = []
+  let cur = null
+  for (const c of rhymeChars) {
+    const key = c.rhymeType || 'default'
+    if (!cur || cur.key !== key) {
+      cur = { key, items: [] }
+      segments.push(cur)
     }
+    cur.items.push({
+      char: c.char,
+      line: c.line,
+      group: getRhymeGroup(c.char, rhymeBook)
+    })
   }
 
-  const baseGroup = known[0].group
   const errors = []
+  let firstKnownGroup = null
+  let allSame = true
+  let unknownTotal = 0
 
-  for (const cg of charGroups) {
-    if (cg.group !== null && cg.group !== baseGroup) {
-      errors.push({ char: cg.char, group: cg.group, index: cg.index, line: cg.line })
+  for (const seg of segments) {
+    const known = seg.items.filter(c => c.group !== null)
+    const unknown = seg.items.filter(c => c.group === null)
+    unknownTotal += unknown.length
+
+    // 该段韵脚全部未收录：整段报错
+    if (known.length === 0) {
+      unknown.forEach(c => errors.push({ char: c.char, group: null, index: -1, line: c.line }))
+      continue
     }
-    if (cg.group === null) {
-      errors.push({ char: cg.char, group: null, index: cg.index, line: cg.line })
-    }
+
+    const baseGroup = known[0].group
+    if (!firstKnownGroup) firstKnownGroup = baseGroup
+
+    seg.items.forEach((cg, i) => {
+      if (cg.group !== null && cg.group !== baseGroup) {
+        errors.push({ char: cg.char, group: cg.group, index: i, line: cg.line })
+      }
+      if (cg.group === null) {
+        errors.push({ char: cg.char, group: null, index: i, line: cg.line })
+      }
+    })
+    if (!known.every(k => k.group === baseGroup)) allSame = false
   }
 
   return {
     valid: errors.length === 0,
-    group: baseGroup,
+    group: firstKnownGroup,
     rhymeBook,
     rhymeBookLabel: RHYME_BOOK_LABELS[rhymeBook] || '',
-    allSame: known.every(k => k.group === baseGroup),
+    allSame,
     errors,
-    neighborWarning: null
+    neighborWarning: unknownTotal === rhymeChars.length ? '所有韵脚字均未被该韵书收录' : null
   }
 }
 
 /**
  * 从逐句分析结果中提取韵脚字
  *
+ * 行尾标点处理：取该行**最后一个非 skip/punct 字符**作为韵脚
+ * （用户常输入「床前明月光，」——标点在末尾，韵脚字是「光」而非标点）
+ * 并携带该句的 rhymeType（供 checkRhyme 转韵分组）。
+ *
  * @param {object[][]} lineResults - analyzeText 输出
  * @param {object[]} sentenceMetas - 格律模板 sentences
- * @returns {{char: string, line: number}[]} 韵脚字及所在行号（0-based）
+ * @returns {{char: string, line: number, rhymeType: string|null}[]} 韵脚字及所在行号（0-based）
  */
 export function extractRhymeChars(lineResults, sentenceMetas) {
   const chars = []
   lineResults.forEach((line, i) => {
     const meta = sentenceMetas[i]
     if (meta && meta.isRhyme && line.length > 0) {
-      const lastChar = line[line.length - 1]
-      if (lastChar && lastChar.tone !== 'skip' && lastChar.tone !== 'punct') {
-        chars.push({ char: lastChar.char, line: i })
+      // 从行尾向前找第一个非空白/非标点字符（跳过行尾句读）
+      let lastChar = null
+      for (let j = line.length - 1; j >= 0; j--) {
+        const c = line[j]
+        if (c.tone !== 'skip' && c.tone !== 'punct') {
+          lastChar = c
+          break
+        }
+      }
+      if (lastChar) {
+        chars.push({ char: lastChar.char, line: i, rhymeType: meta.rhymeType || null })
       }
     }
   })

@@ -170,10 +170,12 @@ def split_by_br_empty(blockquote):
 
 def tokenize_line(div):
     """把一行 div 转成 token 流：
-    - char: {'t':'char','tone': 平/仄/可平可仄}（span.ping/ze/zhong 及裸字按字面 平/仄/中）
+    - char: {'t':'char','tone': 平/仄/可平可仄}（span.ping*/ze*/zhong 及裸字按字面 平/仄/中）
     - rhyme: {'t':'rhyme'}（span.yun* → 韵脚标记）
     - break: {'t':'break'}（逗号/句号 → 句界）
     裸汉字按字面含义解析（格律谱符号本身），标点只认句界。
+    注意：源站有 class 变体 ze/ze2/ze3、ping/ping2（下半阕颜色差异），
+    用前缀正则匹配（^ze\d*$ / ^ping\d*$）而非精确等于，避免丢字。
     """
     tokens = []
     for node in div.descendants:
@@ -198,15 +200,15 @@ def tokenize_line(div):
             continue
         cls = node.get("class") or []
         cls_set = set(cls)
-        if "ping" in cls_set:
+        if any(re.fullmatch(r"ping\d*", c) for c in cls):
             tokens.append({"t": "char", "tone": "平"})
-        elif "ze" in cls_set:
+        elif any(re.fullmatch(r"ze\d*", c) for c in cls):
             tokens.append({"t": "char", "tone": "仄"})
         elif "zhong" in cls_set:
             tokens.append({"t": "char", "tone": "可平可仄"})
         elif any(YUN_CLASS_RE.match(c) for c in cls):
             tokens.append({"t": "rhyme"})
-        # note（〖〗叠句）、其他 → 忽略
+        # note（〖〗叠句）、mark/lingge/duiou 等其他装饰 → 忽略
     return tokens
 
 

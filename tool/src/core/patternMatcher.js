@@ -86,7 +86,15 @@ export function matchPattern(lineResults, template, rhymeBook) {
     return line.map((item, ci) => {
       const expected = pattern[ci] || '?'
       const status = matchChar(item.tone, expected, rhymeType)
-      const isRhymeFoot = isRhyme && ci === line.length - 1
+      // 韵脚：该字是本行最后一个非标点/非空白字符（跳过行尾句读）
+      let isRhymeFoot = false
+      if (isRhyme) {
+        let later = false
+        for (let j = ci + 1; j < line.length; j++) {
+          if (line[j].tone !== 'skip' && line[j].tone !== 'punct') { later = true; break }
+        }
+        isRhymeFoot = !later && item.tone !== 'skip' && item.tone !== 'punct'
+      }
 
       return {
         char: item.char,
