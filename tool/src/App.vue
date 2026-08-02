@@ -17,20 +17,21 @@
       </div>
     </header>
 
+    <div class="app-selector">
+      <PatternSelector
+        :grouped="groupedPatterns"
+        :current="currentPattern"
+        :selected-id="selectedId"
+        @select="selectPattern"
+      />
+      <div v-if="draftRestored" class="draft-bar">
+        <span class="draft-bar-text">已恢复上次草稿</span>
+        <button class="draft-bar-clear" @click="clearDraft">清空</button>
+      </div>
+    </div>
+
     <div class="app-main">
       <div class="app-main-left">
-        <PatternSelector
-          :grouped="groupedPatterns"
-          :current="currentPattern"
-          :selected-id="selectedId"
-          @select="selectPattern"
-        />
-
-        <div v-if="draftRestored" class="draft-bar">
-          <span class="draft-bar-text">已恢复上次草稿</span>
-          <button class="draft-bar-clear" @click="clearDraft">清空</button>
-        </div>
-
         <PatternPreview
           :pattern="activePattern"
           :formats="currentPattern?.formats || []"
@@ -219,6 +220,22 @@ body {
   margin: 0 auto;
   padding: 32px 24px 80px;
 }
+
+/* ── 词牌选择横条（全宽，独立于双栏） ── */
+.app-selector {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px 16px;
+  margin-bottom: 20px;
+  padding: 12px 16px;
+  background: var(--paper-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+.app-selector .pattern-selector { margin: 0; }
+.app-selector .draft-bar { margin: 0; flex: 1 1 100%; }
 
 /* ── 双栏布局：左侧主编辑器 + 右侧词牌信息面板 ── */
 .app-main {

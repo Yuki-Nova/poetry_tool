@@ -20,12 +20,17 @@ import config
 
 
 def get(url, *, retries=config.MAX_RETRY):
-    """GET 并解码为 GB2312 文本；失败重试指数退避。"""
+    """GET 并解码为 GB18030 文本；失败重试指数退避。
+
+    注意：源站 meta 声明 charset=gb2312，但实际含 GBK/GB18030 扩展字符
+    （如「扆」「龘」等生僻字）。若用 gb2312 解码会替换为 U+FFFD（菱形码），
+    必须用 gb18030（GB2312/GBK 的超集，覆盖全部 Unicode）。
+    """
     for attempt in range(retries):
         try:
             resp = requests.get(url, headers=config.HEADERS, timeout=config.TIMEOUT)
             resp.raise_for_status()
-            return resp.content.decode("gb2312", errors="replace")
+            return resp.content.decode("gb18030", errors="replace")
         except Exception as e:
             wait = config.RETRY_BACKOFF * (2 ** attempt)
             print(f"  ⚠ {url} 第 {attempt+1}/{retries} 次失败: {e}（等待 {wait}s）")
