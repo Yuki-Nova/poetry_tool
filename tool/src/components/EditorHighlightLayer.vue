@@ -155,11 +155,13 @@ function onCharClick(li, ci, ch) {
   font-weight: 600;
 }
 
-/* ── 韵脚声调不符（rhyme-warn：浅黄底 + 金框警告）── */
+/* ── 韵脚声调不符（rhyme-warn：红底 + 红框，错韵标红）── */
 .t-rhyme-err {
-  color: var(--ink);
-  background: #fef8ee;
-  box-shadow: 0 0 0 2px var(--warning);
+  color: var(--error-text);
+  background: var(--error-bg);
+  box-shadow: 0 0 0 2px var(--error-text);
+  border-radius: 2px;
+  font-weight: 600;
 }
 
 /* ── 出韵/未收录韵脚（红色标记，最高优先）── */
