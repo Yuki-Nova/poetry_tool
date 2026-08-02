@@ -1511,8 +1511,9 @@
           },
           {
             "index": 5,
-            "length": 7,
+            "length": 8,
             "pattern": [
+              "仄",
               "仄",
               "仄",
               "平",
@@ -1549,8 +1550,9 @@
           },
           {
             "index": 8,
-            "length": 7,
+            "length": 8,
             "pattern": [
+              "仄",
               "仄",
               "仄",
               "平",
@@ -1601,8 +1603,9 @@
           },
           {
             "index": 12,
-            "length": 7,
+            "length": 8,
             "pattern": [
+              "仄",
               "仄",
               "仄",
               "平",
@@ -1629,8 +1632,9 @@
           },
           {
             "index": 14,
-            "length": 4,
+            "length": 5,
             "pattern": [
+              "平",
               "仄",
               "仄",
               "平",
@@ -2963,7 +2967,7 @@
     "id": "cisqxhm2inn",
     "name": "醉太平",
     "alias": [],
-    "charCount": 36,
+    "charCount": 38,
     "sentences": [
       {
         "index": 0,
@@ -3005,8 +3009,9 @@
       },
       {
         "index": 3,
-        "length": 4,
+        "length": 5,
         "pattern": [
+          "仄",
           "平",
           "平",
           "仄",
@@ -3055,8 +3060,9 @@
       },
       {
         "index": 7,
-        "length": 4,
+        "length": 5,
         "pattern": [
+          "仄",
           "平",
           "平",
           "仄",
@@ -3111,8 +3117,9 @@
           },
           {
             "index": 3,
-            "length": 4,
+            "length": 5,
             "pattern": [
+              "仄",
               "平",
               "平",
               "仄",
@@ -3161,8 +3168,9 @@
           },
           {
             "index": 7,
-            "length": 4,
+            "length": 5,
             "pattern": [
+              "仄",
               "平",
               "平",
               "仄",
@@ -9352,8 +9360,9 @@
           },
           {
             "index": 6,
-            "length": 3,
+            "length": 4,
             "pattern": [
+              "仄",
               "平",
               "仄",
               "仄"
@@ -9397,8 +9406,9 @@
           },
           {
             "index": 10,
-            "length": 4,
+            "length": 5,
             "pattern": [
+              "仄",
               "仄",
               "平",
               "平",
@@ -9457,8 +9467,9 @@
           },
           {
             "index": 15,
-            "length": 4,
+            "length": 5,
             "pattern": [
+              "仄",
               "平",
               "平",
               "平",
@@ -9491,8 +9502,9 @@
           },
           {
             "index": 18,
-            "length": 3,
+            "length": 4,
             "pattern": [
+              "仄",
               "平",
               "可平可仄",
               "仄"
@@ -9536,8 +9548,9 @@
           },
           {
             "index": 22,
-            "length": 4,
+            "length": 5,
             "pattern": [
+              "仄",
               "仄",
               "平",
               "平",
@@ -11789,7 +11802,7 @@
     "id": "xingxiangzi",
     "name": "行香子",
     "alias": [],
-    "charCount": 64,
+    "charCount": 66,
     "sentences": [
       {
         "index": 0,
@@ -11856,8 +11869,9 @@
       },
       {
         "index": 5,
-        "length": 3,
+        "length": 4,
         "pattern": [
+          "仄",
           "可平可仄",
           "平",
           "可平可仄"
@@ -11952,8 +11966,9 @@
       },
       {
         "index": 13,
-        "length": 3,
+        "length": 4,
         "pattern": [
+          "仄",
           "可平可仄",
           "平",
           "可平可仄"
@@ -12054,8 +12069,9 @@
           },
           {
             "index": 5,
-            "length": 3,
+            "length": 4,
             "pattern": [
+              "仄",
               "可平可仄",
               "平",
               "可平可仄"
@@ -12150,8 +12166,9 @@
           },
           {
             "index": 13,
-            "length": 3,
+            "length": 4,
             "pattern": [
+              "仄",
               "可平可仄",
               "平",
               "可平可仄"
@@ -12628,7 +12645,7 @@
       "上西平",
       "西平曲"
     ],
-    "charCount": 73,
+    "charCount": 75,
     "sentences": [
       {
         "index": 0,
@@ -12678,8 +12695,9 @@
       },
       {
         "index": 4,
-        "length": 7,
+        "length": 8,
         "pattern": [
+          "仄",
           "可平可仄",
           "平",
           "平",
@@ -12807,8 +12825,9 @@
       },
       {
         "index": 15,
-        "length": 7,
+        "length": 8,
         "pattern": [
+          "仄",
           "可平可仄",
           "平",
           "平",
@@ -12909,8 +12928,9 @@
           },
           {
             "index": 4,
-            "length": 7,
+            "length": 8,
             "pattern": [
+              "仄",
               "可平可仄",
               "平",
               "平",
@@ -13038,8 +13058,9 @@
           },
           {
             "index": 15,
-            "length": 7,
+            "length": 8,
             "pattern": [
+              "仄",
               "可平可仄",
               "平",
               "平",
@@ -13103,7 +13124,7 @@
     "id": "cig2zg31i1c",
     "name": "八六子",
     "alias": [],
-    "charCount": 49,
+    "charCount": 55,
     "sentences": [
       {
         "index": 0,
@@ -13144,6 +13165,15 @@
       },
       {
         "index": 3,
+        "length": 1,
+        "pattern": [
+          "仄"
+        ],
+        "isRhyme": false,
+        "rhymeType": null
+      },
+      {
+        "index": 4,
         "length": 4,
         "pattern": [
           "仄",
@@ -13155,7 +13185,7 @@
         "rhymeType": "平韵"
       },
       {
-        "index": 4,
+        "index": 5,
         "length": 6,
         "pattern": [
           "平",
@@ -13169,7 +13199,7 @@
         "rhymeType": "平韵"
       },
       {
-        "index": 5,
+        "index": 6,
         "length": 6,
         "pattern": [
           "仄",
@@ -13181,20 +13211,6 @@
         ],
         "isRhyme": false,
         "rhymeType": null
-      },
-      {
-        "index": 6,
-        "length": 6,
-        "pattern": [
-          "平",
-          "平",
-          "仄",
-          "仄",
-          "平",
-          "平"
-        ],
-        "isRhyme": true,
-        "rhymeType": "平韵"
       },
       {
         "index": 7,
@@ -13203,6 +13219,31 @@
           "平",
           "平",
           "仄",
+          "仄",
+          "平",
+          "平"
+        ],
+        "isRhyme": true,
+        "rhymeType": "平韵"
+      },
+      {
+        "index": 8,
+        "length": 3,
+        "pattern": [
+          "仄",
+          "仄",
+          "仄"
+        ],
+        "isRhyme": false,
+        "rhymeType": null
+      },
+      {
+        "index": 9,
+        "length": 6,
+        "pattern": [
+          "平",
+          "平",
+          "仄",
           "平",
           "平",
           "仄"
@@ -13211,16 +13252,18 @@
         "rhymeType": null
       },
       {
-        "index": 8,
-        "length": 1,
+        "index": 10,
+        "length": 3,
         "pattern": [
+          "平",
+          "平",
           "平"
         ],
         "isRhyme": true,
         "rhymeType": "平韵"
       },
       {
-        "index": 9,
+        "index": 11,
         "length": 3,
         "pattern": [
           "仄",
@@ -13231,7 +13274,7 @@
         "rhymeType": "平韵"
       },
       {
-        "index": 10,
+        "index": 12,
         "length": 4,
         "pattern": [
           "平",
@@ -13287,6 +13330,15 @@
           },
           {
             "index": 3,
+            "length": 1,
+            "pattern": [
+              "仄"
+            ],
+            "isRhyme": false,
+            "rhymeType": null
+          },
+          {
+            "index": 4,
             "length": 4,
             "pattern": [
               "仄",
@@ -13298,7 +13350,7 @@
             "rhymeType": "平韵"
           },
           {
-            "index": 4,
+            "index": 5,
             "length": 6,
             "pattern": [
               "平",
@@ -13312,7 +13364,7 @@
             "rhymeType": "平韵"
           },
           {
-            "index": 5,
+            "index": 6,
             "length": 6,
             "pattern": [
               "仄",
@@ -13324,20 +13376,6 @@
             ],
             "isRhyme": false,
             "rhymeType": null
-          },
-          {
-            "index": 6,
-            "length": 6,
-            "pattern": [
-              "平",
-              "平",
-              "仄",
-              "仄",
-              "平",
-              "平"
-            ],
-            "isRhyme": true,
-            "rhymeType": "平韵"
           },
           {
             "index": 7,
@@ -13346,6 +13384,31 @@
               "平",
               "平",
               "仄",
+              "仄",
+              "平",
+              "平"
+            ],
+            "isRhyme": true,
+            "rhymeType": "平韵"
+          },
+          {
+            "index": 8,
+            "length": 3,
+            "pattern": [
+              "仄",
+              "仄",
+              "仄"
+            ],
+            "isRhyme": false,
+            "rhymeType": null
+          },
+          {
+            "index": 9,
+            "length": 6,
+            "pattern": [
+              "平",
+              "平",
+              "仄",
               "平",
               "平",
               "仄"
@@ -13354,16 +13417,18 @@
             "rhymeType": null
           },
           {
-            "index": 8,
-            "length": 1,
+            "index": 10,
+            "length": 3,
             "pattern": [
+              "平",
+              "平",
               "平"
             ],
             "isRhyme": true,
             "rhymeType": "平韵"
           },
           {
-            "index": 9,
+            "index": 11,
             "length": 3,
             "pattern": [
               "仄",
@@ -13374,7 +13439,7 @@
             "rhymeType": "平韵"
           },
           {
-            "index": 10,
+            "index": 12,
             "length": 4,
             "pattern": [
               "平",
@@ -13402,7 +13467,7 @@
     "id": "citt6kn9uc9",
     "name": "雪梅香",
     "alias": [],
-    "charCount": 93,
+    "charCount": 94,
     "sentences": [
       {
         "index": 0,
@@ -13432,8 +13497,9 @@
       },
       {
         "index": 2,
-        "length": 4,
+        "length": 5,
         "pattern": [
+          "仄",
           "平",
           "平",
           "平",
@@ -13691,8 +13757,9 @@
           },
           {
             "index": 2,
-            "length": 4,
+            "length": 5,
             "pattern": [
+              "仄",
               "平",
               "平",
               "平",
@@ -13935,7 +14002,7 @@
     "alias": [
       "锁阳台"
     ],
-    "charCount": 94,
+    "charCount": 95,
     "sentences": [
       {
         "index": 0,
@@ -14120,8 +14187,9 @@
       },
       {
         "index": 15,
-        "length": 4,
+        "length": 5,
         "pattern": [
+          "仄",
           "平",
           "仄",
           "平",
@@ -14404,8 +14472,9 @@
           },
           {
             "index": 15,
-            "length": 4,
+            "length": 5,
             "pattern": [
+              "仄",
               "平",
               "仄",
               "平",
@@ -16292,12 +16361,13 @@
     "alias": [
       "甘州"
     ],
-    "charCount": 94,
+    "charCount": 97,
     "sentences": [
       {
         "index": 0,
-        "length": 7,
+        "length": 8,
         "pattern": [
+          "仄",
           "可平可仄",
           "平",
           "仄",
@@ -16324,8 +16394,9 @@
       },
       {
         "index": 2,
-        "length": 4,
+        "length": 5,
         "pattern": [
+          "仄",
           "平",
           "平",
           "可平可仄",
@@ -16451,8 +16522,9 @@
       },
       {
         "index": 12,
-        "length": 4,
+        "length": 5,
         "pattern": [
+          "仄",
           "平",
           "平",
           "可平可仄",
@@ -16564,8 +16636,9 @@
         "sentences": [
           {
             "index": 0,
-            "length": 7,
+            "length": 8,
             "pattern": [
+              "仄",
               "可平可仄",
               "平",
               "仄",
@@ -16592,8 +16665,9 @@
           },
           {
             "index": 2,
-            "length": 4,
+            "length": 5,
             "pattern": [
+              "仄",
               "平",
               "平",
               "可平可仄",
@@ -16719,8 +16793,9 @@
           },
           {
             "index": 12,
-            "length": 4,
+            "length": 5,
             "pattern": [
+              "仄",
               "平",
               "平",
               "可平可仄",
@@ -16871,7 +16946,7 @@
     "id": "yangzhouman",
     "name": "扬州慢",
     "alias": [],
-    "charCount": 94,
+    "charCount": 98,
     "sentences": [
       {
         "index": 0,
@@ -16913,8 +16988,9 @@
       },
       {
         "index": 3,
-        "length": 4,
+        "length": 5,
         "pattern": [
+          "仄",
           "平",
           "平",
           "仄",
@@ -16925,8 +17001,9 @@
       },
       {
         "index": 4,
-        "length": 4,
+        "length": 5,
         "pattern": [
+          "仄",
           "仄",
           "仄",
           "平",
@@ -17054,8 +17131,9 @@
       },
       {
         "index": 15,
-        "length": 4,
+        "length": 5,
         "pattern": [
+          "仄",
           "仄",
           "仄",
           "平",
@@ -17127,8 +17205,9 @@
       },
       {
         "index": 21,
-        "length": 4,
+        "length": 5,
         "pattern": [
+          "仄",
           "平",
           "平",
           "平",
@@ -17197,8 +17276,9 @@
           },
           {
             "index": 3,
-            "length": 4,
+            "length": 5,
             "pattern": [
+              "仄",
               "平",
               "平",
               "仄",
@@ -17209,8 +17289,9 @@
           },
           {
             "index": 4,
-            "length": 4,
+            "length": 5,
             "pattern": [
+              "仄",
               "仄",
               "仄",
               "平",
@@ -17338,8 +17419,9 @@
           },
           {
             "index": 15,
-            "length": 4,
+            "length": 5,
             "pattern": [
+              "仄",
               "仄",
               "仄",
               "平",
@@ -17411,8 +17493,9 @@
           },
           {
             "index": 21,
-            "length": 4,
+            "length": 5,
             "pattern": [
+              "仄",
               "平",
               "平",
               "平",
@@ -19226,12 +19309,13 @@
     "id": "ciix2k4nlrs",
     "name": "忆旧游",
     "alias": [],
-    "charCount": 96,
+    "charCount": 102,
     "sentences": [
       {
         "index": 0,
-        "length": 4,
+        "length": 5,
         "pattern": [
+          "仄",
           "平",
           "平",
           "仄",
@@ -19279,8 +19363,9 @@
       },
       {
         "index": 4,
-        "length": 4,
+        "length": 5,
         "pattern": [
+          "仄",
           "平",
           "平",
           "仄",
@@ -19330,8 +19415,9 @@
       },
       {
         "index": 8,
-        "length": 4,
+        "length": 5,
         "pattern": [
+          "仄",
           "仄",
           "仄",
           "平",
@@ -19387,8 +19473,9 @@
       },
       {
         "index": 13,
-        "length": 4,
+        "length": 5,
         "pattern": [
+          "仄",
           "仄",
           "仄",
           "平",
@@ -19424,8 +19511,9 @@
       },
       {
         "index": 16,
-        "length": 4,
+        "length": 5,
         "pattern": [
+          "仄",
           "平",
           "平",
           "平",
@@ -19475,8 +19563,9 @@
       },
       {
         "index": 20,
-        "length": 4,
+        "length": 5,
         "pattern": [
+          "仄",
           "仄",
           "仄",
           "平",
@@ -19508,8 +19597,9 @@
         "sentences": [
           {
             "index": 0,
-            "length": 4,
+            "length": 5,
             "pattern": [
+              "仄",
               "平",
               "平",
               "仄",
@@ -19557,8 +19647,9 @@
           },
           {
             "index": 4,
-            "length": 4,
+            "length": 5,
             "pattern": [
+              "仄",
               "平",
               "平",
               "仄",
@@ -19608,8 +19699,9 @@
           },
           {
             "index": 8,
-            "length": 4,
+            "length": 5,
             "pattern": [
+              "仄",
               "仄",
               "仄",
               "平",
@@ -19665,8 +19757,9 @@
           },
           {
             "index": 13,
-            "length": 4,
+            "length": 5,
             "pattern": [
+              "仄",
               "仄",
               "仄",
               "平",
@@ -19702,8 +19795,9 @@
           },
           {
             "index": 16,
-            "length": 4,
+            "length": 5,
             "pattern": [
+              "仄",
               "平",
               "平",
               "平",
@@ -19753,8 +19847,9 @@
           },
           {
             "index": 20,
-            "length": 4,
+            "length": 5,
             "pattern": [
+              "仄",
               "仄",
               "仄",
               "平",
@@ -19810,7 +19905,7 @@
     "id": "cihlou72v9m",
     "name": "夜飞鹊",
     "alias": [],
-    "charCount": 104,
+    "charCount": 106,
     "sentences": [
       {
         "index": 0,
@@ -19895,8 +19990,9 @@
       },
       {
         "index": 6,
-        "length": 4,
+        "length": 5,
         "pattern": [
+          "仄",
           "平",
           "平",
           "平",
@@ -20066,8 +20162,9 @@
       },
       {
         "index": 20,
-        "length": 4,
+        "length": 5,
         "pattern": [
+          "仄",
           "平",
           "平",
           "平",
@@ -20189,8 +20286,9 @@
           },
           {
             "index": 6,
-            "length": 4,
+            "length": 5,
             "pattern": [
+              "仄",
               "平",
               "平",
               "平",
@@ -20360,8 +20458,9 @@
           },
           {
             "index": 20,
-            "length": 4,
+            "length": 5,
             "pattern": [
+              "仄",
               "平",
               "平",
               "平",
@@ -20932,7 +21031,7 @@
     "alias": [
       "寿星明"
     ],
-    "charCount": 93,
+    "charCount": 97,
     "sentences": [
       {
         "index": 0,
@@ -20972,8 +21071,9 @@
       },
       {
         "index": 3,
-        "length": 8,
+        "length": 9,
         "pattern": [
+          "仄",
           "可平可仄",
           "可平可仄",
           "可平可仄",
@@ -21038,8 +21138,9 @@
       },
       {
         "index": 8,
-        "length": 4,
+        "length": 5,
         "pattern": [
+          "仄",
           "可平可仄",
           "平",
           "可平可仄",
@@ -21099,8 +21200,9 @@
       },
       {
         "index": 13,
-        "length": 8,
+        "length": 9,
         "pattern": [
+          "仄",
           "可平可仄",
           "可平可仄",
           "可平可仄",
@@ -21165,8 +21267,9 @@
       },
       {
         "index": 18,
-        "length": 4,
+        "length": 5,
         "pattern": [
+          "仄",
           "可平可仄",
           "平",
           "可平可仄",
@@ -21231,8 +21334,9 @@
           },
           {
             "index": 3,
-            "length": 8,
+            "length": 9,
             "pattern": [
+              "仄",
               "可平可仄",
               "可平可仄",
               "可平可仄",
@@ -21297,8 +21401,9 @@
           },
           {
             "index": 8,
-            "length": 4,
+            "length": 5,
             "pattern": [
+              "仄",
               "可平可仄",
               "平",
               "可平可仄",
@@ -21358,8 +21463,9 @@
           },
           {
             "index": 13,
-            "length": 8,
+            "length": 9,
             "pattern": [
+              "仄",
               "可平可仄",
               "可平可仄",
               "可平可仄",
@@ -21424,8 +21530,9 @@
           },
           {
             "index": 18,
-            "length": 4,
+            "length": 5,
             "pattern": [
+              "仄",
               "可平可仄",
               "平",
               "可平可仄",
@@ -27558,8 +27665,9 @@
           },
           {
             "index": 11,
-            "length": 4,
+            "length": 5,
             "pattern": [
+              "仄",
               "仄",
               "仄",
               "平",
@@ -27655,8 +27763,9 @@
           },
           {
             "index": 19,
-            "length": 4,
+            "length": 5,
             "pattern": [
+              "仄",
               "平",
               "平",
               "平",
@@ -27997,7 +28106,7 @@
     "alias": [
       "钓船笛"
     ],
-    "charCount": 43,
+    "charCount": 45,
     "sentences": [
       {
         "index": 0,
@@ -28042,8 +28151,9 @@
       },
       {
         "index": 3,
-        "length": 4,
+        "length": 5,
         "pattern": [
+          "仄",
           "可平可仄",
           "平",
           "平",
@@ -28096,8 +28206,9 @@
       },
       {
         "index": 7,
-        "length": 4,
+        "length": 5,
         "pattern": [
+          "仄",
           "可平可仄",
           "平",
           "平",
@@ -28155,8 +28266,9 @@
           },
           {
             "index": 3,
-            "length": 4,
+            "length": 5,
             "pattern": [
+              "仄",
               "可平可仄",
               "平",
               "平",
@@ -28209,8 +28321,9 @@
           },
           {
             "index": 7,
-            "length": 4,
+            "length": 5,
             "pattern": [
+              "仄",
               "可平可仄",
               "平",
               "平",
@@ -28278,7 +28391,7 @@
     "alias": [
       "十二时"
     ],
-    "charCount": 44,
+    "charCount": 46,
     "sentences": [
       {
         "index": 0,
@@ -28331,8 +28444,9 @@
       },
       {
         "index": 4,
-        "length": 4,
+        "length": 5,
         "pattern": [
+          "仄",
           "平",
           "平",
           "平",
@@ -28394,8 +28508,9 @@
       },
       {
         "index": 9,
-        "length": 4,
+        "length": 5,
         "pattern": [
+          "仄",
           "平",
           "平",
           "可平可仄",
@@ -28461,8 +28576,9 @@
           },
           {
             "index": 4,
-            "length": 4,
+            "length": 5,
             "pattern": [
+              "仄",
               "平",
               "平",
               "平",
@@ -28524,8 +28640,9 @@
           },
           {
             "index": 9,
-            "length": 4,
+            "length": 5,
             "pattern": [
+              "仄",
               "平",
               "平",
               "可平可仄",
@@ -29578,7 +29695,7 @@
     "id": "zuihuayin",
     "name": "醉花阴",
     "alias": [],
-    "charCount": 51,
+    "charCount": 52,
     "sentences": [
       {
         "index": 0,
@@ -29663,8 +29780,9 @@
       },
       {
         "index": 6,
-        "length": 4,
+        "length": 5,
         "pattern": [
+          "仄",
           "仄",
           "平",
           "平",
@@ -29800,8 +29918,9 @@
           },
           {
             "index": 6,
-            "length": 4,
+            "length": 5,
             "pattern": [
+              "仄",
               "仄",
               "平",
               "平",
@@ -30822,8 +30941,9 @@
         "sentences": [
           {
             "index": 0,
-            "length": 4,
+            "length": 5,
             "pattern": [
+              "仄",
               "平",
               "平",
               "仄",
@@ -30856,8 +30976,9 @@
           },
           {
             "index": 3,
-            "length": 4,
+            "length": 5,
             "pattern": [
+              "仄",
               "可平可仄",
               "仄",
               "平",
@@ -30902,8 +31023,9 @@
           },
           {
             "index": 7,
-            "length": 3,
+            "length": 4,
             "pattern": [
+              "仄",
               "平",
               "仄",
               "仄"
@@ -30913,8 +31035,9 @@
           },
           {
             "index": 8,
-            "length": 7,
+            "length": 8,
             "pattern": [
+              "仄",
               "平",
               "平",
               "仄",
@@ -31000,8 +31123,9 @@
           },
           {
             "index": 15,
-            "length": 4,
+            "length": 5,
             "pattern": [
+              "仄",
               "可平可仄",
               "仄",
               "平",
@@ -31046,8 +31170,9 @@
           },
           {
             "index": 19,
-            "length": 3,
+            "length": 4,
             "pattern": [
+              "仄",
               "平",
               "仄",
               "仄"
@@ -31057,8 +31182,9 @@
           },
           {
             "index": 20,
-            "length": 7,
+            "length": 8,
             "pattern": [
+              "仄",
               "平",
               "平",
               "仄",
@@ -34851,7 +34977,7 @@
     "id": "cisqfni0izh",
     "name": "酷相思",
     "alias": [],
-    "charCount": 64,
+    "charCount": 66,
     "sentences": [
       {
         "index": 0,
@@ -34892,8 +35018,9 @@
       },
       {
         "index": 3,
-        "length": 7,
+        "length": 8,
         "pattern": [
+          "仄",
           "平",
           "仄",
           "平",
@@ -34988,8 +35115,9 @@
       },
       {
         "index": 11,
-        "length": 7,
+        "length": 8,
         "pattern": [
+          "仄",
           "平",
           "仄",
           "平",
@@ -35090,8 +35218,9 @@
           },
           {
             "index": 3,
-            "length": 7,
+            "length": 8,
             "pattern": [
+              "仄",
               "平",
               "仄",
               "平",
@@ -35186,8 +35315,9 @@
           },
           {
             "index": 11,
-            "length": 7,
+            "length": 8,
             "pattern": [
+              "仄",
               "平",
               "仄",
               "平",
@@ -39229,7 +39359,7 @@
     "id": "ciljyfkpl70",
     "name": "洞仙歌",
     "alias": [],
-    "charCount": 80,
+    "charCount": 83,
     "sentences": [
       {
         "index": 0,
@@ -39245,8 +39375,9 @@
       },
       {
         "index": 1,
-        "length": 4,
+        "length": 5,
         "pattern": [
+          "仄",
           "可平可仄",
           "平",
           "平",
@@ -39410,8 +39541,9 @@
       },
       {
         "index": 14,
-        "length": 7,
+        "length": 8,
         "pattern": [
+          "仄",
           "可平可仄",
           "仄",
           "平",
@@ -39425,8 +39557,9 @@
       },
       {
         "index": 15,
-        "length": 4,
+        "length": 5,
         "pattern": [
+          "仄",
           "仄",
           "仄",
           "平",
@@ -39467,8 +39600,9 @@
           },
           {
             "index": 1,
-            "length": 4,
+            "length": 5,
             "pattern": [
+              "仄",
               "可平可仄",
               "平",
               "平",
@@ -39632,8 +39766,9 @@
           },
           {
             "index": 14,
-            "length": 7,
+            "length": 8,
             "pattern": [
+              "仄",
               "可平可仄",
               "仄",
               "平",
@@ -39647,8 +39782,9 @@
           },
           {
             "index": 15,
-            "length": 4,
+            "length": 5,
             "pattern": [
+              "仄",
               "仄",
               "仄",
               "平",
@@ -43079,7 +43215,7 @@
     "id": "civd0q0qg1r",
     "name": "黄莺儿",
     "alias": [],
-    "charCount": 94,
+    "charCount": 96,
     "sentences": [
       {
         "index": 0,
@@ -43146,8 +43282,9 @@
       },
       {
         "index": 5,
-        "length": 5,
+        "length": 6,
         "pattern": [
+          "平",
           "仄",
           "仄",
           "仄",
@@ -43276,8 +43413,9 @@
       },
       {
         "index": 15,
-        "length": 5,
+        "length": 6,
         "pattern": [
+          "平",
           "仄",
           "仄",
           "仄",
@@ -43398,8 +43536,9 @@
           },
           {
             "index": 5,
-            "length": 5,
+            "length": 6,
             "pattern": [
+              "平",
               "仄",
               "仄",
               "仄",
@@ -43528,8 +43667,9 @@
           },
           {
             "index": 15,
-            "length": 5,
+            "length": 6,
             "pattern": [
+              "平",
               "仄",
               "仄",
               "仄",
@@ -44764,7 +44904,7 @@
     "alias": [
       "红情"
     ],
-    "charCount": 95,
+    "charCount": 97,
     "sentences": [
       {
         "index": 0,
@@ -44780,8 +44920,9 @@
       },
       {
         "index": 1,
-        "length": 4,
+        "length": 5,
         "pattern": [
+          "仄",
           "仄",
           "平",
           "仄",
@@ -44925,8 +45066,9 @@
       },
       {
         "index": 13,
-        "length": 4,
+        "length": 5,
         "pattern": [
+          "仄",
           "仄",
           "仄",
           "仄",
@@ -45065,8 +45207,9 @@
           },
           {
             "index": 1,
-            "length": 4,
+            "length": 5,
             "pattern": [
+              "仄",
               "仄",
               "平",
               "仄",
@@ -45210,8 +45353,9 @@
           },
           {
             "index": 13,
-            "length": 4,
+            "length": 5,
             "pattern": [
+              "仄",
               "仄",
               "仄",
               "仄",
@@ -45913,7 +46057,7 @@
     "id": "cigjwgjwmhh",
     "name": "双双燕",
     "alias": [],
-    "charCount": 96,
+    "charCount": 98,
     "sentences": [
       {
         "index": 0,
@@ -45929,8 +46073,9 @@
       },
       {
         "index": 1,
-        "length": 4,
+        "length": 5,
         "pattern": [
+          "仄",
           "平",
           "仄",
           "平",
@@ -46066,8 +46211,9 @@
       },
       {
         "index": 12,
-        "length": 4,
+        "length": 5,
         "pattern": [
+          "仄",
           "仄",
           "仄",
           "平",
@@ -46199,8 +46345,9 @@
           },
           {
             "index": 1,
-            "length": 4,
+            "length": 5,
             "pattern": [
+              "仄",
               "平",
               "仄",
               "平",
@@ -46336,8 +46483,9 @@
           },
           {
             "index": 12,
-            "length": 4,
+            "length": 5,
             "pattern": [
+              "仄",
               "仄",
               "仄",
               "平",
@@ -48789,7 +48937,7 @@
     "id": "cip23sn1k6d",
     "name": "绛都春",
     "alias": [],
-    "charCount": 99,
+    "charCount": 100,
     "sentences": [
       {
         "index": 0,
@@ -48805,8 +48953,9 @@
       },
       {
         "index": 1,
-        "length": 4,
+        "length": 5,
         "pattern": [
+          "仄",
           "仄",
           "仄",
           "仄",
@@ -49078,8 +49227,9 @@
           },
           {
             "index": 1,
-            "length": 4,
+            "length": 5,
             "pattern": [
+              "仄",
               "仄",
               "仄",
               "仄",
@@ -49360,7 +49510,7 @@
     "alias": [
       "疏帘淡月"
     ],
-    "charCount": 99,
+    "charCount": 101,
     "sentences": [
       {
         "index": 0,
@@ -49376,8 +49526,9 @@
       },
       {
         "index": 1,
-        "length": 4,
+        "length": 5,
         "pattern": [
+          "仄",
           "仄",
           "仄",
           "可平可仄",
@@ -49523,8 +49674,9 @@
       },
       {
         "index": 13,
-        "length": 4,
+        "length": 5,
         "pattern": [
+          "仄",
           "可平可仄",
           "可平可仄",
           "平",
@@ -49657,8 +49809,9 @@
           },
           {
             "index": 1,
-            "length": 4,
+            "length": 5,
             "pattern": [
+              "仄",
               "仄",
               "仄",
               "可平可仄",
@@ -49804,8 +49957,9 @@
           },
           {
             "index": 13,
-            "length": 4,
+            "length": 5,
             "pattern": [
+              "仄",
               "可平可仄",
               "可平可仄",
               "平",
@@ -49935,7 +50089,7 @@
     "id": "cip9cku4gm7",
     "name": "翠楼吟",
     "alias": [],
-    "charCount": 99,
+    "charCount": 101,
     "sentences": [
       {
         "index": 0,
@@ -50017,8 +50171,9 @@
       },
       {
         "index": 6,
-        "length": 4,
+        "length": 5,
         "pattern": [
+          "仄",
           "仄",
           "仄",
           "平",
@@ -50163,8 +50318,9 @@
       },
       {
         "index": 18,
-        "length": 4,
+        "length": 5,
         "pattern": [
+          "仄",
           "仄",
           "仄",
           "平",
@@ -50306,8 +50462,9 @@
           },
           {
             "index": 6,
-            "length": 4,
+            "length": 5,
             "pattern": [
+              "仄",
               "仄",
               "仄",
               "平",
@@ -50452,8 +50609,9 @@
           },
           {
             "index": 18,
-            "length": 4,
+            "length": 5,
             "pattern": [
+              "仄",
               "仄",
               "仄",
               "平",
@@ -50526,7 +50684,7 @@
     "id": "citubr1vffxiofobwfeo",
     "name": "霓裳中序第一",
     "alias": [],
-    "charCount": 100,
+    "charCount": 101,
     "sentences": [
       {
         "index": 0,
@@ -50572,8 +50730,9 @@
       },
       {
         "index": 3,
-        "length": 4,
+        "length": 5,
         "pattern": [
+          "仄",
           "平",
           "仄",
           "仄",
@@ -50846,8 +51005,9 @@
           },
           {
             "index": 3,
-            "length": 4,
+            "length": 5,
             "pattern": [
+              "仄",
               "平",
               "仄",
               "仄",
@@ -51091,7 +51251,7 @@
       "庄椿岁",
       "小楼连苑"
     ],
-    "charCount": 98,
+    "charCount": 101,
     "sentences": [
       {
         "index": 0,
@@ -51196,8 +51356,9 @@
       },
       {
         "index": 8,
-        "length": 4,
+        "length": 5,
         "pattern": [
+          "仄",
           "可平可仄",
           "平",
           "可平可仄",
@@ -51350,8 +51511,9 @@
       },
       {
         "index": 21,
-        "length": 4,
+        "length": 5,
         "pattern": [
+          "仄",
           "平",
           "平",
           "仄",
@@ -51374,8 +51536,9 @@
       },
       {
         "index": 23,
-        "length": 3,
+        "length": 4,
         "pattern": [
+          "仄",
           "平",
           "平",
           "仄"
@@ -51492,8 +51655,9 @@
           },
           {
             "index": 8,
-            "length": 4,
+            "length": 5,
             "pattern": [
+              "仄",
               "可平可仄",
               "平",
               "可平可仄",
@@ -51646,8 +51810,9 @@
           },
           {
             "index": 21,
-            "length": 4,
+            "length": 5,
             "pattern": [
+              "仄",
               "平",
               "平",
               "仄",
@@ -51670,8 +51835,9 @@
           },
           {
             "index": 23,
-            "length": 3,
+            "length": 4,
             "pattern": [
+              "仄",
               "平",
               "平",
               "仄"
@@ -51788,8 +51954,9 @@
           },
           {
             "index": 8,
-            "length": 4,
+            "length": 5,
             "pattern": [
+              "仄",
               "可平可仄",
               "平",
               "可平可仄",
@@ -51942,8 +52109,9 @@
           },
           {
             "index": 21,
-            "length": 4,
+            "length": 5,
             "pattern": [
+              "仄",
               "平",
               "平",
               "仄",
@@ -51966,8 +52134,9 @@
           },
           {
             "index": 23,
-            "length": 3,
+            "length": 4,
             "pattern": [
+              "仄",
               "平",
               "平",
               "仄"
@@ -54763,7 +54932,7 @@
       "五福降中天",
       "如此江山"
     ],
-    "charCount": 98,
+    "charCount": 100,
     "sentences": [
       {
         "index": 0,
@@ -54845,8 +55014,9 @@
       },
       {
         "index": 6,
-        "length": 4,
+        "length": 5,
         "pattern": [
+          "仄",
           "平",
           "仄",
           "平",
@@ -54984,8 +55154,9 @@
       },
       {
         "index": 17,
-        "length": 4,
+        "length": 5,
         "pattern": [
+          "仄",
           "可平可仄",
           "仄",
           "平",
@@ -55117,8 +55288,9 @@
           },
           {
             "index": 6,
-            "length": 4,
+            "length": 5,
             "pattern": [
+              "仄",
               "平",
               "仄",
               "平",
@@ -55256,8 +55428,9 @@
           },
           {
             "index": 17,
-            "length": 4,
+            "length": 5,
             "pattern": [
+              "仄",
               "可平可仄",
               "仄",
               "平",
@@ -55966,12 +56139,13 @@
     "alias": [
       "百宜娇"
     ],
-    "charCount": 100,
+    "charCount": 103,
     "sentences": [
       {
         "index": 0,
-        "length": 4,
+        "length": 5,
         "pattern": [
+          "仄",
           "平",
           "平",
           "平",
@@ -56131,8 +56305,9 @@
       },
       {
         "index": 13,
-        "length": 4,
+        "length": 5,
         "pattern": [
+          "仄",
           "仄",
           "平",
           "可平可仄",
@@ -56228,8 +56403,9 @@
       },
       {
         "index": 21,
-        "length": 4,
+        "length": 5,
         "pattern": [
+          "仄",
           "平",
           "仄",
           "平",
@@ -56260,8 +56436,9 @@
         "sentences": [
           {
             "index": 0,
-            "length": 4,
+            "length": 5,
             "pattern": [
+              "仄",
               "平",
               "平",
               "平",
@@ -56421,8 +56598,9 @@
           },
           {
             "index": 13,
-            "length": 4,
+            "length": 5,
             "pattern": [
+              "仄",
               "仄",
               "平",
               "可平可仄",
@@ -56518,8 +56696,9 @@
           },
           {
             "index": 21,
-            "length": 4,
+            "length": 5,
             "pattern": [
+              "仄",
               "平",
               "仄",
               "平",
@@ -57201,7 +57380,7 @@
     "id": "cifikslqnz2",
     "name": "二郎神",
     "alias": [],
-    "charCount": 103,
+    "charCount": 104,
     "sentences": [
       {
         "index": 0,
@@ -57464,8 +57643,9 @@
       },
       {
         "index": 21,
-        "length": 4,
+        "length": 5,
         "pattern": [
+          "仄",
           "平",
           "仄",
           "平",
@@ -57765,8 +57945,9 @@
           },
           {
             "index": 21,
-            "length": 4,
+            "length": 5,
             "pattern": [
+              "仄",
               "平",
               "仄",
               "平",
@@ -59521,7 +59702,7 @@
     "id": "cikd7sf0qx8",
     "name": "望远行",
     "alias": [],
-    "charCount": 105,
+    "charCount": 106,
     "sentences": [
       {
         "index": 0,
@@ -59790,8 +59971,9 @@
       },
       {
         "index": 21,
-        "length": 4,
+        "length": 5,
         "pattern": [
+          "仄",
           "仄",
           "平",
           "平",
@@ -60085,8 +60267,9 @@
           },
           {
             "index": 21,
-            "length": 4,
+            "length": 5,
             "pattern": [
+              "仄",
               "仄",
               "平",
               "平",
@@ -60765,7 +60948,7 @@
       "迈陂塘",
       "双蕖怨"
     ],
-    "charCount": 114,
+    "charCount": 116,
     "sentences": [
       {
         "index": 0,
@@ -60884,8 +61067,9 @@
       },
       {
         "index": 9,
-        "length": 4,
+        "length": 5,
         "pattern": [
+          "仄",
           "仄",
           "仄",
           "平",
@@ -61038,8 +61222,9 @@
       },
       {
         "index": 21,
-        "length": 4,
+        "length": 5,
         "pattern": [
+          "仄",
           "仄",
           "仄",
           "平",
@@ -61196,8 +61381,9 @@
           },
           {
             "index": 9,
-            "length": 4,
+            "length": 5,
             "pattern": [
+              "仄",
               "仄",
               "仄",
               "平",
@@ -61350,8 +61536,9 @@
           },
           {
             "index": 21,
-            "length": 4,
+            "length": 5,
             "pattern": [
+              "仄",
               "仄",
               "仄",
               "平",
@@ -62132,7 +62319,7 @@
     "id": "lanlingwang",
     "name": "兰陵王",
     "alias": [],
-    "charCount": 125,
+    "charCount": 130,
     "sentences": [
       {
         "index": 0,
@@ -62285,8 +62472,9 @@
       },
       {
         "index": 12,
-        "length": 4,
+        "length": 5,
         "pattern": [
+          "仄",
           "仄",
           "仄",
           "平",
@@ -62324,8 +62512,9 @@
       },
       {
         "index": 15,
-        "length": 4,
+        "length": 5,
         "pattern": [
+          "平",
           "仄",
           "仄",
           "平",
@@ -62363,8 +62552,9 @@
       },
       {
         "index": 18,
-        "length": 4,
+        "length": 5,
         "pattern": [
+          "仄",
           "平",
           "仄",
           "平",
@@ -62396,8 +62586,9 @@
       },
       {
         "index": 21,
-        "length": 4,
+        "length": 5,
         "pattern": [
+          "仄",
           "仄",
           "仄",
           "平",
@@ -62435,8 +62626,9 @@
       },
       {
         "index": 24,
-        "length": 4,
+        "length": 5,
         "pattern": [
+          "仄",
           "仄",
           "仄",
           "平",
@@ -62648,8 +62840,9 @@
           },
           {
             "index": 12,
-            "length": 4,
+            "length": 5,
             "pattern": [
+              "仄",
               "仄",
               "仄",
               "平",
@@ -62687,8 +62880,9 @@
           },
           {
             "index": 15,
-            "length": 4,
+            "length": 5,
             "pattern": [
+              "平",
               "仄",
               "仄",
               "平",
@@ -62726,8 +62920,9 @@
           },
           {
             "index": 18,
-            "length": 4,
+            "length": 5,
             "pattern": [
+              "仄",
               "平",
               "仄",
               "平",
@@ -62759,8 +62954,9 @@
           },
           {
             "index": 21,
-            "length": 4,
+            "length": 5,
             "pattern": [
+              "仄",
               "仄",
               "仄",
               "平",
@@ -62798,8 +62994,9 @@
           },
           {
             "index": 24,
-            "length": 4,
+            "length": 5,
             "pattern": [
+              "仄",
               "仄",
               "仄",
               "平",
@@ -63011,8 +63208,9 @@
           },
           {
             "index": 12,
-            "length": 4,
+            "length": 5,
             "pattern": [
+              "仄",
               "仄",
               "仄",
               "平",
@@ -63124,8 +63322,9 @@
           },
           {
             "index": 21,
-            "length": 4,
+            "length": 5,
             "pattern": [
+              "仄",
               "平",
               "仄",
               "仄",
@@ -63163,8 +63362,9 @@
           },
           {
             "index": 24,
-            "length": 4,
+            "length": 5,
             "pattern": [
+              "仄",
               "平",
               "平",
               "仄",
@@ -63246,12 +63446,13 @@
     "id": "liuchou",
     "name": "六丑",
     "alias": [],
-    "charCount": 135,
+    "charCount": 138,
     "sentences": [
       {
         "index": 0,
-        "length": 4,
+        "length": 5,
         "pattern": [
+          "仄",
           "平",
           "平",
           "仄",
@@ -63412,8 +63613,9 @@
       },
       {
         "index": 13,
-        "length": 4,
+        "length": 5,
         "pattern": [
+          "仄",
           "平",
           "平",
           "仄",
@@ -63498,8 +63700,9 @@
       },
       {
         "index": 20,
-        "length": 4,
+        "length": 5,
         "pattern": [
+          "仄",
           "平",
           "平",
           "仄",
@@ -63647,8 +63850,9 @@
         "sentences": [
           {
             "index": 0,
-            "length": 4,
+            "length": 5,
             "pattern": [
+              "仄",
               "平",
               "平",
               "仄",
@@ -63809,8 +64013,9 @@
           },
           {
             "index": 13,
-            "length": 4,
+            "length": 5,
             "pattern": [
+              "仄",
               "平",
               "平",
               "仄",
@@ -63895,8 +64100,9 @@
           },
           {
             "index": 20,
-            "length": 4,
+            "length": 5,
             "pattern": [
+              "仄",
               "平",
               "平",
               "仄",
@@ -66201,7 +66407,7 @@
     "id": "yingtixu",
     "name": "莺啼序",
     "alias": [],
-    "charCount": 235,
+    "charCount": 240,
     "sentences": [
       {
         "index": 0,
@@ -66307,8 +66513,9 @@
       },
       {
         "index": 8,
-        "length": 2,
+        "length": 3,
         "pattern": [
+          "仄",
           "平",
           "平"
         ],
@@ -66365,8 +66572,9 @@
       },
       {
         "index": 13,
-        "length": 4,
+        "length": 5,
         "pattern": [
+          "仄",
           "平",
           "平",
           "仄",
@@ -66630,8 +66838,9 @@
       },
       {
         "index": 35,
-        "length": 2,
+        "length": 3,
         "pattern": [
+          "仄",
           "平",
           "平"
         ],
@@ -66717,8 +66926,9 @@
       },
       {
         "index": 42,
-        "length": 4,
+        "length": 5,
         "pattern": [
+          "仄",
           "仄",
           "平",
           "仄",
@@ -66827,8 +67037,9 @@
       },
       {
         "index": 51,
-        "length": 2,
+        "length": 3,
         "pattern": [
+          "仄",
           "平",
           "平"
         ],
@@ -66996,8 +67207,9 @@
           },
           {
             "index": 8,
-            "length": 2,
+            "length": 3,
             "pattern": [
+              "仄",
               "平",
               "平"
             ],
@@ -67054,8 +67266,9 @@
           },
           {
             "index": 13,
-            "length": 4,
+            "length": 5,
             "pattern": [
+              "仄",
               "平",
               "平",
               "仄",
@@ -67319,8 +67532,9 @@
           },
           {
             "index": 35,
-            "length": 2,
+            "length": 3,
             "pattern": [
+              "仄",
               "平",
               "平"
             ],
@@ -67406,8 +67620,9 @@
           },
           {
             "index": 42,
-            "length": 4,
+            "length": 5,
             "pattern": [
+              "仄",
               "仄",
               "平",
               "仄",
@@ -67516,8 +67731,9 @@
           },
           {
             "index": 51,
-            "length": 2,
+            "length": 3,
             "pattern": [
+              "仄",
               "平",
               "平"
             ],
@@ -74818,7 +75034,7 @@
     "id": "cijdmlcf",
     "name": "戚氏",
     "alias": [],
-    "charCount": 207,
+    "charCount": 212,
     "sentences": [
       {
         "index": 0,
@@ -74986,8 +75202,9 @@
       },
       {
         "index": 13,
-        "length": 4,
+        "length": 5,
         "pattern": [
+          "仄",
           "平",
           "平",
           "仄",
@@ -75240,8 +75457,9 @@
       },
       {
         "index": 34,
-        "length": 7,
+        "length": 8,
         "pattern": [
+          "仄",
           "平",
           "平",
           "仄",
@@ -75294,8 +75512,9 @@
       },
       {
         "index": 38,
-        "length": 2,
+        "length": 3,
         "pattern": [
+          "仄",
           "仄",
           "平"
         ],
@@ -75363,8 +75582,9 @@
       },
       {
         "index": 44,
-        "length": 7,
+        "length": 8,
         "pattern": [
+          "仄",
           "平",
           "仄",
           "仄",
@@ -75378,8 +75598,9 @@
       },
       {
         "index": 45,
-        "length": 3,
+        "length": 4,
         "pattern": [
+          "仄",
           "平",
           "平",
           "仄"
@@ -75583,8 +75804,9 @@
           },
           {
             "index": 13,
-            "length": 4,
+            "length": 5,
             "pattern": [
+              "仄",
               "平",
               "平",
               "仄",
@@ -75837,8 +76059,9 @@
           },
           {
             "index": 34,
-            "length": 7,
+            "length": 8,
             "pattern": [
+              "仄",
               "平",
               "平",
               "仄",
@@ -75891,8 +76114,9 @@
           },
           {
             "index": 38,
-            "length": 2,
+            "length": 3,
             "pattern": [
+              "仄",
               "仄",
               "平"
             ],
@@ -75960,8 +76184,9 @@
           },
           {
             "index": 44,
-            "length": 7,
+            "length": 8,
             "pattern": [
+              "仄",
               "平",
               "仄",
               "仄",
@@ -75975,8 +76200,9 @@
           },
           {
             "index": 45,
-            "length": 3,
+            "length": 4,
             "pattern": [
+              "仄",
               "平",
               "平",
               "仄"
