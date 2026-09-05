@@ -7,7 +7,10 @@
 
 import { ref, shallowRef } from 'vue'
 
-const API_BASE = '/api'
+// P1 静态化：数据源从后端 API 改为静态 JSON（export-static.py 产物，
+// vite 构建时 public/ 自动拷入 dist，页面在 /poetry/ 下解析为 /poetry/cipai.json）。
+// 相对路径保证 dev（/）与生产子路径（/poetry/）同时可用。
+const DATA_URL = 'cipai.json'
 
 // 全局缓存（模块级单例，跨组件共享）
 const cache = shallowRef(null)
@@ -27,7 +30,7 @@ export function useCipai(force = false) {
     error.value = null
 
     try {
-      const res = await fetch(`${API_BASE}/cipai`)
+      const res = await fetch(DATA_URL)
       if (!res.ok) throw new Error(`HTTP ${res.status}`)
       const json = await res.json()
       if (json.code === 0) {
