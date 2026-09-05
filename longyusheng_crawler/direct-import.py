@@ -6,9 +6,13 @@
   --dry  试运行：只统计将要执行的变更，不写入
 
 行为：
-  - id 已存在 → UPDATE 覆盖（name/alias/charCount/sentences/formats/notes）
+  - id 已存在 → UPDATE 覆盖（name/alias/charCount/sentences/formats/notes/examples）
   - id 不存在 → INSERT 新增
   - 导入前自动备份 cipai.db → cipai.db.<timestamp>.bak
+  - **导入门禁（P0）**：导入前全量校验（cipai_validator，规则与 shared/cipaiSchema.js 等价），
+    任一失败 → 阻断并列出全部错误，不写库（幂等导入：一条错说明管道有系统性问题，应修源）
+  - **corrections（P0）**：爬虫数据 upsert 后，应用 corrections.json（手工修正唯一出口，
+    版本化、可追溯、永不被重导覆盖）。修正合并后同样过校验，失败则跳过并告警。
 """
 
 import json
@@ -18,9 +22,13 @@ import sqlite3
 import sys
 from datetime import datetime
 
+from cipai_validator import validate_cipai
+
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-DB_PATH = os.path.normpath(os.path.join(BASE_DIR, "..", "server", "data", "cipai.db"))
-JSON_PATH = os.path.join(BASE_DIR, "output", "longyusheng_cipai_schema.json")
+# 路径可用环境变量覆盖（测试/临时库场景），默认指向真实库
+DB_PATH = os.environ.get("CIPAI_DB_PATH") or os.path.normpath(os.path.join(BASE_DIR, "..", "server", "data", "cipai.db"))
+JSON_PATH = os.environ.get("CIPAI_JSON_PATH") or os.path.join(BASE_DIR, "output", "longyusheng_cipai_schema.json")
+CORRECTIONS_PATH = os.environ.get("CIPAI_CORRECTIONS_PATH") or os.path.join(BASE_DIR, "corrections.json")
 
 DRY_RUN = "--dry" in sys.argv
 
@@ -31,6 +39,35 @@ if not os.path.exists(JSON_PATH):
     print("未找到导入数据:", JSON_PATH)
     sys.exit(1)
 
+# ── 加载爬虫数据并全量门禁校验（dry-run 同样校验）──
+with open(JSON_PATH, encoding="utf-8") as f:
+    data = json.load(f)
+
+gate_failures = 0
+for c in data:
+    result = validate_cipai(c)
+    if not result["valid"]:
+        gate_failures += 1
+        print(f"✗ 门禁失败 [{c.get('id')} / {c.get('name')}]:")
+        for e in result["errors"]:
+            print(f"    - {e}")
+if gate_failures > 0:
+    print(f"\n门禁未通过: {gate_failures} 条数据存在错误，导入已阻断（请修复数据源或写 corrections）")
+    sys.exit(2)
+
+# ── 加载 corrections.json（可选）──
+corrections = []
+if os.path.exists(CORRECTIONS_PATH):
+    with open(CORRECTIONS_PATH, encoding="utf-8-sig") as f:  # utf-8-sig: Windows 编辑器可能存 BOM
+        raw = json.load(f)
+    if not isinstance(raw, list):
+        print("⚠ corrections.json 顶层须为数组（[{id, patch}, ...]），已忽略")
+        raw = []
+    corrections = [r for r in raw if isinstance(r, dict) and r.get("id") and isinstance(r.get("patch"), dict)]
+    skipped = len(raw) - len(corrections)
+    if skipped:
+        print(f"⚠ corrections.json 忽略 {skipped} 条格式不合法条目")
+
 # ── 备份 ──
 if not DRY_RUN:
     ts = datetime.now().strftime("%Y%m%d%H%M%S")
@@ -40,8 +77,7 @@ if not DRY_RUN:
 
 conn = sqlite3.connect(DB_PATH)
 conn.execute("PRAGMA journal_mode = WAL")
-with open(JSON_PATH, encoding="utf-8") as f:
-    data = json.load(f)
+conn.execute("PRAGMA foreign_keys = ON")
 
 # 确保 formats/examples 列存在（老库兼容）
 cols = [r[1] for r in conn.execute("PRAGMA table_info(cipai)").fetchall()]
@@ -60,7 +96,6 @@ upsert_sql = """
         sentences = excluded.sentences, formats = excluded.formats, notes = excluded.notes,
         examples = excluded.examples, updated_at = datetime('now','localtime')
 """
-stmt = None  # 无需预编译，循环内直接 execute 带参执行
 
 # 现库 name/alias → id 映射（避免同名词牌因 id 算法不同产生重复条目）
 conn.row_factory = sqlite3.Row
@@ -105,11 +140,62 @@ for c in data:
     else:
         insert_n += 1
 
+# ── 应用 corrections（覆盖式修正，在爬虫数据之后）──
+corr_ok = corr_skip = 0
+if corrections:
+    conn.row_factory = sqlite3.Row
+    for cr in corrections:
+        cid = cr["id"]
+        patch = cr["patch"]
+        cur = conn.execute("SELECT * FROM cipai WHERE id = ?", (cid,)).fetchone()
+        if not cur:
+            print(f"⚠ corrections 未找到 id {cid}，跳过")
+            corr_skip += 1
+            continue
+        merged = {
+            "id": cid,
+            "name": patch.get("name", cur["name"]),
+            "alias": patch.get("alias", json.loads(cur["alias"] or "[]")),
+            "charCount": patch.get("charCount", cur["charCount"]),
+            "sentences": patch.get("sentences", json.loads(cur["sentences"] or "[]")),
+            "formats": patch.get("formats", json.loads(cur["formats"] or "[]")),
+            "notes": patch.get("notes", cur["notes"] or ""),
+            "examples": patch.get("examples", json.loads(cur["examples"] or "[]")),
+        }
+        result = validate_cipai(merged)
+        if not result["valid"]:
+            print(f"⚠ corrections {cid} 合并后校验失败，跳过: {result['errors'][:3]}")
+            corr_skip += 1
+            continue
+        if DRY_RUN:
+            corr_ok += 1
+            continue
+        conn.execute(
+            """UPDATE cipai SET name=?, alias=?, charCount=?, sentences=?, formats=?,
+               notes=?, examples=?, updated_at=datetime('now','localtime') WHERE id=?""",
+            (
+                merged["name"],
+                json.dumps(merged["alias"], ensure_ascii=False),
+                merged["charCount"],
+                json.dumps(merged["sentences"], ensure_ascii=False),
+                json.dumps(merged["formats"], ensure_ascii=False),
+                merged["notes"],
+                json.dumps(merged["examples"], ensure_ascii=False),
+                cid,
+            ),
+        )
+        corr_ok += 1
+    conn.row_factory = None
+
 if not DRY_RUN:
     conn.commit()
     print(f"导入完成: 新增 {insert_n} · 覆盖 {update_n}")
+    if corrections:
+        print(f"corrections 应用: {corr_ok} 条生效 · {corr_skip} 条跳过")
 else:
     print(f"[dry] 将新增 {insert_n} · 将覆盖 {update_n}")
+    if corrections:
+        print(f"[dry] corrections 将应用 {corr_ok} 条 · 跳过 {corr_skip} 条")
 
 total = conn.execute("SELECT COUNT(*) FROM cipai").fetchone()[0]
 print(f"数据库词牌总数: {total}")
