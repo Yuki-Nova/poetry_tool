@@ -9,7 +9,7 @@
 
 - [ ] **A1 (P0) 推送 Git**：本轮大改（爬虫 + 多格式模型 + 前端变体切换）待整理提交并推送
   - ⚠️ 复查（2026-08-02）：当前未提交 = `docs/TODO.md`（E/F/G 组新增）+ `docs/tone-audit-plan.md`（新文件）；此前 8505afe 已含 README 同步。建议先提交这两份文档再继续
-- [ ] **A2 (P1) 博客旧路径重定向**：`yukinova.top/poetry/` → `poetry.yukinova.top`（session-progress 遗留）
+- [x] **A2 (P1) 博客旧路径重定向** ~~`yukinova.top/poetry/` → `poetry.yukinova.top`~~（2026-09-05 静态化整合反转方向并收敛:主域 `/poetry/` = 唯一入口,nginx alias 直出 tool dist;旧嵌入页 `source/poetry/index.md` 已删,见 `INTEGRATION_PLAN.md`）
 - [ ] **A3 (P1) 服务器 .env 核对**：确认 `JWT_SECRET` / `ADMIN_PASSWORD` 已设置且为强密码（README 标注生产必改）
 - [ ] **A4 (P1) 生产部署同步**：ECS `poetry.yukinova.top` 需更新——server 代码（formats 支持）+ 新 `cipai.db`（153 词牌，本地已删旧数据）+ tool/admin 最新构建
 - [ ] **A5 (P2) 更新文档**：`docs/session-progress-20260723.md` 的"待办事项"与部署状态已过时，可并入本清单
@@ -28,7 +28,7 @@
 
 ## C. 架构与工程（跨模块）
 
-- [ ] **C1 (P1) 词牌数据离线兜底**：`useCipai` 强依赖 `GET /api/cipai`，后端不可用时词牌选择器完全不可用。方案：前端打包精简目录（龙榆生 153 词牌目录，约 50KB），按需请求单个词牌格律；或后端不可用时降级提示 + 诗体模板可用
+- [x] **C1 (P1) 词牌数据离线兜底**（2026-09-05 静态化根治）:数据源改为构建期 `export-static.py` 产出的静态 `cipai.json`(vite public/),`useCipai` 相对路径 fetch,**后端进程移除后前端仍完全可用**(零依赖 dev 与生产)
 - [ ] **C2 (P2) 补充 composables/组件测试**：现有 33 用例仅覆盖 `core/` 三个引擎；`useAnalysis`/`usePattern`/`useCipai` 及 PoetryIDE 交互逻辑无测试
 - [ ] **C2.5 (P2) server API 测试**：server/ 无任何测试脚本（package.json 仅有 start/dev）。建议引入 supertest + node:test/vitest，覆盖 `/api/cipai` CRUD、`/api/auth` 登录、schema 校验失败 400 等；配合 C1 前端离线兜底可做集成冒烟
 - [ ] **C2.6 (P2) admin 组件测试**：admin/ 无测试（PatternGrid 循环 平→仄→可平可仄→韵脚 逻辑值得单测）
