@@ -74,7 +74,7 @@ const hasContent = computed(() =>
 <style scoped>
 .cipai-info {
   background: var(--paper-card, #fff);
-  border: 1px solid var(--border, #e4e3de);
+  border: 1px solid var(--border, rgba(17, 24, 39, 0.10));
   border-radius: 10px;
   padding: 14px 16px;
   font-size: 13px;
@@ -91,21 +91,21 @@ const hasContent = computed(() =>
 .ci-title {
   font-size: 13px;
   font-weight: 600;
-  color: var(--accent, #3d5a80);
+  color: var(--accent, #b0171a);
   letter-spacing: 0.05em;
 }
 
 .ci-toggle {
   font-size: 11px;
   padding: 2px 10px;
-  border: 1px solid var(--border, #e4e3de);
+  border: 1px solid var(--border, rgba(17, 24, 39, 0.10));
   border-radius: 12px;
   background: transparent;
-  color: var(--ink-muted, #94989b);
+  color: var(--ink-muted, #6b7280);
   cursor: pointer;
   transition: all 0.15s;
 }
-.ci-toggle:hover { border-color: var(--accent, #3d5a80); color: var(--accent, #3d5a80); }
+.ci-toggle:hover { border-color: var(--accent, #b0171a); color: var(--accent, #b0171a); }
 
 .ci-summary {
   display: flex;
@@ -116,36 +116,36 @@ const hasContent = computed(() =>
 .ci-name {
   font-size: 16px;
   font-weight: 600;
-  color: var(--ink, #1a1c1d);
+  color: var(--ink, #2b3036);
   font-family: 'Noto Serif SC', 'Source Han Serif SC', 'SimSun', serif;
 }
-.ci-alias { font-size: 12px; color: var(--ink-muted, #94989b); }
+.ci-alias { font-size: 12px; color: var(--ink-muted, #6b7280); }
 
-.ci-stats { font-size: 12px; color: var(--ink-muted, #94989b); margin-top: 2px; }
-.ci-fmt { margin-left: 6px; color: var(--accent, #3d5a80); }
+.ci-stats { font-size: 12px; color: var(--ink-muted, #6b7280); margin-top: 2px; }
+.ci-fmt { margin-left: 6px; color: var(--accent, #b0171a); }
 
-.ci-section { margin-top: 12px; padding-top: 10px; border-top: 1px dashed var(--border, #e4e3de); }
+.ci-section { margin-top: 12px; padding-top: 10px; border-top: 1px dashed var(--border, rgba(17, 24, 39, 0.10)); }
 .ci-section-title {
   margin: 0 0 6px;
   font-size: 12px;
   font-weight: 600;
-  color: var(--ink-light, #5c6063);
+  color: var(--ink-light, #5f6877);
 }
-.ci-count { color: var(--ink-muted, #94989b); font-weight: 400; }
+.ci-count { color: var(--ink-muted, #6b7280); font-weight: 400; }
 
-.ci-notes { margin: 0; color: var(--ink-light, #5c6063); font-size: 12.5px; }
+.ci-notes { margin: 0; color: var(--ink-light, #5f6877); font-size: 12.5px; }
 
 .ci-example { margin-bottom: 10px; }
-.ci-ex-author { font-size: 12px; font-weight: 600; color: var(--accent, #3d5a80); }
+.ci-ex-author { font-size: 12px; font-weight: 600; color: var(--accent, #b0171a); }
 .ci-ex-text {
   margin: 2px 0 0;
-  color: var(--ink, #1a1c1d);
+  color: var(--ink, #2b3036);
   font-family: 'Noto Serif SC', 'Source Han Serif SC', 'SimSun', serif;
   letter-spacing: 0.02em;
 }
-.ci-ex-note { margin: 2px 0 0; font-size: 11.5px; color: var(--ink-muted, #94989b); }
+.ci-ex-note { margin: 2px 0 0; font-size: 11.5px; color: var(--ink-muted, #6b7280); }
 
-.ci-empty { margin: 4px 0 0; color: var(--ink-muted, #94989b); font-size: 12px; }
+.ci-empty { margin: 4px 0 0; color: var(--ink-muted, #6b7280); font-size: 12px; }
 
 @media (max-width: 640px) {
   .cipai-info { padding: 12px 14px; }

@@ -78,7 +78,7 @@ defineExpose({ jumpTo })
   top: 0; left: 0; right: 0; bottom: 0;
   width: 100%; height: 100%;
   padding: 10px 14px;
-  font-family: inherit;
+  font-family: var(--font-poetry);
   font-size: 20px;
   line-height: 2.2;
   color: transparent;
@@ -94,7 +94,7 @@ defineExpose({ jumpTo })
 }
 
 .editor-textarea::placeholder {
-  color: #c4b8a8;
+  color: var(--ink-muted);
 }
 
 /* ── 移动端适配（字号行高须与 HighlightLayer 完全同步）── */

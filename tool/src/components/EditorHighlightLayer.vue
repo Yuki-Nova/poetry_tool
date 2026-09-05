@@ -119,7 +119,7 @@ function onCharClick(li, ci, ch) {
   word-break: break-all;
   line-height: 2.2;
   font-size: 20px;
-  font-family: inherit;
+  font-family: var(--font-poetry);
   overflow: hidden;
   color: var(--ink);
 }
@@ -135,7 +135,7 @@ function onCharClick(li, ci, ch) {
 
 .hl-newline { pointer-events: none; }
 
-/* ── 平声（蓝灰调）── */
+/* ── 平声（墨阶高亮）── */
 .t-ping {
   color: var(--ping-text);
   background: var(--ping-bg);
@@ -147,9 +147,9 @@ function onCharClick(li, ci, ch) {
   color: var(--ze-text);
 }
 
-/* ── 韵脚正确（淡黄高亮 + 金字）── */
+/* ── 韵脚正确（朱批淡红底 + 印红框）── */
 .t-rhyme {
-  background: #fdf6e3;
+  background: var(--rhyme-bg);
   box-shadow: 0 0 0 1px var(--rhyme-border);
   border-radius: 2px;
   font-weight: 600;
@@ -190,7 +190,7 @@ function onCharClick(li, ci, ch) {
   border: 1px dashed var(--multi-border);
   cursor: pointer;
 }
-.t-multi:hover { background: #e8e0f0; }
+.t-multi:hover { background: var(--multi-bg); }
 
 /* ── 未收录 ── */
 .t-unk {

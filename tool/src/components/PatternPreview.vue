@@ -275,14 +275,14 @@ function onCellClick(si, ci) {
 }
 .pp-cell:hover { transform: scale(1.15); }
 
-.pp-ping { background: var(--ping-bg); color: var(--ping-text); border-color: rgba(61, 90, 128, 0.25); }
+.pp-ping { background: var(--ping-bg); color: var(--ping-text); border-color: rgba(176, 23, 26, 0.25); }
 .pp-ze   { background: transparent; color: var(--ze-text); border-color: rgba(92, 92, 92, 0.25); }
 .pp-ke   { background: var(--multi-bg); color: var(--multi-text); border-color: rgba(124, 107, 142, 0.25); }
 .pp-yun  {
-  background: #fdf9ee;
-  color: #8a6d2f;
+  background: var(--rhyme-bg);
+  color: var(--accent);
   border-color: var(--rhyme-border);
-  box-shadow: 0 0 0 2px rgba(184, 149, 74, 0.25);
+  box-shadow: 0 0 0 2px rgba(176, 23, 26, 0.25);
 }
 
 .pp-rhyme-tag {
@@ -293,7 +293,7 @@ function onCellClick(si, ci) {
   flex-shrink: 0;
 }
 .pp-rhyme-ping { background: var(--ping-bg); color: var(--ping-text); }
-.pp-rhyme-ze   { background: #f0ece4; color: var(--ze-text); }
+.pp-rhyme-ze   { background: rgba(176, 23, 26, 0.06); color: var(--ze-text); }
 
 @media (max-width: 640px) {
   .pp-cell { width: 22px; height: 22px; font-size: 11px; }

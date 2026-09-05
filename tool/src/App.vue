@@ -176,24 +176,30 @@ function onPreviewJump(line, col) {
 </script>
 
 <style>
-/* ====== 「山影」配色体系 ====== */
+/* ====== 「纸墨」配色体系 v2(2026-09-05,与博客 shiro/相册同源) ======
+   品牌族:paper/ink/seal 印章红(+暗色 data-theme,localStorage shiro-theme 联动)
+   语义色独立:平仄=墨阶,韵脚=朱批淡红,多音=淡紫,出韵/错误=红(不随品牌) */
 :root {
-  --ink: #1a1c1d;
-  --ink-light: #5c6063;
-  --ink-muted: #94989b;
-  --paper: #f5f4f0;
+  --ink: #2b3036;
+  --ink-light: #5f6877;
+  --ink-muted: #6b7280;
+  --paper: #ffffff;
   --paper-card: #ffffff;
-  --paper-warm: #eef0ec;
-  --border: #e4e3de;
-  --border-light: #eeede8;
-  --accent: #3d5a80;
-  --accent-soft: rgba(61, 90, 128, 0.08);
+  --paper-warm: #f6f6f3;
+  --border: rgba(17, 24, 39, 0.10);
+  --border-light: rgba(17, 24, 39, 0.06);
+  --accent: #b0171a;
+  --accent-soft: rgba(176, 23, 26, 0.08);
+  --font-poetry: 'Cardo', 'Noto Serif SC', 'Source Han Serif SC', 'Zen Old Mincho',
+    'Shippori Mincho', 'SimSun', serif;
 
-  /* 平仄色 */
-  --ping-bg: #edf1f5;
-  --ping-text: #3d5a80;
-  --ze-text: #5c5c5c;
-  --rhyme-border: #b8954a;
+  /* 平仄语义色(墨阶) */
+  --ping-bg: rgba(43, 48, 54, 0.06);
+  --ping-text: #2b3036;
+  --ze-text: #6b7280;
+  /* 韵脚:朱批意象(印红淡底) */
+  --rhyme-bg: rgba(176, 23, 26, 0.08);
+  --rhyme-border: #b0171a;
   --error-bg: #fdf0ee;
   --error-text: #c04a3a;
   --error-underline: #c04a3a;
@@ -204,6 +210,36 @@ function onPreviewJump(line, col) {
   --success: #5b8c7e;
   --warning: #b8954a;
   --danger: #c04a3a;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --ink: #e4e1d9;
+  --ink-light: #c2c6ce;
+  --ink-muted: #a8acb5;
+  --paper: #17191d;
+  --paper-card: #1d2026;
+  --paper-warm: #16181d;
+  --border: rgba(228, 225, 217, 0.14);
+  --border-light: rgba(228, 225, 217, 0.09);
+  --accent: #e05256;
+  --accent-soft: rgba(224, 82, 86, 0.14);
+
+  --ping-bg: rgba(228, 225, 217, 0.10);
+  --ping-text: #e4e1d9;
+  --ze-text: #a8acb5;
+  --rhyme-bg: rgba(224, 82, 86, 0.16);
+  --rhyme-border: #e05256;
+  --error-bg: rgba(192, 74, 58, 0.14);
+  --error-text: #ef8f80;
+  --error-underline: #ef8f80;
+  --multi-bg: rgba(167, 139, 250, 0.14);
+  --multi-text: #b5a5e0;
+  --multi-border: #8f7fc0;
+
+  --success: #6fae9d;
+  --warning: #d3a75e;
+  --danger: #ef8f80;
 }
 
 body {
@@ -334,7 +370,7 @@ body {
   margin: 10px 0 4px;
   padding: 8px 14px;
   background: var(--accent-soft);
-  border: 1px solid rgba(61, 90, 128, 0.25);
+  border: 1px solid rgba(176, 23, 26, 0.25);
   border-radius: 6px;
   font-size: 12px;
   color: var(--accent);

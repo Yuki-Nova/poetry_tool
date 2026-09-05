@@ -17,36 +17,67 @@
 }
 
 :root {
-  --ink: #1a1c1d;
-  --ink-light: #5c6063;
-  --ink-muted: #94989b;
-  --paper: #f5f4f0;
+  --ink: #2b3036;
+  --ink-light: #5f6877;
+  --ink-muted: #6b7280;
+  --paper: #ffffff;
   --paper-card: #ffffff;
-  --paper-warm: #eef0ec;
-  --border: #e4e3de;
-  --border-light: #eeede8;
-  --accent: #3d5a80;
-  --accent-soft: rgba(61, 90, 128, 0.08);
-  --accent-hover: #2d4a6a;
+  --paper-warm: #f6f6f3;
+  --border: rgba(17, 24, 39, 0.10);
+  --border-light: rgba(17, 24, 39, 0.06);
+  --accent: #b0171a;
+  --accent-soft: rgba(176, 23, 26, 0.08);
+  --accent-hover: #8e1113;
   --danger: #c04a3a;
   --danger-hover: #a0392d;
   --success: #5b8c7e;
   --shadow: 0 1px 3px rgba(0,0,0,0.06);
   --radius: 6px;
 
-  /* 格律编辑色 */
-  --ping-bg: #edf1f5;
-  --ping-text: #3d5a80;
-  --ping-border: #b0c4d8;
+  /* 格律编辑色(纸墨墨阶 + 朱批;可平可仄绿为语义色保留) */
+  --ping-bg: rgba(43, 48, 54, 0.06);
+  --ping-text: #2b3036;
+  --ping-border: rgba(43, 48, 54, 0.25);
   --ze-bg: #f5f5f5;
-  --ze-text: #5c5c5c;
+  --ze-text: #6b7280;
   --ze-border: #d0d0d0;
   --ke-bg: #ecf5ed;
   --ke-text: #4a7c5c;
   --ke-border: #a8d0b0;
-  --yun-bg: #faf5e8;
-  --yun-text: #8b6d30;
-  --yun-border: #d4b860;
+  --yun-bg: rgba(176, 23, 26, 0.08);
+  --yun-text: #b0171a;
+  --yun-border: rgba(176, 23, 26, 0.40);
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --ink: #e4e1d9;
+  --ink-light: #c2c6ce;
+  --ink-muted: #a8acb5;
+  --paper: #17191d;
+  --paper-card: #1d2026;
+  --paper-warm: #16181d;
+  --border: rgba(228, 225, 217, 0.14);
+  --border-light: rgba(228, 225, 217, 0.09);
+  --accent: #e05256;
+  --accent-soft: rgba(224, 82, 86, 0.14);
+  --accent-hover: #ef7578;
+  --danger: #ef8f80;
+  --danger-hover: #f0a99d;
+  --success: #6fae9d;
+
+  --ping-bg: rgba(228, 225, 217, 0.10);
+  --ping-text: #e4e1d9;
+  --ping-border: rgba(228, 225, 217, 0.30);
+  --ze-bg: #26292f;
+  --ze-text: #a8acb5;
+  --ze-border: #3a3d45;
+  --ke-bg: rgba(74, 124, 92, 0.15);
+  --ke-text: #8fc0a0;
+  --ke-border: rgba(143, 192, 160, 0.40);
+  --yun-bg: rgba(224, 82, 86, 0.16);
+  --yun-text: #e05256;
+  --yun-border: rgba(224, 82, 86, 0.45);
 }
 
 html, body {

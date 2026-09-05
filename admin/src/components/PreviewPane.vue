@@ -76,7 +76,7 @@ function blockChar(tone) {
 .b-ping { background: var(--ping-bg); border-color: var(--ping-border); color: var(--ping-text); }
 .b-ze   { background: var(--ze-bg); border-color: var(--ze-border); color: var(--ze-text); }
 .b-ke   { background: var(--ke-bg); border-color: var(--ke-border); color: var(--ke-text); }
-.b-yun  { background: var(--yun-bg); border-color: var(--yun-border); color: var(--yun-text); box-shadow: 0 0 0 2px rgba(212,184,96,0.3); }
+.b-yun  { background: var(--yun-bg); border-color: var(--yun-border); color: var(--yun-text); box-shadow: 0 0 0 2px rgba(176, 23, 26, 0.30); }
 
 .rhyme-tag {
   font-size: 10px; background: var(--yun-bg); color: var(--yun-text);

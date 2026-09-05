@@ -278,7 +278,7 @@ function onToggleShuangdiao() {
 .t-ping { background: var(--ping-bg); border-color: var(--ping-border); color: var(--ping-text); }
 .t-ze   { background: var(--ze-bg); border-color: var(--ze-border); color: var(--ze-text); }
 .t-ke   { background: var(--ke-bg); border-color: var(--ke-border); color: var(--ke-text); }
-.t-yun  { background: var(--yun-bg); border-color: var(--yun-border); color: var(--yun-text); box-shadow: 0 0 0 2px rgba(212,184,96,0.3); }
+.t-yun  { background: var(--yun-bg); border-color: var(--yun-border); color: var(--yun-text); box-shadow: 0 0 0 2px rgba(176, 23, 26, 0.30); }
 
 .rhyme-info { display: flex; align-items: center; gap: 6px; margin-left: 8px; font-size: 12px; color: var(--ink-muted); }
 .rhyme-check { display: flex; align-items: center; gap: 4px; cursor: pointer; }
