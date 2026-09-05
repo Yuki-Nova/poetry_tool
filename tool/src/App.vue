@@ -6,7 +6,10 @@
         <span class="app-subtitle">平仄分析 / 押韵校验 / 格律高亮</span>
       </div>
       <div class="header-right">
-        <span class="rhyme-label">韵书</span>
+              <button v-if="!panelOpen" class="rhyme-btn panel-restore" @click="panelOpen = true">
+                词牌信息
+              </button>
+              <span class="rhyme-label">韵书</span>
         <button
           v-for="(label, key) in RHYME_BOOK_LABELS"
           :key="key"
@@ -68,13 +71,26 @@
         </div>
       </div>
 
-      <CipaiInfoPanel
-        class="app-main-right"
-        :pattern="activePattern"
-      />
-    </div>
-  </div>
-</template>
+      <aside class="app-main-right" v-show="panelOpen">
+              <div class="panel-toolbar" @click="panelOpen = false" title="收起面板">
+                <span>词牌信息</span>
+                <button class="panel-toolbar-btn" type="button">收起</button>
+              </div>
+              <CipaiInfoPanel :pattern="activePattern" />
+            </aside>
+          </div>
+
+          <footer class="app-footer">
+            <a href="https://yukinova.top/">yuki's stop</a> · 诗词填写工具
+          </footer>
+        </div>
+        <button
+          v-if="showTop"
+          class="back-top"
+          @click="scrollTop"
+          title="回到顶部"
+        >↑</button>
+      </template>
 
 <script setup>
 import { ref, computed, nextTick, onMounted, watch } from 'vue'
@@ -95,6 +111,12 @@ const { list: cipaiList } = useCipai()
 const { selectedId, currentPattern, groupedPatterns, allPatterns, selectPattern } = usePattern(cipaiList)
 const inputText = ref('')
 const rhymeBook = ref(null)
+
+// ── 排布:右侧面板折叠 + 回顶按钮(2026-09-05,A4 纸张布局)──
+const panelOpen = ref(true)
+const showTop = ref(false)
+function onScroll() { showTop.value = (window.scrollY || document.documentElement.scrollTop) > 300 }
+function scrollTop() { window.scrollTo({ top: 0, behavior: 'smooth' }) }
 
 // ── 多格式变体：当前选中格式序号（0 = 主格式）──
 const formatIndex = ref(0)
@@ -137,6 +159,7 @@ function tryRestoreDraft() {
 onMounted(() => {
   tryRestoreDraft()
   watch(cipaiList, tryRestoreDraft, { once: true })
+  window.addEventListener('scroll', onScroll, { passive: true })
 })
 
 function clearDraft() {
@@ -189,9 +212,11 @@ function onPreviewJump(line, col) {
   --border: rgba(17, 24, 39, 0.10);
   --border-light: rgba(17, 24, 39, 0.06);
   --accent: #b0171a;
-  --accent-soft: rgba(176, 23, 26, 0.08);
-  --font-poetry: 'Cardo', 'Noto Serif SC', 'Source Han Serif SC', 'Zen Old Mincho',
-    'Shippori Mincho', 'SimSun', serif;
+    --accent-soft: rgba(176, 23, 26, 0.08);
+    --desk: #e9e8e4;
+    --paper-shadow: 0 1px 2px rgba(0, 0, 0, 0.06), 0 18px 50px rgba(0, 0, 0, 0.10);
+    --font-poetry: 'Cardo', 'Noto Serif SC', 'Source Han Serif SC', 'Zen Old Mincho',
+      'Shippori Mincho', 'SimSun', serif;
 
   /* 平仄语义色(墨阶) */
   --ping-bg: rgba(43, 48, 54, 0.06);
@@ -223,7 +248,9 @@ function onPreviewJump(line, col) {
   --border: rgba(228, 225, 217, 0.14);
   --border-light: rgba(228, 225, 217, 0.09);
   --accent: #e05256;
-  --accent-soft: rgba(224, 82, 86, 0.14);
+    --accent-soft: rgba(224, 82, 86, 0.14);
+    --desk: #101215;
+    --paper-shadow: 0 1px 3px rgba(0, 0, 0, 0.4), 0 18px 50px rgba(0, 0, 0, 0.35);
 
   --ping-bg: rgba(228, 225, 217, 0.10);
   --ping-text: #e4e1d9;
@@ -244,7 +271,7 @@ function onPreviewJump(line, col) {
 
 body {
   margin: 0;
-  background: var(--paper);
+  background: var(--desk);
   color: var(--ink);
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -253,9 +280,12 @@ body {
 
 <style scoped>
 #app {
-  max-width: 1180px;
-  margin: 0 auto;
-  padding: 32px 24px 80px;
+  max-width: 1000px;
+  margin: 28px auto 40px;
+  padding: 36px 42px 64px;
+  background: var(--paper-card);
+  border-radius: 3px;
+  box-shadow: var(--paper-shadow), inset 0 0 0 1px var(--border-light);
 }
 
 /* ── 词牌选择横条（全宽，独立于双栏） ── */
@@ -277,26 +307,49 @@ body {
 /* ── 双栏布局：左侧主编辑器 + 右侧词牌信息面板 ── */
 .app-main {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 300px;
+  grid-template-columns: minmax(0, 1fr) 280px;
   gap: 20px;
   align-items: start;
 }
 .app-main-left { min-width: 0; }
+.app-main-left.is-wide { grid-column: 1 / -1; }
 .app-main-right {
   position: sticky;
-  top: 20px;
-  max-height: calc(100vh - 40px);
+  top: 16px;
+  max-height: calc(100vh - 32px);
   overflow-y: auto;
 }
+.panel-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px 10px;
+  margin-bottom: 8px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  border-radius: 4px;
+  font-size: 12px;
+  cursor: pointer;
+  user-select: none;
+}
+.panel-toolbar-btn {
+  border: none;
+  background: transparent;
+  color: var(--accent);
+  font-size: 11px;
+  cursor: pointer;
+  padding: 0;
+}
+.panel-restore { border-color: var(--accent); color: var(--accent); }
 
 .app-header {
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
   flex-wrap: wrap;
-  gap: 16px;
-  margin-bottom: 28px;
-  padding-bottom: 20px;
+  gap: 12px;
+  margin-bottom: 14px;
+  padding-bottom: 12px;
   border-bottom: 1px solid var(--border);
 }
 
@@ -308,7 +361,7 @@ body {
 }
 
 .app-title {
-  font-size: 24px;
+  font-size: 17px;
   font-weight: 500;
   color: var(--ink);
   margin: 0;
@@ -317,7 +370,7 @@ body {
 }
 
 .app-subtitle {
-  font-size: 13px;
+  font-size: 11px;
   color: var(--ink-muted);
   letter-spacing: 0.03em;
 }
@@ -404,18 +457,59 @@ body {
   to   { opacity: 1; transform: translateY(0); }
 }
 
+/* ── 底部 footer(与博客呼应)── */
+.app-footer {
+  margin-top: 26px;
+  padding-top: 13px;
+  border-top: 1px solid var(--border-light);
+  font-size: 12px;
+  color: var(--ink-muted);
+  text-align: center;
+}
+.app-footer a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+/* ── 回顶部按钮 ── */
+.back-top {
+  position: fixed;
+  right: 30px;
+  bottom: 30px;
+  z-index: 50;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--paper-card);
+  color: var(--accent);
+  box-shadow: var(--paper-shadow);
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 1;
+  transition: all 0.15s;
+}
+.back-top:hover { border-color: var(--accent); }
+
 @media (max-width: 900px) {
   .app-main { grid-template-columns: 1fr; }
   .app-main-right { position: static; max-height: none; overflow: visible; }
 }
 
 @media (max-width: 640px) {
-  #app { padding: 20px 14px 60px; }
-  .app-title { font-size: 20px; }
+  #app {
+    margin: 0;
+    padding: 20px 14px 52px;
+    border-radius: 0;
+    box-shadow: none;
+    max-width: none;
+  }
+  .app-title { font-size: 17px; }
   .app-bottom { grid-template-columns: 1fr; }
   .app-header { align-items: flex-start; }
   .header-right { width: 100%; flex-wrap: wrap; }
   .rhyme-btn { flex: 1 1 auto; text-align: center; padding: 6px 8px; }
   .rhyme-label { display: none; }
+  .back-top { right: 14px; bottom: 14px; }
 }
 </style>
